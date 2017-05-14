@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
-
+	public GameObject tileHighlightObject;
 	public BoardManager boardScript;
 
 	void Awake () {

@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4413056478460712}
   - component: {fileID: 114388115834634086}
   - component: {fileID: 114631637651513636}
-  m_Layer: 0
+  - component: {fileID: 65851218699949904}
+  m_Layer: 8
   m_Name: BoardManager
-  m_TagString: Untagged
+  m_TagString: BoardManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65851218699949904
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1753522887946420}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114388115834634086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,13 +65,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fcabacbd85c1d41b9ec8f09a3a71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 20
-  rows: 20
+  columns: 12
+  rows: 12
   normalTiles:
   - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
-  - {fileID: 1120972238261278, guid: 4a65e8edd4b80be4db259811a785b9dc, type: 2}
-  - {fileID: 1409598339297236, guid: 4878307d245780c4485fa328251b8087, type: 2}
-  - {fileID: 1260852228593224, guid: a62dc293b4f9e454aa2df9b823107537, type: 2}
   rightEdgeTiles:
   - {fileID: 1016738296956598, guid: a8fd8e690a1d0fc439414db056274ed7, type: 2}
   leftEdgeTiles:
@@ -75,6 +85,7 @@ MonoBehaviour:
   - {fileID: 1618980817911634, guid: 71466d4c2d316c14cb36e43e681c6197, type: 2}
   lowerRightCornerTile:
   - {fileID: 1116753524155418, guid: 09f697617ec03d34bbee9f7652cc7acd, type: 2}
+  tileSideSize: 3
 --- !u!114 &114631637651513636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,4 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb3687f097563f4abbbbcfdda66e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileHighlightObject: {fileID: 1235960107403434, guid: eb575b55fcf78484c894a6fdeb5b48ad,
+    type: 2}
   boardScript: {fileID: 0}

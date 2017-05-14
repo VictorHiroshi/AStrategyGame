@@ -228,23 +228,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!1 &1216578227 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1753522887946420, guid: a8f62be35d0e7aa458801ceada212740,
-    type: 2}
-  m_PrefabInternal: {fileID: 1856556771}
---- !u!65 &1216578228
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1216578227}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1671752759
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,11 +300,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114388115834634086, guid: a8f62be35d0e7aa458801ceada212740,
-        type: 2}
-      propertyPath: normalTiles.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4413056478460712, guid: a8f62be35d0e7aa458801ceada212740, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -353,48 +331,6 @@ Prefab:
     - target: {fileID: 4413056478460712, guid: a8f62be35d0e7aa458801ceada212740, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114388115834634086, guid: a8f62be35d0e7aa458801ceada212740,
-        type: 2}
-      propertyPath: columns
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114388115834634086, guid: a8f62be35d0e7aa458801ceada212740,
-        type: 2}
-      propertyPath: rows
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114388115834634086, guid: a8f62be35d0e7aa458801ceada212740,
-        type: 2}
-      propertyPath: normalTiles.Array.data[0]
-      value: 
-      objectReference: {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443,
-        type: 2}
-    - target: {fileID: 114388115834634086, guid: a8f62be35d0e7aa458801ceada212740,
-        type: 2}
-      propertyPath: normalTiles.Array.data[1]
-      value: 
-      objectReference: {fileID: 1120972238261278, guid: 4a65e8edd4b80be4db259811a785b9dc,
-        type: 2}
-    - target: {fileID: 114388115834634086, guid: a8f62be35d0e7aa458801ceada212740,
-        type: 2}
-      propertyPath: normalTiles.Array.data[2]
-      value: 
-      objectReference: {fileID: 1409598339297236, guid: 4878307d245780c4485fa328251b8087,
-        type: 2}
-    - target: {fileID: 114388115834634086, guid: a8f62be35d0e7aa458801ceada212740,
-        type: 2}
-      propertyPath: normalTiles.Array.data[3]
-      value: 
-      objectReference: {fileID: 1260852228593224, guid: a62dc293b4f9e454aa2df9b823107537,
-        type: 2}
-    - target: {fileID: 1753522887946420, guid: a8f62be35d0e7aa458801ceada212740, type: 2}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1753522887946420, guid: a8f62be35d0e7aa458801ceada212740, type: 2}
-      propertyPath: m_TagString
-      value: BoardManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8f62be35d0e7aa458801ceada212740, type: 2}

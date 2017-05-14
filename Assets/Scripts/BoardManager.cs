@@ -19,6 +19,7 @@ public class BoardManager : MonoBehaviour {
 	public GameObject[] upperRightCornerTile;
 	public GameObject[] lowerLeftCornerTile;
 	public GameObject[] lowerRightCornerTile;
+	public float tileSideSize = 3.0f;
 
 	private Transform boardHolder;
 	private GameObject selectedTile;
@@ -29,8 +30,9 @@ public class BoardManager : MonoBehaviour {
 
 	void Awake()
 	{
-		GetComponent <BoxCollider> ().size=(new Vector3(columns*3+6, 0, rows*3+6));
-		GetComponent <BoxCollider> ().transform.position = (new Vector3 ((columns * 3/2)-3, 0, (rows * 3/2)-3));
+		GetComponent <BoxCollider> ().size=(new Vector3(columns*tileSideSize+6, 0, rows*tileSideSize+6));
+		GetComponent <BoxCollider> ().transform.position = (new Vector3 ((columns * tileSideSize/2)-tileSideSize, 0,
+																				(rows * tileSideSize/2)-tileSideSize));
 
 		existsSelectedTile = false;
 	}
@@ -70,7 +72,7 @@ public class BoardManager : MonoBehaviour {
 					toInstantiate = normalTiles [Random.Range (0, normalTiles.Length)];
 				}
 
-				GameObject instance = Instantiate (toInstantiate, new Vector3 (z * 3, 0f, x * 3), Quaternion.identity);
+				GameObject instance = Instantiate (toInstantiate, new Vector3 (z * tileSideSize, 0f, x * tileSideSize), Quaternion.identity);
 				instance.transform.SetParent (boardHolder);
 
 				TileController tile = instance.GetComponent<TileController> ();
@@ -124,30 +126,30 @@ public class BoardManager : MonoBehaviour {
 		if (x < 0 || x >= rows || z < 0 || z >= columns)
 			return false;
 
-		GameObject go;
+		GameObject nighbourTile;
 
 		// Add left neighbour to the list.
 		if (x > 0){
-			go = boardGameByID [TileController.GetStringID (x - 1, z)];
-			neighbours.Add(go);
+			nighbourTile = boardGameByID [TileController.GetStringID (x - 1, z)];
+			neighbours.Add(nighbourTile);
 		}
 
 		// Add right neighbour to the list.
 		if (x < rows - 1) {
-			go = boardGameByID [TileController.GetStringID (x + 1, z)];
-			neighbours.Add(go);
+			nighbourTile = boardGameByID [TileController.GetStringID (x + 1, z)];
+			neighbours.Add(nighbourTile);
 		}
 
 		// Add upper neighbour to the list.
 		if (z > 0) {
-			go = boardGameByID [TileController.GetStringID (x, z - 1)];
-			neighbours.Add(go);
+			nighbourTile = boardGameByID [TileController.GetStringID (x, z - 1)];
+			neighbours.Add(nighbourTile);
 		}
 
 		// Add lower neighbour to the list.
 		if (z < columns - 1) {
-			go = boardGameByID [TileController.GetStringID (x, z + 1)];
-			neighbours.Add (go);
+			nighbourTile = boardGameByID [TileController.GetStringID (x, z + 1)];
+			neighbours.Add (nighbourTile);
 		}
 
 		return true;

@@ -9,9 +9,18 @@ public class TileController : MonoBehaviour {
 
 	private int xIndex, zIndex;
 	private bool selected;
+	private GameObject highlightObject;
+	private GameObject highlightInstance;
+	private Vector3 highlightPosition;
 
 	void Start(){
+		
 		selected = false;
+
+		float tileSize = GameManager.instance.boardScript.tileSideSize;
+		highlightPosition = new Vector3 (zIndex * tileSize, 0f, xIndex * tileSize);
+			
+		highlightObject = GameManager.instance.tileHighlightObject;
 	}
 
 
@@ -47,6 +56,8 @@ public class TileController : MonoBehaviour {
 
 			//If the tile was selected and then clicked, it will be unselected
 			else {
+				// TODO: Fix it. Still not working. 
+				Debug.Log ("Unselecting " + xIndex + " " + zIndex);
 				Unselect ();
 				GameManager.instance.boardScript.SetSelectionToNull();
 			}
@@ -59,17 +70,18 @@ public class TileController : MonoBehaviour {
 		xIndex = x;
 		zIndex = z;
 
-		Debug.Log ("Created tile " + xIndex + " " + zIndex);
 	}
 
 	public void Highlight()
 	{
-		Debug.Log ("Highlighted tile: " + xIndex + ", " + zIndex);
+		highlightInstance = Instantiate(highlightObject, highlightPosition, Quaternion.identity);
 	}
 
 	public void UnHighlight()
 	{
-		Debug.Log ("Unhighlighted tile: " + xIndex + ", " + zIndex);
+		if (highlightInstance != null) {
+			Destroy (highlightInstance);
+		}
 	}
 
 	public void Unselect()
