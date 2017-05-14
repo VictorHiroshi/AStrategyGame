@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour {
 
+	public Transform spawnPoint;
+
 	private int xIndex, zIndex;
 	private bool selected;
 	private GameObject highlightObject;
@@ -19,8 +21,8 @@ public class TileController : MonoBehaviour {
 
 		float tileSize = GameManager.instance.boardScript.tileSideSize;
 		highlightPosition = new Vector3 (zIndex * tileSize, 0f, xIndex * tileSize);
-			
 		highlightObject = GameManager.instance.tileHighlightObject;
+
 	}
 
 
@@ -117,5 +119,10 @@ public class TileController : MonoBehaviour {
 	public static string GetStringID(int x, int z)
 	{
 		return(x + ", " + z);
+	}
+
+	public void InstantiateCreature(GameObject creature)
+	{
+		Instantiate (creature, spawnPoint.position, Quaternion.identity);
 	}
 }

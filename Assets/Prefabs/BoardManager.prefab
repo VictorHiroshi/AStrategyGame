@@ -65,8 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fcabacbd85c1d41b9ec8f09a3a71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 12
-  rows: 12
+  columns: 16
+  rows: 16
   normalTiles:
   - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
   rightEdgeTiles:
@@ -100,3 +100,7 @@ MonoBehaviour:
   tileHighlightObject: {fileID: 1235960107403434, guid: eb575b55fcf78484c894a6fdeb5b48ad,
     type: 2}
   boardScript: {fileID: 0}
+  player1: {fileID: 1020330713250748, guid: 57399e279d2bb214aa92ad64af01fad3, type: 2}
+  player2: {fileID: 1998941905942762, guid: ae62e5a15e9c21a4aaef9678c4461498, type: 2}
+  player3: {fileID: 1671996260327730, guid: 5ed5e2857741f174aaecbebe8c5d226b, type: 2}
+  player4: {fileID: 1111196858781354, guid: 6488bb2d8e3471541882628f334d9ca6, type: 2}

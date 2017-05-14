@@ -77,10 +77,28 @@ public class BoardManager : MonoBehaviour {
 
 				TileController tile = instance.GetComponent<TileController> ();
 
-				
+				// Tests is this tile has a TileController script attached.
 				if (tile != null) {
+					// If it is a playable tile (with TileController), add it to the list of active tiles.
 					tile.SetID (x, z);
 					boardGameByID.Add (tile.GetStringID (), instance);
+
+					// If it's the lower right corner, instantiate player 1.
+					if ((z == 0) && (x == rows-1)) {
+						tile.InstantiateCreature (GameManager.instance.player1);
+					}
+					// If it's the upper right corner, instantiate player 2.
+					if ((z == 0) && (x == 0)) {
+						tile.InstantiateCreature (GameManager.instance.player2);
+					}
+					// If it's the lower left corner, instantiate player 3.
+					if ((z == columns-1) && (x == 0)) {
+						tile.InstantiateCreature (GameManager.instance.player3);
+					}
+					// If it's the upper left corner, instantiate player 4.
+					if ((z == columns-1) && (x == rows-1)) {
+						tile.InstantiateCreature (GameManager.instance.player4);
+					}
 				}
 					
 			}
