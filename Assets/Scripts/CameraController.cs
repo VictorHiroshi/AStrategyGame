@@ -2,106 +2,88 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Script to move and rotate the camera using mouse buttons.
+[System.Serializable]
+public class Boundary {
+	public float xMin;
+	public float xMax;
+	public float zMin;
+	public float zMax;
+}
 
 public class CameraController : MonoBehaviour {
 
-	public float movingVelocity = 0.2f;
-	public float rotatingVelocity = 0.5f;
-	public float zoomFactor= 3.0f;
+	public float dampTime = 0.2f;
+	public float minDistance = 6.4f;
+	public float cameraVelocity = 0.08f;
+	public float zoomFactor = 3.0f;
+	public Boundary cameraBoundaries;
 
-	private bool canRotate;
-	private Vector3 clickMoveOrigin;
-	private Vector3 rotationPoint;
-	private Vector3 cameraMovingOrigin;
-	private Vector3 cameraRotatingVector;
-	private Camera cam;
+	private Camera m_Camera;
+	private Vector3 cameraOrigin;
+	private Vector3 clickPoint;
+	Vector3 moveVelocity;
 
-
-	void Start () {
-		cam = gameObject.GetComponent <Camera> ();
-		if(cam==null)
-		{
-			Debug.Log ("Couldn't get camera component!");
-		}
-
-		canRotate = false;
+	// Use this for initialization
+	void Awake () {
+		m_Camera = GetComponentInChildren<Camera> ();
 	}
 	
-
+	// Update is called once per frame
 	void Update () {
-		
-		// Move using left mouse button.
-		MoveCamera (0);
-
-		// Rotate using middle mouse button.
-		//RotateCamera (2);
-
-		// Zoom camera using scrool wheel.
+		MoveCamera (1);
 		ZoomCamera ();
+	}
+		
 
-		LookAtSelectedTile ();
+	// Move the camera to look at the specified target, maintaining the actual ratio.
+	public void MoveToTarget (Transform target)
+	{
+		
+		transform.position = Vector3.SmoothDamp (transform.position, target.position, ref moveVelocity, dampTime);
 	}
 
-	public void MoveCamera(int button)
+	private void CheckBoundaries ()
+	{
+		Vector3 correctedPosition = transform.position;
+
+		if(transform.position.x < cameraBoundaries.xMin){
+			correctedPosition.x = cameraBoundaries.xMin;
+		}
+		if(transform.position.x > cameraBoundaries.xMax){
+			correctedPosition.x = cameraBoundaries.xMax;
+		}
+		if(transform.position.z < cameraBoundaries.zMin){
+			correctedPosition.z = cameraBoundaries.zMin;
+		}
+		if(transform.position.z > cameraBoundaries.zMax){
+			correctedPosition.z = cameraBoundaries.zMax;
+		}
+
+		transform.position = correctedPosition;
+	}
+
+	private void MoveCamera(int button)
 	{
 		if(Input.GetMouseButtonDown (button))
 		{
-			clickMoveOrigin = Input.mousePosition;
-			cameraMovingOrigin = cam.transform.position;
+			clickPoint = Input.mousePosition;
+			cameraOrigin = transform.position;
 		}
 
 		else if(Input.GetMouseButton (button))
 		{
-			cam.transform.position = cameraMovingOrigin + (new Vector3((Input.mousePosition.x - clickMoveOrigin.x), 0f, 
-															(Input.mousePosition.y - clickMoveOrigin.y))*movingVelocity);
+			transform.position = cameraOrigin + (new Vector3((Input.mousePosition.x - clickPoint.x), 0f, 
+				(Input.mousePosition.y - clickPoint.y))*cameraVelocity);
+
+			CheckBoundaries ();
 		}
 	}
 
-	public void RotateCamera (int button)
-	{
-
-		if (Input.GetMouseButtonDown (button)) {
-
-			Ray camRay = cam.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit;
-			if(Physics.Raycast (camRay, out hit, LayerMask.GetMask ("Board")))
-			{
-				rotationPoint = hit.point;
-				canRotate = true;
-				Debug.Log ("Rotating aroung: "+rotationPoint);
-			}
-
-			cameraRotatingVector = rotationPoint - cam.transform.position;
-		} 
-
-		else if(Input.GetMouseButtonUp (button))
-		{
-			canRotate = false;
-		}
-
-		else if (Input.GetMouseButton (button) && canRotate) 
-		{
-			cameraRotatingVector = rotationPoint - Input.mousePosition;
-			cam.transform.RotateAround (rotationPoint, new Vector3(0f, 1f, 0f), rotatingVelocity);
-		}
-	}
-
-	public void ZoomCamera ()
+	private void ZoomCamera ()
 	{
 		float moveRange = - Input.GetAxis ("Mouse ScrollWheel") * zoomFactor;
-
 		Vector3 zoom = new Vector3(0f, moveRange, moveRange);
 
-		cam.transform.position += zoom;
-	}
-
-	public void LookAtSelectedTile()
-	{
-		GameObject tile;
-		if(GameManager.instance.boardScript.SelectedTile (out tile))
-		{
-			cam.transform.LookAt (tile.transform.position);
-		}
+		m_Camera.transform.position += zoom;
 	}
 }

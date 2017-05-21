@@ -100,7 +100,7 @@ MonoBehaviour:
   tileHighlightObject: {fileID: 1235960107403434, guid: eb575b55fcf78484c894a6fdeb5b48ad,
     type: 2}
   boardScript: {fileID: 0}
-  player1: {fileID: 1020330713250748, guid: 57399e279d2bb214aa92ad64af01fad3, type: 2}
-  player2: {fileID: 1998941905942762, guid: ae62e5a15e9c21a4aaef9678c4461498, type: 2}
-  player3: {fileID: 1671996260327730, guid: 5ed5e2857741f174aaecbebe8c5d226b, type: 2}
-  player4: {fileID: 1111196858781354, guid: 6488bb2d8e3471541882628f334d9ca6, type: 2}
+  creature1: {fileID: 1020330713250748, guid: 57399e279d2bb214aa92ad64af01fad3, type: 2}
+  creature2: {fileID: 1998941905942762, guid: ae62e5a15e9c21a4aaef9678c4461498, type: 2}
+  creature3: {fileID: 1671996260327730, guid: 5ed5e2857741f174aaecbebe8c5d226b, type: 2}
+  creature4: {fileID: 1111196858781354, guid: 6488bb2d8e3471541882628f334d9ca6, type: 2}

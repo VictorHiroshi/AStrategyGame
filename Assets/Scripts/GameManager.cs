@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 	public GameObject tileHighlightObject;
 	public BoardManager boardScript;
-	public GameObject player1;
-	public GameObject player2;
-	public GameObject player3;
-	public GameObject player4;
+	public GameObject creature1;
+	public GameObject creature2;
+	public GameObject creature3;
+	public GameObject creature4;
 
 
 	void Awake () {
@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour {
 		else
 			Destroy (this);
 
-		if (player1 == null || player2 == null || player3 == null || player4 == null) {
-			Debug.LogError ("Assign players assets first!");
+		if (creature1 == null || creature2 == null || creature3 == null || creature4 == null) {
+			Debug.LogError ("Assign creatures assets first!");
 			Debug.Break ();
 		}
 

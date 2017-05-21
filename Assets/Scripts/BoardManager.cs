@@ -83,21 +83,21 @@ public class BoardManager : MonoBehaviour {
 					tile.SetID (x, z);
 					boardGameByID.Add (tile.GetStringID (), instance);
 
-					// If it's the lower right corner, instantiate player 1.
+					// If it's the lower right corner, instantiate creature 1.
 					if ((z == 0) && (x == rows-1)) {
-						tile.InstantiateCreature (GameManager.instance.player1);
+						tile.InstantiateCreature (GameManager.instance.creature1);
 					}
-					// If it's the upper right corner, instantiate player 2.
+					// If it's the upper right corner, instantiate creature 2.
 					if ((z == 0) && (x == 0)) {
-						tile.InstantiateCreature (GameManager.instance.player2);
+						tile.InstantiateCreature (GameManager.instance.creature2);
 					}
-					// If it's the lower left corner, instantiate player 3.
+					// If it's the lower left corner, instantiate creature 3.
 					if ((z == columns-1) && (x == 0)) {
-						tile.InstantiateCreature (GameManager.instance.player3);
+						tile.InstantiateCreature (GameManager.instance.creature3);
 					}
-					// If it's the upper left corner, instantiate player 4.
+					// If it's the upper left corner, instantiate creature 4.
 					if ((z == columns-1) && (x == rows-1)) {
-						tile.InstantiateCreature (GameManager.instance.player4);
+						tile.InstantiateCreature (GameManager.instance.creature4);
 					}
 				}
 					
@@ -110,6 +110,8 @@ public class BoardManager : MonoBehaviour {
 		// TODO: add creatures
 		//		 add resources
 		//		 setup HUD.
+
+
 	}
 
 	public bool SelectedTile(out GameObject tile)
