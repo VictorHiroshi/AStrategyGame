@@ -147,6 +147,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114114263493359472, guid: 246a12769c282a04aaf8ed7489001607,
+        type: 2}
+      propertyPath: cameraVelocity
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114263493359472, guid: 246a12769c282a04aaf8ed7489001607,
+        type: 2}
+      propertyPath: zoomFactor
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 246a12769c282a04aaf8ed7489001607, type: 2}
   m_IsPrefabParent: 0
@@ -254,6 +264,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114631637651513636, guid: a8f62be35d0e7aa458801ceada212740,
+        type: 2}
+      propertyPath: m_camera
+      value: 
+      objectReference: {fileID: 2086760165}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8f62be35d0e7aa458801ceada212740, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &2086760165 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114114263493359472, guid: 246a12769c282a04aaf8ed7489001607,
+    type: 2}
+  m_PrefabInternal: {fileID: 1115886137}
+  m_Script: {fileID: 11500000, guid: e3abeaae5beec3647967d0ea5677c71d, type: 3}

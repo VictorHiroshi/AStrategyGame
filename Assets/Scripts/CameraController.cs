@@ -23,25 +23,25 @@ public class CameraController : MonoBehaviour {
 	private Vector3 clickPoint;
 	Vector3 moveVelocity;
 
-	// Use this for initialization
+
 	void Awake () {
 		m_Camera = GetComponentInChildren<Camera> ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		MoveCamera (1);
 		ZoomCamera ();
 	}
-		
 
 	// Move the camera to look at the specified target, maintaining the actual ratio.
 	public void MoveToTarget (Transform target)
 	{
-		
-		transform.position = Vector3.SmoothDamp (transform.position, target.position, ref moveVelocity, dampTime);
+		// TODO: Smooth the transition.
+		//transform.position = Vector3.SmoothDamp (transform.position, target.position, ref moveVelocity, dampTime);
+		transform.position = target.position;
 	}
 
+	// Guarantees that the camera will remain within the boardgame space.
 	private void CheckBoundaries ()
 	{
 		Vector3 correctedPosition = transform.position;
@@ -62,6 +62,7 @@ public class CameraController : MonoBehaviour {
 		transform.position = correctedPosition;
 	}
 
+	// Checks for movements of the mouse while pressing the given button.
 	private void MoveCamera(int button)
 	{
 		if(Input.GetMouseButtonDown (button))
@@ -79,6 +80,7 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
+	// Zoom in or out whit the scroll wheel.
 	private void ZoomCamera ()
 	{
 		float moveRange = - Input.GetAxis ("Mouse ScrollWheel") * zoomFactor;

@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour {
 
+	[HideInInspector] public GameObject creature;
+	[HideInInspector] public GameObject resource;
+
 	public Transform spawnPoint;
 
 	private int xIndex, zIndex;
@@ -19,7 +22,7 @@ public class TileController : MonoBehaviour {
 		
 		selected = false;
 
-		float tileSize = GameManager.instance.boardScript.tileSideSize;
+		float tileSize = GameManager.instance.boardScript.tiles.tileSideSize;
 		highlightPosition = new Vector3 (zIndex * tileSize, 0f, xIndex * tileSize);
 		highlightObject = GameManager.instance.tileHighlightObject;
 
@@ -66,19 +69,32 @@ public class TileController : MonoBehaviour {
 		}
 	}
 		
+	// Static function to get formated string ID for the given indexes.
+	public static string GetStringID(int x, int z)
+	{
+		return(x + ", " + z);
+	}
 
+	// Returns the formated string ID for the current tile.
+	public string GetStringID()
+	{
+		return(xIndex + ", " + zIndex);
+	}
+
+	// Informs this tile about it's indexes in the boardgame.
 	public void SetID(int x, int z)
 	{
 		xIndex = x;
 		zIndex = z;
-
 	}
 
+	// Instantiates the highlight object over this tile.
 	public void Highlight()
 	{
 		highlightInstance = Instantiate(highlightObject, highlightPosition, Quaternion.identity);
 	}
 
+	// Delete highlight object from this tile.
 	public void UnHighlight()
 	{
 		if (highlightInstance != null) {
@@ -86,6 +102,7 @@ public class TileController : MonoBehaviour {
 		}
 	}
 
+	// Remove selection from current tile and it's neighbours.
 	public void Unselect()
 	{
 		//Tests if the tile is selected, before unselecting it
@@ -93,36 +110,31 @@ public class TileController : MonoBehaviour {
 			selected = false;
 		}
 
-
 		List<GameObject> neighbours = new List<GameObject> ();
 		GameManager.instance.boardScript.hasNeighbours (xIndex, zIndex, out neighbours);
 		GameManager.instance.boardScript.SetSelectionToNull();
 
 		foreach (GameObject neighbour in neighbours) {
-
 			TileController controller = neighbour.GetComponent<TileController> ();
-
 			if (controller != null) {
 				controller.UnHighlight ();
 			}
 		}
 
 		UnHighlight ();
-
 	}
-
-	public string GetStringID()
-	{
-		return(xIndex + ", " + zIndex);
-	}
-
-	public static string GetStringID(int x, int z)
-	{
-		return(x + ", " + z);
-	}
-
+		
+	// Receives a game object and instantiates it as a creature.
 	public void InstantiateCreature(GameObject creature)
 	{
+		this.creature = creature;
 		Instantiate (creature, spawnPoint.position, Quaternion.identity);
+	}
+
+	// Receives a gameobject and instantiates it as a resource.
+	public void InstantiateResource(GameObject resource)
+	{
+		this.resource = resource;
+		// TODO: Instantiate resource in correct position.
 	}
 }

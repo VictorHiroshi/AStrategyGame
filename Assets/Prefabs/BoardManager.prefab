@@ -67,25 +67,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 16
   rows: 16
-  normalTiles:
-  - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
-  rightEdgeTiles:
-  - {fileID: 1016738296956598, guid: a8fd8e690a1d0fc439414db056274ed7, type: 2}
-  leftEdgeTiles:
-  - {fileID: 1066737926114058, guid: 36a49977d46d6804d94266386de974b6, type: 2}
-  upEdgeTiles:
-  - {fileID: 1246569332100500, guid: d1099760f48ff8b4681bf7b4c60a6918, type: 2}
-  downEdgeTiles:
-  - {fileID: 1351306893761238, guid: 756792a2a7313b64c9244cfcf510a57a, type: 2}
-  upperLeftCornerTile:
-  - {fileID: 1208293252649318, guid: b253005e5aa96f04e822d858108c2bd8, type: 2}
-  upperRightCornerTile:
-  - {fileID: 1694519988413568, guid: 75487504a4e13a74ea20b62751c01af0, type: 2}
-  lowerLeftCornerTile:
-  - {fileID: 1618980817911634, guid: 71466d4c2d316c14cb36e43e681c6197, type: 2}
-  lowerRightCornerTile:
-  - {fileID: 1116753524155418, guid: 09f697617ec03d34bbee9f7652cc7acd, type: 2}
-  tileSideSize: 3
+  tiles:
+    normalTiles:
+    - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
+    rightEdgeTiles:
+    - {fileID: 1016738296956598, guid: a8fd8e690a1d0fc439414db056274ed7, type: 2}
+    leftEdgeTiles:
+    - {fileID: 1066737926114058, guid: 36a49977d46d6804d94266386de974b6, type: 2}
+    upEdgeTiles:
+    - {fileID: 1246569332100500, guid: d1099760f48ff8b4681bf7b4c60a6918, type: 2}
+    downEdgeTiles:
+    - {fileID: 1351306893761238, guid: 756792a2a7313b64c9244cfcf510a57a, type: 2}
+    upperLeftCornerTile:
+    - {fileID: 1208293252649318, guid: b253005e5aa96f04e822d858108c2bd8, type: 2}
+    upperRightCornerTile:
+    - {fileID: 1694519988413568, guid: 75487504a4e13a74ea20b62751c01af0, type: 2}
+    lowerLeftCornerTile:
+    - {fileID: 1618980817911634, guid: 71466d4c2d316c14cb36e43e681c6197, type: 2}
+    lowerRightCornerTile:
+    - {fileID: 1116753524155418, guid: 09f697617ec03d34bbee9f7652cc7acd, type: 2}
+    tileSideSize: 3
 --- !u!114 &114631637651513636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,9 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb3687f097563f4abbbbcfdda66e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardScript: {fileID: 0}
   tileHighlightObject: {fileID: 1235960107403434, guid: eb575b55fcf78484c894a6fdeb5b48ad,
     type: 2}
-  boardScript: {fileID: 0}
   creature1: {fileID: 1020330713250748, guid: 57399e279d2bb214aa92ad64af01fad3, type: 2}
   creature2: {fileID: 1998941905942762, guid: ae62e5a15e9c21a4aaef9678c4461498, type: 2}
   creature3: {fileID: 1671996260327730, guid: 5ed5e2857741f174aaecbebe8c5d226b, type: 2}
