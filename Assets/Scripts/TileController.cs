@@ -9,6 +9,9 @@ public class TileController : MonoBehaviour {
 
 	[HideInInspector] public GameObject creature;
 	[HideInInspector] public GameObject resource;
+	[HideInInspector] public enum ResourceType {None, Stone, Barrier, Tree};
+	/*[HideInInspector] */
+	public ResourceType resourceType = ResourceType.None;
 
 	public Transform spawnPoint;
 
@@ -16,14 +19,14 @@ public class TileController : MonoBehaviour {
 	private bool selected;
 	private GameObject highlightObject;
 	private GameObject highlightInstance;
-	private Vector3 highlightPosition;
+	private Vector3 instantiatingPosition;
 
 	void Start(){
 		
 		selected = false;
 
 		float tileSize = GameManager.instance.boardScript.tiles.tileSideSize;
-		highlightPosition = new Vector3 (zIndex * tileSize, 0f, xIndex * tileSize);
+		instantiatingPosition = new Vector3 (zIndex * tileSize, 0f, xIndex * tileSize);
 		highlightObject = GameManager.instance.tileHighlightObject;
 
 	}
@@ -91,7 +94,7 @@ public class TileController : MonoBehaviour {
 	// Instantiates the highlight object over this tile.
 	public void Highlight()
 	{
-		highlightInstance = Instantiate(highlightObject, highlightPosition, Quaternion.identity);
+		highlightInstance = Instantiate(highlightObject, instantiatingPosition, Quaternion.identity);
 	}
 
 	// Delete highlight object from this tile.
@@ -127,14 +130,13 @@ public class TileController : MonoBehaviour {
 	// Receives a game object and instantiates it as a creature.
 	public void InstantiateCreature(GameObject creature)
 	{
-		this.creature = creature;
-		Instantiate (creature, spawnPoint.position, Quaternion.identity);
+		this.creature = Instantiate (creature, spawnPoint.position, Quaternion.identity);
 	}
 
 	// Receives a gameobject and instantiates it as a resource.
 	public void InstantiateResource(GameObject resource)
 	{
-		this.resource = resource;
-		// TODO: Instantiate resource in correct position.
+		Debug.Log ("instantiating resource on: " + xIndex + " " + zIndex + " - position: " + instantiatingPosition);
+		this.resource = Instantiate (resource, transform, false);
 	}
 }

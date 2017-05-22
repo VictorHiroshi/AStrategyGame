@@ -22,9 +22,9 @@ public class TileLists{
 // Class to organize all sorts of resources.
 [System.Serializable]
 public class ResourceList{
-	public GameObject[] stone;
-	public GameObject[] tree;
-	public GameObject[] barrier;
+	public GameObject[] stones;
+	public GameObject[] trees;
+	public GameObject[] barriers;
 }
 
 // Script to handle general operations of the boardgame.
@@ -32,6 +32,7 @@ public class BoardManager : MonoBehaviour {
 
 	public int columns = 20;
 	public int rows = 20;
+	public int stonesPerQuadrant = 5;
 	public TileLists tiles;
 	public ResourceList resources;
 
@@ -55,6 +56,7 @@ public class BoardManager : MonoBehaviour {
 		CreateResources ();
 		CreateInitialCreatures ();
 		// TODO: setup HUD.
+
 		selectedTile = null;
 		existsSelectedTile = false;
 	}
@@ -190,7 +192,58 @@ public class BoardManager : MonoBehaviour {
 	// The boardgame is divided into four quadrants to balance the resource distribution.
 	private void CreateResources ()
 	{
-		
+		int minX;
+		int maxX;
+		int minZ;
+		int maxZ;
+		// First quadrant.
+		minX = 0;
+		maxX = (columns / 2) - 1;
+		minZ = 0;
+		maxZ = (rows / 2) - 1;
+		GenerateAllRocks (minX, maxX, minZ, maxZ);
+
+		// Second quadrant.
+		minX = (columns / 2);
+		maxX = columns - 1;
+		minZ = 0;
+		maxZ = (rows / 2) - 1;
+		GenerateAllRocks (minX, maxX, minZ, maxZ);
+
+		// Third quadrant.
+		minX = (columns / 2);
+		maxX = columns - 1;
+		minZ = (rows / 2);
+		maxZ = rows - 1;
+		GenerateAllRocks (minX, maxX, minZ, maxZ);
+
+		// Fourth quadrant.
+		minX = 0;
+		maxX = (columns / 2) - 1;
+		minZ = (rows / 2);
+		maxZ = rows - 1;
+		GenerateAllRocks (minX, maxX, minZ, maxZ);
+
+	}
+
+	// Creates the number of stones per quadrant, receiving the boundary indexes of the quadrant.
+	private void GenerateAllRocks(int minXIndex, int maxXIndex, int minZIndex, int maxZIndex)
+	{
+		int xIndex;
+		int zIndex;
+		GameObject stoneModel;
+		for(int i=0; i<stonesPerQuadrant;){
+			xIndex = Random.Range (minXIndex, maxXIndex);
+			zIndex = Random.Range (minZIndex, maxZIndex);
+			TileController tileInstance = boardGameByID [TileController.GetStringID (xIndex, zIndex)].GetComponent <TileController> ();
+
+			if(tileInstance!=null && tileInstance.resourceType == TileController.ResourceType.None){
+				i++;
+				stoneModel = resources.stones [Random.Range (0, resources.stones.Length)];
+				tileInstance.InstantiateResource (stoneModel);
+				tileInstance.resourceType = TileController.ResourceType.Stone;
+			}
+		}
 	}
 
 	// Populates the boardgame with the initial creatures for all players.
@@ -226,4 +279,5 @@ public class BoardManager : MonoBehaviour {
 			}
 		}
 	}
+
 }
