@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-// Script to handle general game information, such as score points.
+// Script to handle general game information, such as score points and turn information.
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]public PlayerController player3;
 	[HideInInspector]public PlayerController player4;
 
+	public float timeForTurnMessage = 1.0f;
+	public Text turnsText;
+	public Button turnsButton;
 	public CameraController m_camera;
 	public static GameManager instance = null;
 	public GameObject tileHighlightObject;
@@ -19,6 +23,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject creature2;
 	public GameObject creature3;
 	public GameObject creature4;
+
+	private int actualTurn;
 
 	void Awake () {
 		// Defining this object as a singleton.
@@ -34,9 +40,17 @@ public class GameManager : MonoBehaviour {
 		
 	void InitializeGame ()
 	{
+		actualTurn = 0;
+		turnsText.text = string.Empty;
 		AssignPlayers ();
 		boardScript.SetupScene ();
 		FocusCameraOn (player1);
+	}
+
+	public void NextTurn()
+	{
+		actualTurn++;
+		StartCoroutine (ShowTurnText());
 	}
 
 	private void AssignPlayers ()
@@ -70,6 +84,14 @@ public class GameManager : MonoBehaviour {
 		string id = player.controlledTiles [0];
 		Transform target = boardScript.getTile (id).spawnPoint;
 		m_camera.MoveToTarget (target);
-		Debug.Log ("trying FocusCamera " + target);
+	}
+
+	private IEnumerator ShowTurnText()
+	{
+		turnsButton.interactable = false;
+		turnsText.text = "Turn: " + actualTurn;
+		yield return new WaitForSeconds (timeForTurnMessage);
+		turnsText.text = string.Empty;
+		turnsButton.interactable = true;
 	}
 }
