@@ -1,30 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 // Script to handle general game information, such as score points and turn information.
 
 public class GameManager : MonoBehaviour {
 
 	[HideInInspector]public BoardManager boardScript;
-	[HideInInspector]public PlayerController player1;
-	[HideInInspector]public PlayerController player2;
-	[HideInInspector]public PlayerController player3;
-	[HideInInspector]public PlayerController player4;
+	[HideInInspector]public PlayerController [] player;
 
-	public float timeForTurnMessage = 1.0f;
-	public Text turnsText;
-	public Button turnsButton;
+	public int coinsPerTurn = 2;
+	public PanelController panelControler;
 	public CameraController m_camera;
 	public static GameManager instance = null;
 	public GameObject tileHighlightObject;
-	public GameObject creature1;
-	public GameObject creature2;
-	public GameObject creature3;
-	public GameObject creature4;
+	public GameObject [] creature;
 
 	private int actualTurn;
+	private int activePlayerIndex;
 
 	void Awake () {
 		// Defining this object as a singleton.
@@ -40,17 +33,27 @@ public class GameManager : MonoBehaviour {
 		
 	void InitializeGame ()
 	{
+		activePlayerIndex = 3;
 		actualTurn = 0;
-		turnsText.text = string.Empty;
 		AssignPlayers ();
 		boardScript.SetupScene ();
-		FocusCameraOn (player1);
+		NextTurn ();
 	}
 
 	public void NextTurn()
 	{
-		actualTurn++;
-		StartCoroutine (ShowTurnText());
+		activePlayerIndex += 1;
+		activePlayerIndex = activePlayerIndex % player.Length;
+
+		if(activePlayerIndex == 0)
+		{
+			TurnChangingIncome ();
+			actualTurn += 1;
+			panelControler.ChangeTurnText (actualTurn);
+		}
+
+		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1), player [activePlayerIndex].coinCount);
+		FocusCameraOn (player [activePlayerIndex]);
 	}
 
 	private void AssignPlayers ()
@@ -58,25 +61,19 @@ public class GameManager : MonoBehaviour {
 		int xMax = boardScript.columns;
 		int zMax = boardScript.rows;
 
-		player1 = new	PlayerController ();
-		player1.controlledTiles = new List<string> ();
-		player1.controlledTiles.Add (TileController.GetStringID (xMax -1, zMax-1));
-		player1.creature = creature1;
+		player = new PlayerController[creature.Length];
+		
+		for (int i = 0; i < player.Length; i++) {
+			player [i] = new PlayerController ();
+			player [i].controlledTiles = new List<string> ();
+			player [i].creature = creature [i];
+			player [i].coinCount = coinsPerTurn;
+		}
 
-		player2 = new	PlayerController ();
-		player2.controlledTiles = new List<string> ();
-		player2.controlledTiles.Add (TileController.GetStringID (xMax -1, 0));
-		player2.creature = creature2;
-
-		player3 = new	PlayerController ();
-		player3.controlledTiles = new List<string> ();
-		player3.controlledTiles.Add (TileController.GetStringID (0, zMax-1));
-		player3.creature = creature3;
-
-		player4 = new	PlayerController ();
-		player4.controlledTiles = new List<string> ();
-		player4.controlledTiles.Add (TileController.GetStringID (0, 0));
-		player4.creature = creature4;
+		player[0].controlledTiles.Add (TileController.GetStringID (xMax -1, zMax-1));
+		player[1].controlledTiles.Add (TileController.GetStringID (xMax -1, 0));
+		player[2].controlledTiles.Add (TileController.GetStringID (0, zMax-1));
+		player[3].controlledTiles.Add (TileController.GetStringID (0, 0));
 	}
 
 	private void FocusCameraOn (PlayerController player)
@@ -86,12 +83,12 @@ public class GameManager : MonoBehaviour {
 		m_camera.MoveToTarget (target);
 	}
 
-	private IEnumerator ShowTurnText()
+	private void TurnChangingIncome ()
 	{
-		turnsButton.interactable = false;
-		turnsText.text = "Turn: " + actualTurn;
-		yield return new WaitForSeconds (timeForTurnMessage);
-		turnsText.text = string.Empty;
-		turnsButton.interactable = true;
+		// TODO: Give turn changing money for all players.
+		for (int i = 0; i < player.Length; i++) {
+			player [i].coinCount += coinsPerTurn;
+		}
+
 	}
 }

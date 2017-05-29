@@ -21,11 +21,10 @@ GameObject:
   - component: {fileID: 4413056478460712}
   - component: {fileID: 114388115834634086}
   - component: {fileID: 114631637651513636}
-  - component: {fileID: 65851218699949904}
   m_Layer: 8
   m_Name: BoardManager
   m_TagString: BoardManager
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -42,18 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65851218699949904
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1753522887946420}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114388115834634086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,8 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fcabacbd85c1d41b9ec8f09a3a71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 16
-  rows: 16
+  columns: 10
+  rows: 10
   stonesPerQuadrant: 5
   tiles:
     normalTiles:
@@ -107,13 +94,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 0}
-  timeForTurnMessage: 1
-  turnsText: {fileID: 0}
-  turnsButton: {fileID: 0}
+  coinsPerTurn: 2
+  panelControler: {fileID: 0}
   m_camera: {fileID: 0}
   tileHighlightObject: {fileID: 1235960107403434, guid: eb575b55fcf78484c894a6fdeb5b48ad,
     type: 2}
-  creature1: {fileID: 1020330713250748, guid: 57399e279d2bb214aa92ad64af01fad3, type: 2}
-  creature2: {fileID: 1998941905942762, guid: ae62e5a15e9c21a4aaef9678c4461498, type: 2}
-  creature3: {fileID: 1671996260327730, guid: 5ed5e2857741f174aaecbebe8c5d226b, type: 2}
-  creature4: {fileID: 1111196858781354, guid: 6488bb2d8e3471541882628f334d9ca6, type: 2}
+  creature:
+  - {fileID: 1998941905942762, guid: ae62e5a15e9c21a4aaef9678c4461498, type: 2}
+  - {fileID: 1671996260327730, guid: 5ed5e2857741f174aaecbebe8c5d226b, type: 2}
+  - {fileID: 1020330713250748, guid: 57399e279d2bb214aa92ad64af01fad3, type: 2}
+  - {fileID: 1111196858781354, guid: 6488bb2d8e3471541882628f334d9ca6, type: 2}
