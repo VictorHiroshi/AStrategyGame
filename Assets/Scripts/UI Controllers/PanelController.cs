@@ -33,6 +33,7 @@ public class PanelController : MonoBehaviour {
 	private UIHighlightController defend;
 	private UIHighlightController coins;
 	private HighlightType selectedUI = HighlightType.None;
+	private bool canChangePlayerText;
 
 	public void ChangeActivePlayer(string player, int totalCoins)
 	{
@@ -45,9 +46,21 @@ public class PanelController : MonoBehaviour {
 		turnText.text = "Turn: " + turn;
 	}
 
-	// Update is called once per frame
+	public void CantPerformActionMessage(float displayingTime)
+	{
+		StartCoroutine (ShowMessage (displayingTime, Descriptions.UNAVALIABLE_ACTION));
+	}
+
+	void Awake()
+	{
+		canChangePlayerText = true;
+	}
+		
 	void Update () {
-		UpdateButtons ();
+		if (canChangePlayerText)
+		{
+			UpdateButtons ();
+		}
 	}
 
 
@@ -105,11 +118,6 @@ public class PanelController : MonoBehaviour {
 			descriptionText.text = Descriptions.DEFEND;
 			selectedUI = HighlightType.Defend;
 		}
-		/*else if(selectedUI != HighlightType.None)
-		{
-			descriptionText.text = Descriptions.NO_DESCRIPTION;
-			selectedUI = HighlightType.None;
-		}*/
 	}
 
 	void Start()
@@ -124,5 +132,14 @@ public class PanelController : MonoBehaviour {
 		convert = convertButton.GetComponent <UIHighlightController> ();
 		oppress = oppressButton.GetComponent <UIHighlightController> ();
 		defend = defendButton.GetComponent <UIHighlightController> ();
+	}
+
+	private IEnumerator ShowMessage(float time, string message)
+	{
+		canChangePlayerText = false;
+		descriptionText.text = message;
+		yield return new WaitForSeconds (time);
+		canChangePlayerText = true;
+		selectedUI = HighlightType.None;
 	}
 }

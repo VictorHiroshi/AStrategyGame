@@ -39,34 +39,14 @@ public class TileController : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			selected = !selected;
 
-			Debug.Log ("tile " + GetStringID () + "selected = " + selected); 
-
 			// If this tile is selected, highlight the neigbhours.
 			if (selected) {
-
-				List<GameObject> neighbours = new List<GameObject> ();
-
-				GameManager.instance.boardScript.hasNeighbours (xIndex, zIndex, out neighbours);
-				GameManager.instance.boardScript.SetSelectedTile (this.gameObject);
-
-				foreach (GameObject neighbour in neighbours) {
-
-					TileController controller = neighbour.GetComponent<TileController> ();
-
-					if (controller != null) {
-						controller.Highlight ();
-					}
-				}
-
-				Highlight();
+				Select ();
 			}
 
 			//If the tile was selected and then clicked, it will be unselected
 			else {
-				// TODO: Fix it. Still not working. 
-				Debug.Log ("Unselecting " + xIndex + " " + zIndex);
 				Unselect ();
-				GameManager.instance.boardScript.SetSelectionToNull();
 			}
 		}
 	}
@@ -104,24 +84,22 @@ public class TileController : MonoBehaviour {
 		}
 	}
 
+	public void Select()
+	{
+		if (!selected) {
+			selected = true;
+		}
+		GameManager.instance.boardScript.SetSelectedTile (this.gameObject);
+		Highlight();
+	}
+
 	// Remove selection from current tile and it's neighbours.
 	public void Unselect()
 	{
-		//Tests if the tile is selected, before unselecting it
 		if (selected) {
 			selected = false;
 		}
-
-		List<GameObject> neighbours = new List<GameObject> ();
-		GameManager.instance.boardScript.hasNeighbours (xIndex, zIndex, out neighbours);
 		GameManager.instance.boardScript.SetSelectionToNull();
-
-		foreach (GameObject neighbour in neighbours) {
-			TileController controller = neighbour.GetComponent<TileController> ();
-			if (controller != null) {
-				controller.UnHighlight ();
-			}
-		}
 
 		UnHighlight ();
 	}
