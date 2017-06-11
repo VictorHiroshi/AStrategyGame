@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ButtonType {NextTurn, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None};
+public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None};
 
 public class PanelController : MonoBehaviour {
 
@@ -11,6 +11,7 @@ public class PanelController : MonoBehaviour {
 	public Text playerText;
 	public Text coinsCount;
 	public Text descriptionText;
+	public GameObject coinsObject;
 	public Button nextTurnButton;
 	public Button moveButton;
 	public Button duplicateButton;
@@ -21,16 +22,17 @@ public class PanelController : MonoBehaviour {
 	public Button oppressButton;
 	public Button defendButton;
 
-	private ButtonHighlight nextTurn;
-	private ButtonHighlight move;
-	private ButtonHighlight duplicate;
-	private ButtonHighlight lightExploit;
-	private ButtonHighlight heavyExploit;
-	private ButtonHighlight attack;
-	private ButtonHighlight convert;
-	private ButtonHighlight oppress;
-	private ButtonHighlight defend;
-	private ButtonType selectedButton = ButtonType.None;
+	private UIHighlightController nextTurn;
+	private UIHighlightController move;
+	private UIHighlightController duplicate;
+	private UIHighlightController lightExploit;
+	private UIHighlightController heavyExploit;
+	private UIHighlightController attack;
+	private UIHighlightController convert;
+	private UIHighlightController oppress;
+	private UIHighlightController defend;
+	private UIHighlightController coins;
+	private HighlightType selectedUI = HighlightType.None;
 
 	public void ChangeActivePlayer(string player, int totalCoins)
 	{
@@ -52,68 +54,75 @@ public class PanelController : MonoBehaviour {
 	//Verifies if any button is highlighted to update the description text.
 	private void UpdateButtons ()
 	{
-		if(nextTurn.IsHighligted () && selectedButton != ButtonType.NextTurn)
+		if(nextTurn.IsHighligted () && selectedUI != HighlightType.NextTurn)
 		{
+			Debug.Log ("updating next turn message");
 			descriptionText.text = Descriptions.NEXT_TURN_BUTTON;
-			selectedButton = ButtonType.NextTurn;
+			selectedUI = HighlightType.NextTurn;
 		}
-		else if(move.IsHighligted () && selectedButton != ButtonType.Move)
+		else if(coins.IsHighligted () && selectedUI != HighlightType.Coins)
+		{
+			descriptionText.text = Descriptions.COINS;
+			selectedUI = HighlightType.Coins;
+		}
+		else if(move.IsHighligted () && selectedUI != HighlightType.Move)
 		{
 			descriptionText.text = Descriptions.MOVE;
-			selectedButton = ButtonType.Move;
+			selectedUI = HighlightType.Move;
 		}
-		else if(duplicate.IsHighligted () && selectedButton != ButtonType.Duplicate)
+		else if(duplicate.IsHighligted () && selectedUI != HighlightType.Duplicate)
 		{
 			descriptionText.text = Descriptions.DUPLICATE;
-			selectedButton = ButtonType.Duplicate;
+			selectedUI = HighlightType.Duplicate;
 		}
-		else if(lightExploit.IsHighligted () && selectedButton != ButtonType.LightExploit)
+		else if(lightExploit.IsHighligted () && selectedUI != HighlightType.LightExploit)
 		{
 			descriptionText.text = Descriptions.LIGHT_EXPLOIT;
-			selectedButton = ButtonType.LightExploit;
+			selectedUI = HighlightType.LightExploit;
 		}
-		else if(heavyExploit.IsHighligted () && selectedButton != ButtonType.HeavyExploit)
+		else if(heavyExploit.IsHighligted () && selectedUI != HighlightType.HeavyExploit)
 		{
 			descriptionText.text = Descriptions.HEAVY_EXPLOIT;
-			selectedButton = ButtonType.HeavyExploit;
+			selectedUI = HighlightType.HeavyExploit;
 		}
-		else if(attack.IsHighligted () && selectedButton != ButtonType.Attack)
+		else if(attack.IsHighligted () && selectedUI != HighlightType.Attack)
 		{
 			descriptionText.text = Descriptions.ATTACK;
-			selectedButton = ButtonType.Attack;
+			selectedUI = HighlightType.Attack;
 		}
-		else if(convert.IsHighligted () && selectedButton != ButtonType.Convert)
+		else if(convert.IsHighligted () && selectedUI != HighlightType.Convert)
 		{
 			descriptionText.text = Descriptions.CONVERT;
-			selectedButton = ButtonType.Convert;
+			selectedUI = HighlightType.Convert;
 		}
-		else if(oppress.IsHighligted () && selectedButton != ButtonType.Oppress)
+		else if(oppress.IsHighligted () && selectedUI != HighlightType.Oppress)
 		{
 			descriptionText.text = Descriptions.OPPRESS;
-			selectedButton = ButtonType.Oppress;
+			selectedUI = HighlightType.Oppress;
 		}
-		else if(defend.IsHighligted () && selectedButton != ButtonType.Defend)
+		else if(defend.IsHighligted () && selectedUI != HighlightType.Defend)
 		{
 			descriptionText.text = Descriptions.DEFEND;
-			selectedButton = ButtonType.Defend;
+			selectedUI = HighlightType.Defend;
 		}
-		else if(selectedButton != ButtonType.None)
+		/*else if(selectedUI != HighlightType.None)
 		{
 			descriptionText.text = Descriptions.NO_DESCRIPTION;
-			selectedButton = ButtonType.None;
-		}
+			selectedUI = HighlightType.None;
+		}*/
 	}
 
 	void Start()
 	{
-		nextTurn = nextTurnButton.GetComponent <ButtonHighlight> ();
-		move = moveButton.GetComponent <ButtonHighlight> ();
-		duplicate = duplicateButton.GetComponent <ButtonHighlight> ();
-		lightExploit = lightExploitButton.GetComponent <ButtonHighlight> ();
-		heavyExploit = heavyExploitButton.GetComponent <ButtonHighlight> ();
-		attack = attackButton.GetComponent <ButtonHighlight> ();
-		convert = convertButton.GetComponent <ButtonHighlight> ();
-		oppress = oppressButton.GetComponent <ButtonHighlight> ();
-		defend = defendButton.GetComponent <ButtonHighlight> ();
+		nextTurn = nextTurnButton.GetComponent <UIHighlightController> ();
+		coins = coinsObject.GetComponent <UIHighlightController> ();
+		move = moveButton.GetComponent <UIHighlightController> ();
+		duplicate = duplicateButton.GetComponent <UIHighlightController> ();
+		lightExploit = lightExploitButton.GetComponent <UIHighlightController> ();
+		heavyExploit = heavyExploitButton.GetComponent <UIHighlightController> ();
+		attack = attackButton.GetComponent <UIHighlightController> ();
+		convert = convertButton.GetComponent <UIHighlightController> ();
+		oppress = oppressButton.GetComponent <UIHighlightController> ();
+		defend = defendButton.GetComponent <UIHighlightController> ();
 	}
 }

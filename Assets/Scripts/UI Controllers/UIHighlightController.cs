@@ -4,16 +4,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class ButtonHighlight : MonoBehaviour {
+public class UIHighlightController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	private bool highlighted = false;
 
-	void OnPointerEnter(PointerEventData eventData)
+	public void OnPointerEnter(PointerEventData eventData)
 	{
-		Debug.Log ("ButtonHighlight");
 		highlighted = true;
 	}
 
-	void OnMouseExit()
+	public void OnPointerExit(PointerEventData eventData)
 	{
 		highlighted = false;
 	}
