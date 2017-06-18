@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None, Empty};
+public enum MessageType {CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoCreatureThere}
 
 public class PanelController : MonoBehaviour {
 
@@ -54,15 +55,40 @@ public class PanelController : MonoBehaviour {
 		turnText.text = "Turn: " + turn;
 	}
 
-	public void CantPerformActionMessage(float displayingTime)
+	public void ShowMessage(float displayingTime, MessageType type)
 	{
-		StartCoroutine (ShowMessage (displayingTime, Descriptions.UNAVALIABLE_ACTION));
+		switch(type)
+		{
+		case MessageType.CantPerformAction:
+			StartCoroutine (ShowingMessage (displayingTime, Descriptions.UNAVALIABLE_ACTION));
+			break;
+		case MessageType.CreatureTooTired:
+			StartCoroutine (ShowingMessage (displayingTime, Descriptions.TOO_TIRED_MAAN));
+			break;
+		case MessageType.SelectTileFirst:
+			StartCoroutine (ShowingMessage (displayingTime, Descriptions.SELECT_A_TILE));
+			break;
+		case MessageType.NotEnoughtMoney:
+			StartCoroutine (ShowingMessage (displayingTime, Descriptions.NO_MONEY));
+			break;
+		case MessageType.NotYourCreature:
+			StartCoroutine (ShowingMessage (displayingTime, Descriptions.NOT_YOUR_CREATURE));
+			break;
+		case MessageType.NoCreatureThere:
+			StartCoroutine (ShowingMessage (displayingTime, Descriptions.NO_CREATURE_THERE));
+			break;
+		}
 	}
 
-	public void CreatureTooTiredMessage(float displayingTime)
+/*	public void CantPerformActionMessage(float displayingTime)
+	{
+		StartCoroutine (ShowMessage (displayingTime, Descriptions.UNAVALIABLE_ACTION));
+	}*/
+
+	/*public void CreatureTooTiredMessage(float displayingTime)
 	{
 		StartCoroutine (ShowMessage (displayingTime, Descriptions.TOO_TIRED_MAAN));
-	}
+	}*/
 
 	void Awake()
 	{
@@ -170,7 +196,7 @@ public class PanelController : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator ShowMessage(float time, string message)
+	private IEnumerator ShowingMessage(float time, string message)
 	{
 		canChangePlayerText = false;
 		descriptionText.text = message;
