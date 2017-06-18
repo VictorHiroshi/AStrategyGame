@@ -21,4 +21,6 @@ public class Descriptions
 	public static string NEXT_TURN_BUTTON = "CAUTION!\nThis will pass to the next turn!";
 	public static string COINS = "This is your money. Use it to pay creatures to perform actions. Each turn you'll receive some more coins. You can get then by exploring resources, by the way.";
 	public static string UNAVALIABLE_ACTION = "It's not possible to execute this action now!";
+
+	public static string TOO_TIRED_MAAN = "This creature is too tired, ma'am. Let it rest a turn!";
 }

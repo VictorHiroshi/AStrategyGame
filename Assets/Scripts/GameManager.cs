@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 
 	[HideInInspector]public int activePlayerIndex;
 	[HideInInspector]public List<TileController> highlightedTiles;
+	[HideInInspector]public List<CreatureController> tiredCreatures;
 
 	private int actualTurn;
 
@@ -32,6 +33,9 @@ public class GameManager : MonoBehaviour {
 
 		boardScript = GetComponent <BoardManager> ();
 		InitializeGame ();	
+
+		highlightedTiles = new List<TileController> ();
+		tiredCreatures = new List<CreatureController> ();
 	}
 		
 	void InitializeGame ()
@@ -59,6 +63,8 @@ public class GameManager : MonoBehaviour {
 		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1));
 		panelControler.updateCoins (player [activePlayerIndex].coinCount);
 		FocusCameraOn (player [activePlayerIndex]);
+		ClearTiredCreaturesList ();
+		ClearSelections ();
 	}
 
 	public void ClearSelections()
@@ -67,6 +73,7 @@ public class GameManager : MonoBehaviour {
 		{
 			tile.Unselect ();
 		}
+		highlightedTiles.Clear ();
 	}
 
 	private void AssignPlayers ()
@@ -104,5 +111,14 @@ public class GameManager : MonoBehaviour {
 			player [i].coinCount += coinsPerTurn;
 		}
 
+	}
+
+	private void ClearTiredCreaturesList()
+	{
+		foreach(CreatureController creature in tiredCreatures)
+		{
+			creature.isTired = false;
+		}
+		tiredCreatures.Clear ();
 	}
 }

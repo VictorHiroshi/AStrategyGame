@@ -59,6 +59,11 @@ public class PanelController : MonoBehaviour {
 		StartCoroutine (ShowMessage (displayingTime, Descriptions.UNAVALIABLE_ACTION));
 	}
 
+	public void CreatureTooTiredMessage(float displayingTime)
+	{
+		StartCoroutine (ShowMessage (displayingTime, Descriptions.TOO_TIRED_MAAN));
+	}
+
 	void Awake()
 	{
 		canChangePlayerText = true;

@@ -938,6 +938,7 @@ MonoBehaviour:
   - {r: 0.44492912, g: 0, b: 0.60294116, a: 0.8627451}
   activePlayerIndex: 0
   highlightedTiles: []
+  tiredCreatures: []
 --- !u!114 &114118630748575784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1028,6 +1029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPanel: {fileID: 114265671510846822}
   boardManager: {fileID: 114576467902937686}
+  MovingCost: 1
   actualState: 0
 --- !u!114 &114175929085947116
 MonoBehaviour:

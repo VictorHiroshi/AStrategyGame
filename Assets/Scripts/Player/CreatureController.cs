@@ -10,10 +10,13 @@ public class CreatureController : MonoBehaviour {
 	public int belongsToPlayer;
 	public float speed = 1.0f;
 
+	[HideInInspector] public bool isTired;
+
 	private int health = 10;
 
 	void Start()
 	{
+		isTired = false;
 		healthSlider.value = health;
 		animatorController.SetTrigger ("IsIdle");
 	}
