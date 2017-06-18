@@ -25,6 +25,7 @@ public class PanelController : MonoBehaviour {
 	public Button defendButton;
 
 	[HideInInspector]public HighlightType selectedUI = HighlightType.None;
+	[HideInInspector]public bool canChangePlayerText;
 
 	private UIHighlightController nextTurn;
 	private UIHighlightController move;
@@ -36,13 +37,18 @@ public class PanelController : MonoBehaviour {
 	private UIHighlightController oppress;
 	private UIHighlightController defend;
 	private UIHighlightController coins;
-	private bool canChangePlayerText;
 	private bool scrolling;
+
+
+	/*REMOVE THIS LATER*/
+	public void StillWorking()
+	{
+		StartCoroutine (ShowingMessage (3f, "I'm still working in this feature, ma'am!"));
+	}
 
 	public void ChangeActivePlayer(string player)
 	{
 		playerText.text = player;
-
 	}
 
 	public void updateCoins(int totalCoins)
@@ -80,15 +86,30 @@ public class PanelController : MonoBehaviour {
 		}
 	}
 
-/*	public void CantPerformActionMessage(float displayingTime)
+	public void UpdateTileMessage(TileController tile)
 	{
-		StartCoroutine (ShowMessage (displayingTime, Descriptions.UNAVALIABLE_ACTION));
-	}*/
+		selectedUI = HighlightType.Empty;
+		descriptionPanelScrollbar.value = 1;
+		string message = "";
+		if(tile.creature!=null)
+		{
+			message += "This tile belongs to player " + (tile.creature.belongsToPlayer+1)+"!\n";
+		}
+		else
+		{
+			message += "This tile belongs nobody yet!\n";
+		}
 
-	/*public void CreatureTooTiredMessage(float displayingTime)
-	{
-		StartCoroutine (ShowMessage (displayingTime, Descriptions.TOO_TIRED_MAAN));
-	}*/
+		if(tile.resource!=null)
+		{
+			message += "Resource: Stones\n\n";
+			message += Descriptions.RESOURCE_STONE;
+		}
+		else{
+			message += "Resource: None\n";
+		}
+		descriptionText.text = message;
+	}
 
 	void Awake()
 	{

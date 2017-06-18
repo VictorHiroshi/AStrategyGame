@@ -45,6 +45,7 @@ public class TileController : MonoBehaviour {
 				// If this tile is selected, highlight the neigbhours.
 				if (selected) {
 					Select ();
+					GameManager.instance.panelControler.UpdateTileMessage (this);
 				}
 
 			//If the tile was selected and then clicked, it will be unselected

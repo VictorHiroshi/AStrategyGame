@@ -7,7 +7,7 @@ public class Descriptions
 
 	public static string NO_DESCRIPTION = "=)";
 
-	public static string MOVE = "Action to move your creature around the board. Remember that once a criature leaves a tile, it's no longer part of your territory.";
+	public static string MOVE = "Cost: 1 coin!\nAction to move your creature around the board. Remember that once a criature leaves a tile, it's no longer part of your territory.";
 	public static string DUPLICATE = "Action to expand your therritory with new creatures.";
 
 	public static string LIGHT_EXPLOIT = "Action to exploit resources gathering just as much as mother nature gives you.";
