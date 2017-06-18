@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Script to handle general game information, such as score points and turn information.
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 	public GameObject tileHighlightObject;
 	public GameObject [] creature;
+	public Color[] playersColors;
 
 	private int actualTurn;
 	private int activePlayerIndex;
@@ -26,7 +28,6 @@ public class GameManager : MonoBehaviour {
 		else
 			Destroy (this);
 
-		DontDestroyOnLoad (gameObject);
 		boardScript = GetComponent <BoardManager> ();
 		InitializeGame ();	
 	}
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour {
 		AssignPlayers ();
 		boardScript.SetupScene ();
 		NextTurn ();
+		panelControler.selectedUI = HighlightType.None;
 	}
 
 	public void NextTurn()
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour {
 			player [i].controlledTiles = new List<string> ();
 			player [i].creature = creature [i];
 			player [i].coinCount = coinsPerTurn;
+			player [i].playerNumber = i;
 		}
 
 		player[0].controlledTiles.Add (TileController.GetStringID (xMax -1, zMax-1));

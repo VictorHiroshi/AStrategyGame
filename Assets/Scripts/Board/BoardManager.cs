@@ -242,11 +242,9 @@ public class BoardManager : MonoBehaviour {
 	// Populates the boardgame with the initial creatures for all players.
 	private void CreateInitialCreatures ()
 	{
-		PlayerController playerInstance;
 
 		for (int i = 0; i < GameManager.instance.player.Length; i++) {
-			playerInstance = GameManager.instance.player[i];
-			InstantiateCreatures (playerInstance);
+			InstantiateCreatures (GameManager.instance.player[i]);
 		}
 	}
 
@@ -258,7 +256,7 @@ public class BoardManager : MonoBehaviour {
 			tileInstance = boardGameByID [id].GetComponent <TileController>();
 
 			if(tileInstance!=null){
-				tileInstance.InstantiateCreature (playerInstance.creature);
+				tileInstance.InstantiateCreature (playerInstance.creature, playerInstance.playerNumber);
 			}
 		}
 	}

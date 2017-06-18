@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None};
+public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None, Empty};
 
 public class PanelController : MonoBehaviour {
 
@@ -23,6 +23,8 @@ public class PanelController : MonoBehaviour {
 	public Button oppressButton;
 	public Button defendButton;
 
+	[HideInInspector]public HighlightType selectedUI = HighlightType.None;
+
 	private UIHighlightController nextTurn;
 	private UIHighlightController move;
 	private UIHighlightController duplicate;
@@ -33,8 +35,8 @@ public class PanelController : MonoBehaviour {
 	private UIHighlightController oppress;
 	private UIHighlightController defend;
 	private UIHighlightController coins;
-	private HighlightType selectedUI = HighlightType.None;
 	private bool canChangePlayerText;
+	private bool scrolling;
 
 	public void ChangeActivePlayer(string player, int totalCoins)
 	{
@@ -55,6 +57,7 @@ public class PanelController : MonoBehaviour {
 	void Awake()
 	{
 		canChangePlayerText = true;
+		scrolling = false;
 	}
 
 	void Start()
@@ -74,14 +77,14 @@ public class PanelController : MonoBehaviour {
 	void Update () {
 		if(Input.GetMouseButtonDown (0))
 		{
-			canChangePlayerText = false;
+			scrolling = true;
 		}
 		if(Input.GetMouseButtonUp (0))
 		{
-			canChangePlayerText = true;
+			scrolling = false;
 		}
 		
-		if (canChangePlayerText)
+		if (canChangePlayerText && !scrolling)
 		{
 			UpdateButtons ();
 		}
@@ -149,6 +152,11 @@ public class PanelController : MonoBehaviour {
 			descriptionText.text = Descriptions.DEFEND;
 			selectedUI = HighlightType.Defend;
 			descriptionPanelScrollbar.value = 1;
+		}
+		else if(selectedUI == HighlightType.None)
+		{
+			descriptionText.text = Descriptions.NO_DESCRIPTION;
+			selectedUI = HighlightType.Empty;
 		}
 	}
 

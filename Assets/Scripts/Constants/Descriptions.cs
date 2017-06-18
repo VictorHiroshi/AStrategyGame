@@ -5,7 +5,7 @@ public class Descriptions
 {
 	public static string RESOURCE_STONE = "Stones increase the total income when within your territory. You can exploit then to get more coins.";
 
-	public static string NO_DESCRIPTION = "Nothing to say about it!";
+	public static string NO_DESCRIPTION = "=)";
 
 	public static string MOVE = "Action to move your creature around the board. Remember that once a criature leaves a tile, it's no longer part of your territory.";
 	public static string DUPLICATE = "Action to expand your therritory with new creatures.";

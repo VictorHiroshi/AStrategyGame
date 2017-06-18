@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour {
 
-	[HideInInspector] public GameObject creature;
+	[HideInInspector] public CreatureController creature;
 	[HideInInspector] public GameObject resource;
 	[HideInInspector] public enum ResourceType {None, Stone, Barrier, Tree};
 	[HideInInspector] public ResourceType resourceType = ResourceType.None;
@@ -105,9 +105,17 @@ public class TileController : MonoBehaviour {
 	}
 		
 	// Receives a game object and instantiates it as a creature.
-	public void InstantiateCreature(GameObject creature)
+	public void InstantiateCreature(GameObject creature, int playerIndex)
 	{
-		this.creature = Instantiate (creature, spawnPoint.position, Quaternion.identity);
+		GameObject instance = Instantiate (creature, spawnPoint.position, Quaternion.identity);
+		this.creature = instance.GetComponent <CreatureController> ();
+
+		if(this.creature==null)
+		{
+			Debug.LogError ("Can't reach creature controller.");
+		}
+
+		this.creature.ChangeTeam (playerIndex);
 	}
 
 	// Receives a gameobject and instantiates it as a resource.
