@@ -654,7 +654,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1471467165053478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -482, y: 0, z: 397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4432805048452922}
@@ -936,6 +936,8 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 0.8627451}
   - {r: 1, g: 0.85294116, b: 0.99594325, a: 0.8627451}
   - {r: 0.44492912, g: 0, b: 0.60294116, a: 0.8627451}
+  activePlayerIndex: 0
+  highlightedTiles: []
 --- !u!114 &114118630748575784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1026,6 +1028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPanel: {fileID: 114265671510846822}
   boardManager: {fileID: 114576467902937686}
+  actualState: 0
 --- !u!114 &114175929085947116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1527,9 +1530,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fcabacbd85c1d41b9ec8f09a3a71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 10
-  rows: 10
-  stonesPerQuadrant: 5
+  columns: 15
+  rows: 15
+  stonesPerQuadrant: 10
   tiles:
     normalTiles:
     - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
@@ -2011,7 +2014,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224992970535013356}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5
+  m_Size: 0.50000006
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

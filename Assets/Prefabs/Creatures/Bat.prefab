@@ -1503,8 +1503,8 @@ MonoBehaviour:
   animatorController: {fileID: 95907840309255170}
   healthSlider: {fileID: 114641313115621910}
   fillSliderImage: {fileID: 114048967420212476}
-  teamColor: {r: 0, g: 0, b: 0, a: 0}
   belongsToPlayer: 0
+  speed: 1
 --- !u!114 &114509948819549502
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,12 +8,14 @@ public class CreatureController : MonoBehaviour {
 	public Slider healthSlider;
 	public Image fillSliderImage;
 	public int belongsToPlayer;
+	public float speed = 1.0f;
 
 	private int health = 10;
 
 	void Start()
 	{
 		healthSlider.value = health;
+		animatorController.SetTrigger ("IsIdle");
 	}
 
 	public void TakeDamage(int damage)
@@ -36,12 +38,25 @@ public class CreatureController : MonoBehaviour {
 	public void MoveToTarget (Transform target)
 	{
 		// TODO: Change animation and move smoothly.
-		transform.position = target.position;
-		ActionsManager.instance.FinishAction ();
+		StartCoroutine (Moving (target));
 	}
 
 	private void Die ()
 	{
 		
+	}
+
+	private IEnumerator Moving(Transform target)
+	{
+		transform.rotation = Quaternion.LookRotation (target.position - transform.position);
+		animatorController.SetTrigger ("Moves");
+		while(transform.position!=target.position){
+			float step = speed * Time.deltaTime;
+			transform.position = Vector3.MoveTowards (transform.position, target.position, step);
+			yield return null;
+		}
+		animatorController.SetTrigger ("IsIdle");
+		transform.rotation = Quaternion.identity;
+		ActionsManager.instance.FinishAction ();
 	}
 }
