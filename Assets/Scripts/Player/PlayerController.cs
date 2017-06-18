@@ -9,4 +9,10 @@ public class PlayerController {
 	public GameObject creature;
 	public int coinCount;
 	public int playerNumber;
+
+	public void Spend(int money)
+	{
+		coinCount -= money;
+		GameManager.instance.panelControler.updateCoins (coinCount);
+	}
 }

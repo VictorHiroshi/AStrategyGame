@@ -38,9 +38,14 @@ public class PanelController : MonoBehaviour {
 	private bool canChangePlayerText;
 	private bool scrolling;
 
-	public void ChangeActivePlayer(string player, int totalCoins)
+	public void ChangeActivePlayer(string player)
 	{
 		playerText.text = player;
+
+	}
+
+	public void updateCoins(int totalCoins)
+	{
 		coinsCount.text = "" + totalCoins;
 	}
 

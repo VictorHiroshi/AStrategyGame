@@ -56,7 +56,8 @@ public class GameManager : MonoBehaviour {
 			panelControler.ChangeTurnText (actualTurn);
 		}
 
-		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1), player [activePlayerIndex].coinCount);
+		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1));
+		panelControler.updateCoins (player [activePlayerIndex].coinCount);
 		FocusCameraOn (player [activePlayerIndex]);
 	}
 
