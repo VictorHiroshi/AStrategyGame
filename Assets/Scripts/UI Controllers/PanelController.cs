@@ -11,6 +11,7 @@ public class PanelController : MonoBehaviour {
 	public Text playerText;
 	public Text coinsCount;
 	public Text descriptionText;
+	public Scrollbar descriptionPanelScrollbar;
 	public GameObject coinsObject;
 	public Button nextTurnButton;
 	public Button moveButton;
@@ -55,70 +56,6 @@ public class PanelController : MonoBehaviour {
 	{
 		canChangePlayerText = true;
 	}
-		
-	void Update () {
-		if (canChangePlayerText)
-		{
-			UpdateButtons ();
-		}
-	}
-
-
-	//Verifies if any button is highlighted to update the description text.
-	private void UpdateButtons ()
-	{
-		if(nextTurn.IsHighligted () && selectedUI != HighlightType.NextTurn)
-		{
-			Debug.Log ("updating next turn message");
-			descriptionText.text = Descriptions.NEXT_TURN_BUTTON;
-			selectedUI = HighlightType.NextTurn;
-		}
-		else if(coins.IsHighligted () && selectedUI != HighlightType.Coins)
-		{
-			descriptionText.text = Descriptions.COINS;
-			selectedUI = HighlightType.Coins;
-		}
-		else if(move.IsHighligted () && selectedUI != HighlightType.Move)
-		{
-			descriptionText.text = Descriptions.MOVE;
-			selectedUI = HighlightType.Move;
-		}
-		else if(duplicate.IsHighligted () && selectedUI != HighlightType.Duplicate)
-		{
-			descriptionText.text = Descriptions.DUPLICATE;
-			selectedUI = HighlightType.Duplicate;
-		}
-		else if(lightExploit.IsHighligted () && selectedUI != HighlightType.LightExploit)
-		{
-			descriptionText.text = Descriptions.LIGHT_EXPLOIT;
-			selectedUI = HighlightType.LightExploit;
-		}
-		else if(heavyExploit.IsHighligted () && selectedUI != HighlightType.HeavyExploit)
-		{
-			descriptionText.text = Descriptions.HEAVY_EXPLOIT;
-			selectedUI = HighlightType.HeavyExploit;
-		}
-		else if(attack.IsHighligted () && selectedUI != HighlightType.Attack)
-		{
-			descriptionText.text = Descriptions.ATTACK;
-			selectedUI = HighlightType.Attack;
-		}
-		else if(convert.IsHighligted () && selectedUI != HighlightType.Convert)
-		{
-			descriptionText.text = Descriptions.CONVERT;
-			selectedUI = HighlightType.Convert;
-		}
-		else if(oppress.IsHighligted () && selectedUI != HighlightType.Oppress)
-		{
-			descriptionText.text = Descriptions.OPPRESS;
-			selectedUI = HighlightType.Oppress;
-		}
-		else if(defend.IsHighligted () && selectedUI != HighlightType.Defend)
-		{
-			descriptionText.text = Descriptions.DEFEND;
-			selectedUI = HighlightType.Defend;
-		}
-	}
 
 	void Start()
 	{
@@ -132,6 +69,87 @@ public class PanelController : MonoBehaviour {
 		convert = convertButton.GetComponent <UIHighlightController> ();
 		oppress = oppressButton.GetComponent <UIHighlightController> ();
 		defend = defendButton.GetComponent <UIHighlightController> ();
+	}
+		
+	void Update () {
+		if(Input.GetMouseButtonDown (0))
+		{
+			canChangePlayerText = false;
+		}
+		if(Input.GetMouseButtonUp (0))
+		{
+			canChangePlayerText = true;
+		}
+		
+		if (canChangePlayerText)
+		{
+			UpdateButtons ();
+		}
+	}
+
+	//Verifies if any button is highlighted to update the description text.
+	private void UpdateButtons ()
+	{
+		if(nextTurn.IsHighligted () && selectedUI != HighlightType.NextTurn)
+		{
+			descriptionText.text = Descriptions.NEXT_TURN_BUTTON;
+			selectedUI = HighlightType.NextTurn;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(coins.IsHighligted () && selectedUI != HighlightType.Coins)
+		{
+			descriptionText.text = Descriptions.COINS;
+			selectedUI = HighlightType.Coins;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(move.IsHighligted () && selectedUI != HighlightType.Move)
+		{
+			descriptionText.text = Descriptions.MOVE;
+			selectedUI = HighlightType.Move;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(duplicate.IsHighligted () && selectedUI != HighlightType.Duplicate)
+		{
+			descriptionText.text = Descriptions.DUPLICATE;
+			selectedUI = HighlightType.Duplicate;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(lightExploit.IsHighligted () && selectedUI != HighlightType.LightExploit)
+		{
+			descriptionText.text = Descriptions.LIGHT_EXPLOIT;
+			selectedUI = HighlightType.LightExploit;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(heavyExploit.IsHighligted () && selectedUI != HighlightType.HeavyExploit)
+		{
+			descriptionText.text = Descriptions.HEAVY_EXPLOIT;
+			selectedUI = HighlightType.HeavyExploit;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(attack.IsHighligted () && selectedUI != HighlightType.Attack)
+		{
+			descriptionText.text = Descriptions.ATTACK;
+			selectedUI = HighlightType.Attack;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(convert.IsHighligted () && selectedUI != HighlightType.Convert)
+		{
+			descriptionText.text = Descriptions.CONVERT;
+			selectedUI = HighlightType.Convert;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(oppress.IsHighligted () && selectedUI != HighlightType.Oppress)
+		{
+			descriptionText.text = Descriptions.OPPRESS;
+			selectedUI = HighlightType.Oppress;
+			descriptionPanelScrollbar.value = 1;
+		}
+		else if(defend.IsHighligted () && selectedUI != HighlightType.Defend)
+		{
+			descriptionText.text = Descriptions.DEFEND;
+			selectedUI = HighlightType.Defend;
+			descriptionPanelScrollbar.value = 1;
+		}
 	}
 
 	private IEnumerator ShowMessage(float time, string message)
