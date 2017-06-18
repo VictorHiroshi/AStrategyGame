@@ -7,15 +7,16 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour {
 
+	public Transform spawnPoint;
+
 	[HideInInspector] public CreatureController creature;
 	[HideInInspector] public GameObject resource;
 	[HideInInspector] public enum ResourceType {None, Stone, Barrier, Tree};
 	[HideInInspector] public ResourceType resourceType = ResourceType.None;
+	[HideInInspector] public int xIndex, zIndex;
 
-	public Transform spawnPoint;
-
-	private int xIndex, zIndex;
 	private bool selected;
+	private bool isHighlighted;
 	private GameObject highlightObject;
 	private GameObject highlightInstance;
 	private Vector3 instantiatingPosition;
@@ -23,6 +24,7 @@ public class TileController : MonoBehaviour {
 	void Start(){
 		
 		selected = false;
+		isHighlighted = false;
 
 		float tileSize = GameManager.instance.boardScript.tiles.tileSideSize;
 		instantiatingPosition = new Vector3 (zIndex * tileSize, 0f, xIndex * tileSize);
@@ -37,16 +39,25 @@ public class TileController : MonoBehaviour {
 		
 		// Toggle the selection of the current tile to true or false.
 		if (Input.GetMouseButtonDown (0)) {
-			selected = !selected;
+			if(ActionsManager.instance.actualState == ActionState.WaitingActionCall){
+				selected = !selected;
 
-			// If this tile is selected, highlight the neigbhours.
-			if (selected) {
-				Select ();
-			}
+				// If this tile is selected, highlight the neigbhours.
+				if (selected) {
+					Select ();
+				}
 
 			//If the tile was selected and then clicked, it will be unselected
 			else {
-				Unselect ();
+					Unselect ();
+				}
+			}
+			else if(ActionsManager.instance.actualState == ActionState.PerformingAction)
+			{
+				if(isHighlighted)
+				{
+					ActionsManager.instance.SetTargetTile (this);
+				}
 			}
 		}
 	}
@@ -74,6 +85,8 @@ public class TileController : MonoBehaviour {
 	public void Highlight()
 	{
 		highlightInstance = Instantiate(highlightObject, instantiatingPosition, Quaternion.identity);
+		isHighlighted = true;
+		GameManager.instance.highlightedTiles.Add (this);
 	}
 
 	// Delete highlight object from this tile.
@@ -82,6 +95,7 @@ public class TileController : MonoBehaviour {
 		if (highlightInstance != null) {
 			Destroy (highlightInstance);
 		}
+		isHighlighted = false;
 	}
 
 	public void Select()

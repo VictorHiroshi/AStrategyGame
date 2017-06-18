@@ -33,6 +33,13 @@ public class CreatureController : MonoBehaviour {
 		fillSliderImage.color = GameManager.instance.playersColors[belongsToPlayer];
 	}
 
+	public void MoveToTarget (Transform target)
+	{
+		// TODO: Change animation and move smoothly.
+		transform.position = target.position;
+		ActionsManager.instance.FinishAction ();
+	}
+
 	private void Die ()
 	{
 		

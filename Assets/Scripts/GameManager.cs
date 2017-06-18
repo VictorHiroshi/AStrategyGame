@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour {
 	public GameObject [] creature;
 	public Color[] playersColors;
 
+	[HideInInspector]public int activePlayerIndex;
+	[HideInInspector]public List<TileController> highlightedTiles;
+
 	private int actualTurn;
-	private int activePlayerIndex;
 
 	void Awake () {
 		// Defining this object as a singleton.
@@ -56,6 +58,14 @@ public class GameManager : MonoBehaviour {
 
 		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1), player [activePlayerIndex].coinCount);
 		FocusCameraOn (player [activePlayerIndex]);
+	}
+
+	public void ClearSelections()
+	{
+		foreach(TileController tile in highlightedTiles)
+		{
+			tile.Unselect ();
+		}
 	}
 
 	private void AssignPlayers ()

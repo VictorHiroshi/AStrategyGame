@@ -101,30 +101,30 @@ public class BoardManager : MonoBehaviour {
 		if (x < 0 || x >= rows || z < 0 || z >= columns)
 			return false;
 
-		GameObject nighbourTile;
+		GameObject neighbourTile;
 
 		// Add left neighbour to the list.
 		if (x > 0){
-			nighbourTile = boardGameByID [TileController.GetStringID (x - 1, z)];
-			neighbours.Add(nighbourTile);
+			neighbourTile = boardGameByID [TileController.GetStringID (x - 1, z)];
+			neighbours.Add(neighbourTile);
 		}
 
 		// Add right neighbour to the list.
 		if (x < rows - 1) {
-			nighbourTile = boardGameByID [TileController.GetStringID (x + 1, z)];
-			neighbours.Add(nighbourTile);
+			neighbourTile = boardGameByID [TileController.GetStringID (x + 1, z)];
+			neighbours.Add(neighbourTile);
 		}
 
 		// Add upper neighbour to the list.
 		if (z > 0) {
-			nighbourTile = boardGameByID [TileController.GetStringID (x, z - 1)];
-			neighbours.Add(nighbourTile);
+			neighbourTile = boardGameByID [TileController.GetStringID (x, z - 1)];
+			neighbours.Add(neighbourTile);
 		}
 
 		// Add lower neighbour to the list.
 		if (z < columns - 1) {
-			nighbourTile = boardGameByID [TileController.GetStringID (x, z + 1)];
-			neighbours.Add (nighbourTile);
+			neighbourTile = boardGameByID [TileController.GetStringID (x, z + 1)];
+			neighbours.Add (neighbourTile);
 		}
 
 		return true;
