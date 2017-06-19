@@ -16,13 +16,17 @@ public class CreatureController : MonoBehaviour {
 	private int health = 10;
 	private GameObject creatureModel;
 
+	void Awake()
+	{
+		animatorController.SetTrigger ("IsIdle");
+	}
+
 	void Start()
 	{
 		moved = false;
 		isTired = false;
 		healthSlider.value = health;
-		animatorController.SetTrigger ("IsIdle");
-		creatureModel = GameManager.instance.player [belongsToPlayer].creature;
+		creatureModel = gameObject;
 	}
 
 	public void TakeDamage(int damage)
