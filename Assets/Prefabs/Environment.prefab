@@ -1074,7 +1074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 114576467902937686}
-  MovingCost: 1
+  movingCost: 1
+  duplicateCost: 2
   actualState: 0
 --- !u!114 &114175929085947116
 MonoBehaviour:
@@ -2031,7 +2032,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 0
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 224255319976888944}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 114838398145000544}
@@ -2218,8 +2219,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114879235710165176}
   m_HandleRect: {fileID: 224992970535013356}
   m_Direction: 2
-  m_Value: 0.00000020345044
-  m_Size: 0.4999999
+  m_Value: 1
+  m_Size: 0.27372262
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2265,8 +2266,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114265671510846822}
-        m_MethodName: StillWorking
+      - m_Target: {fileID: 114163747973106584}
+        m_MethodName: ActionDuplicate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2986,8 +2987,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 21, y: 299.99997}
-  m_SizeDelta: {x: 350, y: 600}
+  m_AnchoredPosition: {x: 21, y: -0.000061035156}
+  m_SizeDelta: {x: 350, y: 1096}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224143342471492752
 RectTransform:

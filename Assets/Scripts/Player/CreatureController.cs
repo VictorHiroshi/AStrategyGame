@@ -14,6 +14,7 @@ public class CreatureController : MonoBehaviour {
 	[HideInInspector] public bool isTired;
 
 	private int health = 10;
+	private GameObject creatureModel;
 
 	void Start()
 	{
@@ -21,6 +22,7 @@ public class CreatureController : MonoBehaviour {
 		isTired = false;
 		healthSlider.value = health;
 		animatorController.SetTrigger ("IsIdle");
+		creatureModel = GameManager.instance.player [belongsToPlayer].creature;
 	}
 
 	public void TakeDamage(int damage)
@@ -42,8 +44,18 @@ public class CreatureController : MonoBehaviour {
 
 	public void MoveToTarget (Transform target)
 	{
-		// TODO: Change animation and move smoothly.
 		StartCoroutine (Moving (target));
+	}
+
+	public void DuplicateToTarget (Transform target, out CreatureController newCreature)
+	{
+		Vector3 newPosition = transform.position + (0.3f * (target.position - transform.position));
+		GameObject instance = Instantiate (creatureModel, newPosition, Quaternion.identity);
+		newCreature = instance.GetComponent <CreatureController> ();
+
+		newCreature.ChangeTeam (belongsToPlayer);
+
+		newCreature.MoveToTarget (target);
 	}
 
 	private void Die ()
@@ -64,4 +76,5 @@ public class CreatureController : MonoBehaviour {
 		transform.rotation = Quaternion.identity;
 		ActionsManager.instance.FinishAction ();
 	}
+
 }
