@@ -97,7 +97,7 @@ public class PanelController : MonoBehaviour {
 		}
 		else
 		{
-			message += "This tile belongs nobody yet!\n";
+			message += "Nobody owns this tile yet!\n";
 		}
 
 		if(tile.resource!=null)
