@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None, Empty};
-public enum MessageType {CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoCreatureThere}
+public enum MessageType {CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoCreatureThere};
 
 public class PanelController : MonoBehaviour {
 
@@ -23,6 +23,7 @@ public class PanelController : MonoBehaviour {
 	public Button convertButton;
 	public Button oppressButton;
 	public Button defendButton;
+	public Button cancelButton;
 
 	[HideInInspector]public HighlightType selectedUI = HighlightType.None;
 	[HideInInspector]public bool canChangePlayerText;
@@ -38,6 +39,44 @@ public class PanelController : MonoBehaviour {
 	private UIHighlightController defend;
 	private UIHighlightController coins;
 	private bool scrolling;
+
+	void Awake()
+	{
+		canChangePlayerText = true;
+		scrolling = false;
+	}
+
+	void Start()
+	{
+		nextTurn = nextTurnButton.GetComponent <UIHighlightController> ();
+		coins = coinsObject.GetComponent <UIHighlightController> ();
+		move = moveButton.GetComponent <UIHighlightController> ();
+		duplicate = duplicateButton.GetComponent <UIHighlightController> ();
+		lightExploit = lightExploitButton.GetComponent <UIHighlightController> ();
+		heavyExploit = heavyExploitButton.GetComponent <UIHighlightController> ();
+		attack = attackButton.GetComponent <UIHighlightController> ();
+		convert = convertButton.GetComponent <UIHighlightController> ();
+		oppress = oppressButton.GetComponent <UIHighlightController> ();
+		defend = defendButton.GetComponent <UIHighlightController> ();
+
+		HideCancelButton ();
+	}
+
+	void Update () {
+		if(Input.GetMouseButtonDown (0))
+		{
+			scrolling = true;
+		}
+		if(Input.GetMouseButtonUp (0))
+		{
+			scrolling = false;
+		}
+
+		if (canChangePlayerText && !scrolling)
+		{
+			UpdateButtons ();
+		}
+	}
 
 
 	/*REMOVE THIS LATER*/
@@ -86,6 +125,16 @@ public class PanelController : MonoBehaviour {
 		}
 	}
 
+	public void ShowCancelButton()
+	{
+		cancelButton.gameObject.SetActive (true);
+	}
+
+	public void HideCancelButton()
+	{
+		cancelButton.gameObject.SetActive (false);
+	}
+
 	public void UpdateTileMessage(TileController tile)
 	{
 		selectedUI = HighlightType.Empty;
@@ -109,42 +158,6 @@ public class PanelController : MonoBehaviour {
 			message += "Resource: None\n";
 		}
 		descriptionText.text = message;
-	}
-
-	void Awake()
-	{
-		canChangePlayerText = true;
-		scrolling = false;
-	}
-
-	void Start()
-	{
-		nextTurn = nextTurnButton.GetComponent <UIHighlightController> ();
-		coins = coinsObject.GetComponent <UIHighlightController> ();
-		move = moveButton.GetComponent <UIHighlightController> ();
-		duplicate = duplicateButton.GetComponent <UIHighlightController> ();
-		lightExploit = lightExploitButton.GetComponent <UIHighlightController> ();
-		heavyExploit = heavyExploitButton.GetComponent <UIHighlightController> ();
-		attack = attackButton.GetComponent <UIHighlightController> ();
-		convert = convertButton.GetComponent <UIHighlightController> ();
-		oppress = oppressButton.GetComponent <UIHighlightController> ();
-		defend = defendButton.GetComponent <UIHighlightController> ();
-	}
-		
-	void Update () {
-		if(Input.GetMouseButtonDown (0))
-		{
-			scrolling = true;
-		}
-		if(Input.GetMouseButtonUp (0))
-		{
-			scrolling = false;
-		}
-		
-		if (canChangePlayerText && !scrolling)
-		{
-			UpdateButtons ();
-		}
 	}
 
 	//Verifies if any button is highlighted to update the description text.
