@@ -18,15 +18,11 @@ public class CreatureController : MonoBehaviour {
 
 	void Awake()
 	{
-		animatorController.SetTrigger ("IsIdle");
-	}
-
-	void Start()
-	{
 		moved = false;
 		isTired = false;
 		healthSlider.value = health;
 		creatureModel = gameObject;
+		animatorController.SetTrigger ("IsIdle");
 	}
 
 	public void TakeDamage(int damage)
@@ -42,6 +38,7 @@ public class CreatureController : MonoBehaviour {
 
 	public void ChangeTeam(int newPlayerIndex)
 	{
+		
 		belongsToPlayer = newPlayerIndex;
 		fillSliderImage.color = GameManager.instance.playersColors[belongsToPlayer];
 	}
@@ -59,7 +56,7 @@ public class CreatureController : MonoBehaviour {
 
 		newCreature.ChangeTeam (belongsToPlayer);
 
-		newCreature.MoveToTarget (target);
+		StartCoroutine (Duplicating (target, newCreature));
 	}
 
 	private void Die ()
@@ -79,6 +76,14 @@ public class CreatureController : MonoBehaviour {
 		animatorController.SetTrigger ("IsIdle");
 		transform.rotation = Quaternion.identity;
 		ActionsManager.instance.FinishAction ();
+	}
+
+	private IEnumerator Duplicating (Transform target, CreatureController creature)
+	{
+		// Ignores a frame to synchronize animation.
+		yield return null;
+
+		creature.MoveToTarget (target);
 	}
 
 }
