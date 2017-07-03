@@ -30,6 +30,7 @@ public class CameraController : MonoBehaviour {
 	void Awake () {
 		m_Camera = GetComponentInChildren<Camera> ();
 		canZoom = true;
+		canMove = true;
 	}
 
 	void Update () {
@@ -110,12 +111,13 @@ public class CameraController : MonoBehaviour {
 
 	private IEnumerator SmoothlyMove(Transform target)
 	{
+
+		yield return null;
+
+		float step;
 		canMove = false;
 		canZoom = false;
 
-		Debug.Log ("Smoothly moving");
-
-		float step;
 		while(transform.position != target.position)
 		{	
 			step = automaticCameraVelocity * Time.deltaTime;

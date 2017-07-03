@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 222764246182376282}
   - component: {fileID: 114923060476399488}
   - component: {fileID: 114265671510846822}
+  - component: {fileID: 114284563283067936}
   m_Layer: 5
   m_Name: GamePanel
   m_TagString: Untagged
@@ -928,6 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114098987684321694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -998,6 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114124761452418256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1302,6 +1305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114265671510846822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1342,6 +1346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114267472499413986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1353,6 +1358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114282906273311778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1457,6 +1463,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114284563283067936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570727533692332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isControlPanel: 1
 --- !u!114 &114293701112075014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1468,6 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114312603986094066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1932,6 +1951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114679782537709682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2101,6 +2121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114799175994663920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2355,6 +2376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114923060476399488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2615,6 +2637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b790fb1a0290b6845835cb3c19286dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControlPanel: 0
 --- !u!114 &114984933816739776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3145,7 +3168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.99997, y: 32}
+  m_AnchoredPosition: {x: 99.99998, y: 32}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224345310398596710
@@ -3207,7 +3230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100, y: -167}
+  m_AnchoredPosition: {x: 100.00001, y: -167}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224456568192314888
@@ -3244,7 +3267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100, y: 128}
+  m_AnchoredPosition: {x: 100.00001, y: 128}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224644087790263844
@@ -3319,7 +3342,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.99995, y: -72.000046}
+  m_AnchoredPosition: {x: 99.99992, y: -72.000046}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5000001, y: 0.49999976}
 --- !u!224 &224729195896847928
