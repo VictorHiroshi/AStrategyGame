@@ -82,7 +82,7 @@ public class PanelController : MonoBehaviour {
 	/*REMOVE THIS LATER*/
 	public void StillWorking()
 	{
-		StartCoroutine (ShowingMessage (3f, "I'm still working in this feature, ma'am!"));
+		StartCoroutine (ShowingMessage (4f, "I'm still working in this feature, ma'am!"));
 	}
 
 	public void ChangeActivePlayer(string player)

@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]public BoardManager boardScript;
 	[HideInInspector]public PlayerController [] player;
 
-	public int coinsPerTurn = 2;
+	public int coinsPerStone = 2;
+	public int coinsPerTurn = 4;
 	public PanelController panelControler;
 	public CameraController m_camera;
 	public static GameManager instance = null;
@@ -87,7 +88,8 @@ public class GameManager : MonoBehaviour {
 			player [i] = new PlayerController ();
 			player [i].controlledTiles = new List<string> ();
 			player [i].creature = creature [i];
-			player [i].coinCount = coinsPerTurn;
+			player [i].coinCount = 0;
+			player [i].controlledStones = 0;
 			player [i].playerNumber = i;
 		}
 
@@ -109,6 +111,7 @@ public class GameManager : MonoBehaviour {
 		// TODO: Give turn changing money for all players.
 		for (int i = 0; i < player.Length; i++) {
 			player [i].coinCount += coinsPerTurn;
+			player [i].coinCount += (coinsPerStone * player [i].controlledStones);
 		}
 
 	}

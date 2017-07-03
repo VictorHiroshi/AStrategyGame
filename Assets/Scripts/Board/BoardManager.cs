@@ -190,31 +190,31 @@ public class BoardManager : MonoBehaviour {
 		int minZ;
 		int maxZ;
 		// First quadrant.
-		minX = 0;
+		minX = 1;
 		maxX = (columns / 2) - 1;
-		minZ = 0;
+		minZ = 1;
 		maxZ = (rows / 2) - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Second quadrant.
 		minX = (columns / 2);
-		maxX = columns - 1;
-		minZ = 0;
+		maxX = columns - 2;
+		minZ = 1;
 		maxZ = (rows / 2) - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Third quadrant.
 		minX = (columns / 2);
-		maxX = columns - 1;
+		maxX = columns - 2;
 		minZ = (rows / 2);
-		maxZ = rows - 1;
+		maxZ = rows - 2;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Fourth quadrant.
-		minX = 0;
+		minX = 1;
 		maxX = (columns / 2) - 1;
 		minZ = (rows / 2);
-		maxZ = rows - 1;
+		maxZ = rows - 2;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 	}

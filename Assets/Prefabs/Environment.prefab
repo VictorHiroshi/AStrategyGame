@@ -967,7 +967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 0}
-  coinsPerTurn: 2
+  player: []
+  coinsPerStone: 2
+  coinsPerTurn: 4
   panelControler: {fileID: 114265671510846822}
   m_camera: {fileID: 114931569442322446}
   tileHighlightObject: {fileID: 1235960107403434, guid: eb575b55fcf78484c894a6fdeb5b48ad,
@@ -1683,7 +1685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 15
   rows: 15
-  stonesPerQuadrant: 10
+  stonesPerQuadrant: 8
   tiles:
     normalTiles:
     - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
