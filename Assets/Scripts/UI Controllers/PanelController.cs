@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None, Empty};
-public enum MessageType {CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoCreatureThere};
+public enum MessageType {CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoCreatureThere, NoStone};
 
 public class PanelController : MonoBehaviour {
 
@@ -121,6 +121,9 @@ public class PanelController : MonoBehaviour {
 			break;
 		case MessageType.NoCreatureThere:
 			StartCoroutine (ShowingMessage (displayingTime, Descriptions.NO_CREATURE_THERE));
+			break;
+		case MessageType.NoStone:
+			StartCoroutine (ShowingMessage (displayingTime, Descriptions.NO_STONE));
 			break;
 		}
 	}

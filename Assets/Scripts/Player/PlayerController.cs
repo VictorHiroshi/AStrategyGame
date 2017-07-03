@@ -18,6 +18,12 @@ public class PlayerController {
 		GameManager.instance.panelControler.updateCoins (coinCount);
 	}
 
+	public void Receive(int money)
+	{
+		coinCount += money;
+		GameManager.instance.panelControler.updateCoins (coinCount);
+	}
+
 	public void ControllNewTile(TileController newTile)
 	{
 		// TODO: Verify if new tile has stones in it to add to controlled stones and add tile to controlledTiles

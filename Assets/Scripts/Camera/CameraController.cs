@@ -8,24 +8,28 @@ public class Boundary {
 	public float xMax;
 	public float zMin;
 	public float zMax;
+	public float yMin;
+	public float yMax;
 }
 
 public class CameraController : MonoBehaviour {
 
-	public float dampTime = 0.2f;
-	public float minDistance = 6.4f;
-	public float cameraVelocity = 0.08f;
+	public float automaticCameraVelocity = 20f;
+	public float manualCameraVelocity = 0.08f;
 	public float zoomFactor = 3.0f;
 	public Boundary cameraBoundaries;
+
+	[HideInInspector] public bool canZoom;
+	[HideInInspector] public bool canMove;
 
 	private Camera m_Camera;
 	private Vector3 cameraOrigin;
 	private Vector3 clickPoint;
-	Vector3 moveVelocity;
 
 
 	void Awake () {
 		m_Camera = GetComponentInChildren<Camera> ();
+		canZoom = true;
 	}
 
 	void Update () {
@@ -37,8 +41,9 @@ public class CameraController : MonoBehaviour {
 	public void MoveToTarget (Transform target)
 	{
 		// TODO: Smooth the transition.
-		//transform.position = Vector3.SmoothDamp (transform.position, target.position, ref moveVelocity, dampTime);
-		transform.position = target.position;
+		//transform.position = target.position;
+
+		StartCoroutine (SmoothlyMove (target));
 	}
 
 	// Guarantees that the camera will remain within the boardgame space.
@@ -65,6 +70,11 @@ public class CameraController : MonoBehaviour {
 	// Checks for movements of the mouse while pressing the given button.
 	private void MoveCamera(int button)
 	{
+		if(!canMove)
+		{
+			return;
+		}
+
 		if(Input.GetMouseButtonDown (button))
 		{
 			clickPoint = Input.mousePosition;
@@ -74,7 +84,7 @@ public class CameraController : MonoBehaviour {
 		else if(Input.GetMouseButton (button))
 		{
 			transform.position = cameraOrigin + (new Vector3((Input.mousePosition.x - clickPoint.x), 0f, 
-				(Input.mousePosition.y - clickPoint.y))*cameraVelocity);
+				(Input.mousePosition.y - clickPoint.y)) * manualCameraVelocity);
 
 			CheckBoundaries ();
 		}
@@ -83,9 +93,37 @@ public class CameraController : MonoBehaviour {
 	// Zoom in or out whit the scroll wheel.
 	private void ZoomCamera ()
 	{
+		if(!canZoom)
+		{
+			return;
+		}
 		float moveRange = - Input.GetAxis ("Mouse ScrollWheel") * zoomFactor;
 		Vector3 zoom = new Vector3(0f, moveRange, moveRange);
 
-		m_Camera.transform.position += zoom;
+
+		if((m_Camera.transform.position.y > cameraBoundaries.yMin && moveRange < 0f) || 
+			(m_Camera.transform.position.y < cameraBoundaries.yMax) && moveRange > 0f)
+		{
+			m_Camera.transform.position += zoom;
+		}
+	}
+
+	private IEnumerator SmoothlyMove(Transform target)
+	{
+		canMove = false;
+		canZoom = false;
+
+		Debug.Log ("Smoothly moving");
+
+		float step;
+		while(transform.position != target.position)
+		{	
+			step = automaticCameraVelocity * Time.deltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+			yield return null;
+		}
+
+		canMove = true;
+		canZoom = true;
 	}
 }

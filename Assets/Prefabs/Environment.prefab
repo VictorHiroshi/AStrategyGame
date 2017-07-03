@@ -689,7 +689,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1471467165053478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -482, y: 0, z: 397}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4432805048452922}
@@ -717,8 +717,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474257948902744}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -678.7073, y: -80.101685, z: -196.72302}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4145369871412070}
@@ -743,8 +743,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1599583209984716}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -680.2073, y: -79.80168, z: -198.22302}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20, y: 20, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203243269539992}
@@ -1078,6 +1078,9 @@ MonoBehaviour:
   boardManager: {fileID: 114576467902937686}
   movingCost: 1
   duplicateCost: 2
+  exploitCost: 1
+  lightExploitProfit: 3
+  heavyExploitProfit: 6
   actualState: 0
 --- !u!114 &114175929085947116
 MonoBehaviour:
@@ -1441,8 +1444,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114265671510846822}
-        m_MethodName: StillWorking
+      - m_Target: {fileID: 114163747973106584}
+        m_MethodName: ActionLightExploit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2390,15 +2393,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3abeaae5beec3647967d0ea5677c71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dampTime: 0.2
-  minDistance: 0
-  cameraVelocity: 0.04
-  zoomFactor: 4
+  automaticCameraVelocity: 25
+  manualCameraVelocity: 0.08
+  zoomFactor: 5
   cameraBoundaries:
     xMin: -4
     xMax: 46
     zMin: -4
     zMax: 46
+    yMin: 5
+    yMax: 25
+  canZoom: 0
+  canMove: 0
 --- !u!114 &114938749779154186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3139,7 +3145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.99998, y: 32}
+  m_AnchoredPosition: {x: 99.99997, y: 32}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224345310398596710
@@ -3201,7 +3207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100.00001, y: -167}
+  m_AnchoredPosition: {x: 100, y: -167}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224456568192314888
@@ -3238,7 +3244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100.00001, y: 128}
+  m_AnchoredPosition: {x: 100, y: 128}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224644087790263844
@@ -3313,7 +3319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.99992, y: -72}
+  m_AnchoredPosition: {x: 99.99995, y: -72.000046}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5000001, y: 0.49999976}
 --- !u!224 &224729195896847928
@@ -3469,7 +3475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -288}
+  m_AnchoredPosition: {x: 0, y: -288.00012}
   m_SizeDelta: {x: -86, y: -635}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224970491252174240
