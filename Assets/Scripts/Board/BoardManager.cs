@@ -199,23 +199,23 @@ public class BoardManager : MonoBehaviour {
 
 		// Second quadrant.
 		minX = (columns / 2);
-		maxX = columns - 2;
+		maxX = columns - 1;
 		minZ = 1;
 		maxZ = (rows / 2) - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Third quadrant.
 		minX = (columns / 2);
-		maxX = columns - 2;
+		maxX = columns - 1;
 		minZ = (rows / 2);
-		maxZ = rows - 2;
+		maxZ = rows - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Fourth quadrant.
 		minX = 1;
 		maxX = (columns / 2) - 1;
 		minZ = (rows / 2);
-		maxZ = rows - 2;
+		maxZ = rows - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 	}
