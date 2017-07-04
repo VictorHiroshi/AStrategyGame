@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour {
 		foreach(CreatureController creature in tiredCreatures)
 		{
 			creature.isTired = false;
+			creature.moved = false;
 		}
 		tiredCreatures.Clear ();
 	}
