@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour {
 			player [i].coinCount = 0;
 			player [i].controlledStones = 0;
 			player [i].playerNumber = i;
+			player [i].color = playersColors[i];
 		}
 
 		player[0].controlledTiles.Add (TileController.GetStringID (xMax -1, zMax-1));

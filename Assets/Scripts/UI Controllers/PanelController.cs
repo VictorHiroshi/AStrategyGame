@@ -233,6 +233,31 @@ public class PanelController : MonoBehaviour {
 		}
 	}
 
+	public void DisableAllButtons()
+	{
+		nextTurnButton.interactable=false;
+		moveButton.interactable=false;
+		duplicateButton.interactable=false;
+		lightExploitButton.interactable=false;
+		heavyExploitButton.interactable=false;
+		attackButton.interactable=false;
+		convertButton.interactable=false;
+		oppressButton.interactable=false;
+		defendButton.interactable=false;
+	}
+	public void EnableAllButtons()
+	{
+		nextTurnButton.interactable=true;
+		moveButton.interactable=true;
+		duplicateButton.interactable=true;
+		lightExploitButton.interactable=true;
+		heavyExploitButton.interactable=true;
+		attackButton.interactable=true;
+		convertButton.interactable=true;
+		oppressButton.interactable=true;
+		defendButton.interactable=true;
+	}
+
 	private IEnumerator ShowingMessage(float time, string message)
 	{
 		canChangePlayerText = false;

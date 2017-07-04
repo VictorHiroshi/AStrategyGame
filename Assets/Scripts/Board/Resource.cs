@@ -6,7 +6,6 @@ using UnityEngine;
 public class Resource : MonoBehaviour {
 	public int resourceCount;
 
-
 	public void Awake ()
 	{
 		int maxValue = GameManager.instance.boardScript.resources.resourceFadigue;

@@ -115,8 +115,11 @@ public class CameraController : MonoBehaviour {
 		yield return null;
 
 		float step;
+
 		canMove = false;
 		canZoom = false;
+
+		GameManager.instance.panelControler.DisableAllButtons ();
 
 		while(transform.position != target.position)
 		{	
@@ -124,6 +127,8 @@ public class CameraController : MonoBehaviour {
 			transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 			yield return null;
 		}
+
+		GameManager.instance.panelControler.EnableAllButtons ();
 
 		canMove = true;
 		canZoom = true;
