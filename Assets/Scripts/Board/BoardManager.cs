@@ -22,6 +22,7 @@ public class TileLists{
 // Class to organize all sorts of resources.
 [System.Serializable]
 public class ResourceList{
+	public int resourceFadigue;
 	public GameObject[] stones;
 	public GameObject[] trees;
 	public GameObject[] barriers;

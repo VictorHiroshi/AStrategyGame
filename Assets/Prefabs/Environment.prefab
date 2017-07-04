@@ -1731,6 +1731,7 @@ MonoBehaviour:
     - {fileID: 1116753524155418, guid: 09f697617ec03d34bbee9f7652cc7acd, type: 2}
     tileSideSize: 3
   resources:
+    resourceFadigue: 5
     stones:
     - {fileID: 1249677952952290, guid: ad836f9bd2ae9244f8422c9f11a198b4, type: 2}
     trees: []
@@ -3168,7 +3169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.99998, y: 32}
+  m_AnchoredPosition: {x: 99.999985, y: 32}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224345310398596710
@@ -3230,7 +3231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100.00001, y: -167}
+  m_AnchoredPosition: {x: 100.000015, y: -167}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224456568192314888
@@ -3267,7 +3268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100.00001, y: 128}
+  m_AnchoredPosition: {x: 100.000015, y: 128}
   m_SizeDelta: {x: -240, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224644087790263844
