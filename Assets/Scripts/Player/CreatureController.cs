@@ -45,6 +45,7 @@ public class CreatureController : MonoBehaviour {
 
 	public void MoveToTarget (Transform target)
 	{
+		animatorController.SetTrigger ("Moves");
 		StartCoroutine (Moving (target));
 	}
 
@@ -56,7 +57,7 @@ public class CreatureController : MonoBehaviour {
 
 		newCreature.ChangeTeam (belongsToPlayer);
 
-		StartCoroutine (Duplicating (target, newCreature));
+		newCreature.MoveToTarget (target);
 	}
 
 	private void Die ()
@@ -67,7 +68,6 @@ public class CreatureController : MonoBehaviour {
 	private IEnumerator Moving(Transform target)
 	{
 		transform.rotation = Quaternion.LookRotation (target.position - transform.position);
-		animatorController.SetTrigger ("Moves");
 		while(transform.position!=target.position){
 			float step = speed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards (transform.position, target.position, step);
@@ -76,14 +76,6 @@ public class CreatureController : MonoBehaviour {
 		animatorController.SetTrigger ("IsIdle");
 		transform.rotation = Quaternion.identity;
 		ActionsManager.instance.FinishAction ();
-	}
-
-	private IEnumerator Duplicating (Transform target, CreatureController creature)
-	{
-		// Ignores a frame to synchronize animation.
-		yield return null;
-
-		creature.MoveToTarget (target);
 	}
 
 }
