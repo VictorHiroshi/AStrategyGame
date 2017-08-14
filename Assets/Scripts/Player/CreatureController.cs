@@ -15,6 +15,8 @@ public class CreatureController : MonoBehaviour {
 
 	private int health = 10;
 	private GameObject creatureModel;
+	private ParticleSystem explosionParticles;
+	private ParticleSystem rocksParticles;
 
 	void Awake()
 	{
@@ -23,6 +25,9 @@ public class CreatureController : MonoBehaviour {
 		healthSlider.value = health;
 		creatureModel = gameObject;
 		animatorController.SetTrigger ("IsIdle");
+
+		explosionParticles = Instantiate (GameManager.instance.boardScript.explosionParticles, transform.position, Quaternion.identity);
+		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity);
 	}
 
 	public void TakeDamage(int damage)
@@ -60,6 +65,12 @@ public class CreatureController : MonoBehaviour {
 		newCreature.MoveToTarget (target);
 	}
 
+	public void Explore()
+	{
+		explosionParticles.Play ();
+		rocksParticles.Play ();
+	}
+
 	private void Die ()
 	{
 		
@@ -76,6 +87,8 @@ public class CreatureController : MonoBehaviour {
 		animatorController.SetTrigger ("IsIdle");
 		transform.rotation = Quaternion.identity;
 		ActionsManager.instance.FinishAction ();
-	}
 
+		explosionParticles.transform.position = transform.position;
+		rocksParticles.transform.position = transform.position;
+	}
 }

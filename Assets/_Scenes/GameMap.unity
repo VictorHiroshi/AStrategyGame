@@ -1491,7 +1491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 16
   rows: 16
-  stonesPerQuadrant: 8
+  stonesPerQuadrant: 10
   tiles:
     normalTiles:
     - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
@@ -1520,6 +1520,10 @@ MonoBehaviour:
     - {fileID: 1249677952952290, guid: ad836f9bd2ae9244f8422c9f11a198b4, type: 2}
     trees: []
     barriers: []
+  explosionParticles: {fileID: 198577425585387790, guid: 22ebc301397622d42b3edd7e3fa86cf0,
+    type: 2}
+  rockExplorationParticles: {fileID: 198836811071687176, guid: 2e7b8b641285414449ac4f00437e43da,
+    type: 2}
 --- !u!114 &1097562916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1601,7 +1605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 21, y: 626.1649}
+  m_AnchoredPosition: {x: 21, y: 778}
   m_SizeDelta: {x: 350, y: 1096}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1328640370
@@ -3496,7 +3500,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 901931263}
   m_HandleRect: {fileID: 901931261}
   m_Direction: 2
-  m_Value: 0.19516078
+  m_Value: 0
   m_Size: 0.290146
   m_NumberOfSteps: 0
   m_OnValueChanged:

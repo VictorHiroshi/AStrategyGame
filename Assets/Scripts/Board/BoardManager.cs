@@ -36,6 +36,8 @@ public class BoardManager : MonoBehaviour {
 	public int stonesPerQuadrant = 5;
 	public TileLists tiles;
 	public ResourceList resources;
+	public ParticleSystem explosionParticles;
+	public ParticleSystem rockExplorationParticles;
 
 	private Transform boardHolder;
 	private GameObject selectedTile;
