@@ -18,14 +18,15 @@ public class Descriptions
 	public static string OPPRESS = "Action to oppress an opponent. This keeps the other creature alive and you get control of it for a couple turns.";
 	public static string DEFEND = "Action to defend your territory. This won't directly affect other creatures. Except that if some creature attack you while defending, they will die.";
 
-	public static string NEXT_TURN_BUTTON = "CAUTION!\nThis will take you to the next turn!";
+	public static string NEXT_TURN_BUTTON = "ATTENTION!\nThis will take you to the next turn!";
 	public static string COINS = "This is your money. Use it to pay creatures to perform actions. Each turn you'll receive some more coins. You can get then by exploring resources, by the way.";
 
 	public static string UNAVALIABLE_ACTION = "It's not possible to execute this action now!";
 	public static string TOO_TIRED_MAAN = "This creature is too tired, ma'am. Let it rest a turn!";
 	public static string SELECT_A_TILE = "Select a tile before performing any action.";
 	public static string NOT_YOUR_CREATURE = "This is not your creature, fella!";
+	public static string NO_ENEMY = "Chill out! There is no enemy in range";
 	public static string NO_MONEY = "You don't have enought money for this action now. :(";
 	public static string NO_CREATURE_THERE = "There's no creature in this tile, ma'am!";
-	public static string NO_STONE = "I have nothing to gather here, ma'am!";
+	public static string NO_STONE = "I have nothing to gather here, dude!";
 }

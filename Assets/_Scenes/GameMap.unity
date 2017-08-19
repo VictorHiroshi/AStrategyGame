@@ -1474,6 +1474,7 @@ MonoBehaviour:
   movingCost: 1
   duplicateCost: 2
   exploitCost: 1
+  attackCost: 2
   lightExploitProfit: 3
   heavyExploitProfit: 6
   actualState: 0
@@ -2352,8 +2353,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1438490998}
-        m_MethodName: StillWorking
+      - m_Target: {fileID: 1097562914}
+        m_MethodName: ActionAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3501,7 +3502,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 901931261}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.29014602
+  m_Size: 0.290146
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
