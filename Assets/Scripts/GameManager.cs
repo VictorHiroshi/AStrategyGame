@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
 	[HideInInspector]public BoardManager boardScript;
-	[HideInInspector]public PlayerController [] player;
+	/*[HideInInspector]*/
+public PlayerController[] player;
 
 	public int coinsPerStone = 2;
 	public int coinsPerTurn = 4;
