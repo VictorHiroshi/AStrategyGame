@@ -71,6 +71,11 @@ public class CreatureController : MonoBehaviour {
 		rocksParticles.Play ();
 	}
 
+	public void PlayExplosionParticles()
+	{
+		explosionParticles.Play ();
+	}
+
 	private void Die ()
 	{
 		

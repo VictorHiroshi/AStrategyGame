@@ -1489,9 +1489,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fcabacbd85c1d41b9ec8f09a3a71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 16
-  rows: 16
-  stonesPerQuadrant: 10
+  columns: 3
+  rows: 3
+  stonesPerQuadrant: 0
   tiles:
     normalTiles:
     - {fileID: 1992625395810396, guid: 115357ec0a93cf6449370b11195a9443, type: 2}
@@ -1605,7 +1605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 21, y: 778.0589}
+  m_AnchoredPosition: {x: 21, y: 778}
   m_SizeDelta: {x: 350, y: 1096}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1328640370
@@ -3501,7 +3501,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 901931261}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.29009232
+  m_Size: 0.29014602
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
