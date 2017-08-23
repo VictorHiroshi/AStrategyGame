@@ -52,15 +52,16 @@ public PlayerController[] player;
 
 	public void NextTurn()
 	{
-		activePlayerIndex += 1;
-		activePlayerIndex = activePlayerIndex % player.Length;
+		do {
+			activePlayerIndex += 1;
+			activePlayerIndex = activePlayerIndex % player.Length;
 
-		if(activePlayerIndex == 0)
-		{
-			TurnChangingIncome ();
-			actualTurn += 1;
-			panelControler.ChangeTurnText (actualTurn);
-		}
+			if (activePlayerIndex == 0) {
+				TurnChangingIncome ();
+				actualTurn += 1;
+				panelControler.ChangeTurnText (actualTurn);
+			}
+		} while(player [activePlayerIndex].controlledTiles.Count <= 0);
 
 		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1));
 		panelControler.updateCoins (player [activePlayerIndex].coinCount);
