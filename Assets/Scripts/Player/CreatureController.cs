@@ -15,6 +15,7 @@ public class CreatureController : MonoBehaviour {
 	[HideInInspector] public bool isTired;
 
 	private int health = 10;
+	private int defendingDamage = 5;
 	private bool finishedInteractionAnimation = false;
 	private bool isDefending;
 	private GameObject creatureModel;
@@ -46,15 +47,18 @@ public class CreatureController : MonoBehaviour {
 		return isDefending;
 	}
 
-	public void TakeDamage(int damage)
+	public bool DiesWhenTakeDamage()
 	{
-		health -= damage;
-		if(health<=0)
+		if (isDefending) 
+		{
+			health -= defendingDamage;
+		}
+		else 
 		{
 			health = 0;
-			//Die ();
 		}
-		healthSlider.value = health;
+
+		return (health == 0);
 	}
 
 	public void ChangeTeam(int newPlayerIndex)
@@ -81,7 +85,7 @@ public class CreatureController : MonoBehaviour {
 		newCreature.MoveToTarget (target);
 	}
 
-	public void Attack(Transform origin, Transform target, ref CreatureController enemy)
+	public void Attack(Transform origin, Transform target, CreatureController enemy)
 	{
 		this.enemy = enemy;
 
@@ -109,12 +113,21 @@ public class CreatureController : MonoBehaviour {
 		explosionParticles.Play ();
 	}
 
-	public void Die (CreatureController killer)
+	private IEnumerator CheckIfDie (CreatureController killer)
 	{
 		// TODO: Play animation
+		WaitForSeconds lerpTime = new WaitForSeconds (0.1f);
 
+		while(healthSlider.value != health)
+		{
+			healthSlider.value -= 1;
+			yield return lerpTime;
+		}
+
+		if(health == 0)
+			Destroy (gameObject);
+		
 		killer.FinishedAnimation ();
-		Destroy (gameObject);
 	}
 
 	private IEnumerator Moving(Transform target)
@@ -155,12 +168,22 @@ public class CreatureController : MonoBehaviour {
 
 		animatorController.SetTrigger ("IsIdle");
 		finishedInteractionAnimation = false;
-		enemy.Die (this);
+
+		StartCoroutine (enemy.CheckIfDie (this));
+
 		while(!finishedInteractionAnimation)
 		{
 			yield return null;
 		}
 
-		MoveToTarget (target);
+		if(enemy == null)
+		{
+			MoveToTarget (target);
+		}
+		else
+		{
+			MoveToTarget (origin);
+			enemy.transform.rotation = Quaternion.identity;
+		}
 	}
 }
