@@ -960,8 +960,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114265671510846822}
-        m_MethodName: StillWorking
+      - m_Target: {fileID: 114163747973106584}
+        m_MethodName: ActionDefense
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1188,6 +1188,7 @@ MonoBehaviour:
   duplicateCost: 2
   exploitCost: 1
   attackCost: 2
+  defenseCost: 1
   lightExploitProfit: 3
   heavyExploitProfit: 6
   actualState: 0

@@ -834,6 +834,7 @@ MonoBehaviour:
   animatorController: {fileID: 95920602912284040}
   healthSlider: {fileID: 114330770473686982}
   fillSliderImage: {fileID: 114558373804936574}
+  shield: {fileID: 1528255890587414}
   belongsToPlayer: 0
   speed: 1
   moved: 0
