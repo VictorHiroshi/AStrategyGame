@@ -7,6 +7,7 @@ public class CreatureController : MonoBehaviour {
 	public Animator animatorController;
 	public Slider healthSlider;
 	public Image fillSliderImage;
+	public GameObject shield;
 	public int belongsToPlayer;
 	public float speed = 0.1f;
 
@@ -15,6 +16,7 @@ public class CreatureController : MonoBehaviour {
 
 	private int health = 10;
 	private bool finishedInteractionAnimation = false;
+	private bool isDefending;
 	private GameObject creatureModel;
 	private ParticleSystem explosionParticles;
 	private ParticleSystem rocksParticles;
@@ -30,11 +32,18 @@ public class CreatureController : MonoBehaviour {
 
 		explosionParticles = Instantiate (GameManager.instance.boardScript.explosionParticles, transform.position, Quaternion.identity, transform);
 		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform);
+
+		TurnDefense (false);
 	}
 
 	public void FinishedAnimation()
 	{
 		finishedInteractionAnimation = true;
+	}
+
+	public bool IsDefending()
+	{
+		return isDefending;
 	}
 
 	public void TakeDamage(int damage)
@@ -81,7 +90,12 @@ public class CreatureController : MonoBehaviour {
 		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
 
 		StartCoroutine (Attacking (origin, target, walkingPosition));
+	}
 
+	public void TurnDefense(bool defenseState)
+	{
+		shield.SetActive (defenseState);
+		isDefending = defenseState;
 	}
 
 	public void Explore()
