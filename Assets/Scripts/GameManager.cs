@@ -125,6 +125,7 @@ public PlayerController[] player;
 		{
 			creature.isTired = false;
 			creature.moved = false;
+			creature.animatorController.SetTrigger ("IsIdle");
 		}
 		tiredCreatures.Clear ();
 	}
