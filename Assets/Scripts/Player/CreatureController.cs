@@ -108,6 +108,11 @@ public class CreatureController : MonoBehaviour {
 		rocksParticles.Play ();
 	}
 
+	public void FinishExploringAnimation()
+	{
+		ActionsManager.instance.FinishAction ();
+	}
+
 	public void PlayExplosionParticles()
 	{
 		explosionParticles.Play ();
@@ -144,7 +149,7 @@ public class CreatureController : MonoBehaviour {
 		transform.rotation = Quaternion.identity;
 		ActionsManager.instance.FinishAction ();
 
-		ActionsManager.instance.SetCreatureToTired (true);
+		//ActionsManager.instance.SetCreatureToTired (true);
 	}
 
 	private IEnumerator Attacking(Transform origin, Transform target, Vector3 midTarget)
