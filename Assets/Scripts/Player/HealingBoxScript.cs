@@ -13,12 +13,12 @@ public class HealingBoxScript : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		Debug.Log ("Clicked Healing Box!");
-		parent.animatorController.SetTrigger ("Moves");
+		StartCoroutine (parent.Heal ());
 	}
 
 	void OnMouseOver()
 	{
 		// TODO: Make creature plead for healing.
+
 	}
 }

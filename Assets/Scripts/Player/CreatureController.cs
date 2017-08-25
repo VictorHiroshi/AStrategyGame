@@ -8,14 +8,15 @@ public class CreatureController : MonoBehaviour {
 	public Slider healthSlider;
 	public Image fillSliderImage;
 	public GameObject shield;
+	public GameObject HealingBox;
 	public int belongsToPlayer;
 	public float speed = 0.1f;
 
 	[HideInInspector] public bool moved;
 	[HideInInspector] public bool isTired;
 
-	private int health = 10;
-	private int defendingDamage = 5;
+	private int health;
+	private int defendingDamage;
 	private bool finishedInteractionAnimation = false;
 	private bool isDefending;
 	private GameObject creatureModel;
@@ -27,7 +28,12 @@ public class CreatureController : MonoBehaviour {
 	{
 		moved = false;
 		isTired = false;
+
+		health = ActionsManager.instance.maxHealth;
+		defendingDamage = ActionsManager.instance.defendingDamage;
+
 		healthSlider.value = health;
+		healthSlider.maxValue = ActionsManager.instance.maxHealth;
 		creatureModel = gameObject;
 		animatorController.SetTrigger ("IsIdle");
 
@@ -35,6 +41,8 @@ public class CreatureController : MonoBehaviour {
 		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform);
 
 		TurnDefense (false);
+
+		HealingBox.SetActive (false);
 	}
 
 	public void FinishedAnimation()
@@ -118,6 +126,24 @@ public class CreatureController : MonoBehaviour {
 		explosionParticles.Play ();
 	}
 
+	public IEnumerator Heal()
+	{
+		health = ActionsManager.instance.maxHealth;
+
+		WaitForSeconds lerpTime = new WaitForSeconds (0.1f);
+
+		Debug.Log ("Health: " + health);
+
+		while(healthSlider.value != health)
+		{
+			healthSlider.value += 1;
+			Debug.Log ("HealthSlider: " + healthSlider);
+			yield return lerpTime;
+		}
+
+		HealingBox.SetActive (false);
+	}
+
 	private IEnumerator CheckIfDie (CreatureController killer)
 	{
 		// TODO: Play animation
@@ -131,6 +157,11 @@ public class CreatureController : MonoBehaviour {
 
 		if(health == 0)
 			Destroy (gameObject);
+		else 
+		{
+			HealingBox.SetActive (true);
+			StartCoroutine (PleadForHelp ());
+		}
 		
 		killer.FinishedAnimation ();
 	}
@@ -189,5 +220,11 @@ public class CreatureController : MonoBehaviour {
 			MoveToTarget (origin);
 			enemy.transform.rotation = Quaternion.identity;
 		}
+	}
+
+	private IEnumerator PleadForHelp()
+	{
+		// TODO: Make creature plead for help until get healed in random time interval.
+		yield return null;
 	}
 }
