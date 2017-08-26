@@ -325,7 +325,7 @@ Prefab:
     - target: {fileID: 224700629974707144, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 349.96378
+      value: 349.96375
       objectReference: {fileID: 0}
     - target: {fileID: 224700629974707144, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -425,17 +425,17 @@ Prefab:
     - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: columns
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: rows
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: stonesPerQuadrant
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}

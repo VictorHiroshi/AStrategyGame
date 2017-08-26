@@ -20,6 +20,7 @@ public class TileController : MonoBehaviour {
 	private GameObject highlightObject;
 	private GameObject highlightInstance;
 	private Vector3 instantiatingPosition;
+	private Resource resourceScript;
 
 	void Start(){
 		
@@ -29,7 +30,6 @@ public class TileController : MonoBehaviour {
 		float tileSize = GameManager.instance.boardScript.tiles.tileSideSize;
 		instantiatingPosition = new Vector3 (zIndex * tileSize, 0f, xIndex * tileSize);
 		highlightObject = GameManager.instance.tileHighlightObject;
-
 	}
 
 
@@ -137,5 +137,16 @@ public class TileController : MonoBehaviour {
 	public void InstantiateResource(GameObject resource)
 	{
 		this.resource = Instantiate (resource, transform, false);
+		resourceScript = this.resource.GetComponent <Resource> ();
+	}
+
+	public void CheckIfResourceExhausted()
+	{
+		resourceScript.resourceCount--;
+		if(resourceScript.resourceCount<=0)
+		{
+			Destroy (resourceScript);
+			Destroy (resource);
+		}
 	}
 }
