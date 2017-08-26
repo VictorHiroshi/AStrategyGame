@@ -181,7 +181,6 @@ public class CreatureController : MonoBehaviour {
 		transform.rotation = Quaternion.identity;
 		ActionsManager.instance.FinishAction ();
 
-		//ActionsManager.instance.SetCreatureToTired (true);
 	}
 
 	private IEnumerator Attacking(Transform origin, Transform target, Vector3 midTarget)

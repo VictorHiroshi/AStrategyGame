@@ -13,12 +13,25 @@ public class HealingBoxScript : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		StartCoroutine (parent.Heal ());
+		if (parent.belongsToPlayer == GameManager.instance.activePlayerIndex)
+		{
+			StartCoroutine (parent.Heal ());
+			parent.dialogCanvas.DisplayMessageForTime ("Thanks, ma'am!");
+		}
+		else
+		{
+			GameManager.instance.panelControler.ShowMessage (3f, MessageType.NotYourCreature);
+		}
 	}
 
-	void OnMouseOver()
+	void OnMouseEnter()
 	{
 		// TODO: Make creature plead for healing.
+		GameManager.instance.panelControler.ShowMessage (3f, MessageType.Healing);
 
+		if (parent.belongsToPlayer == GameManager.instance.activePlayerIndex) 
+		{
+			parent.dialogCanvas.DisplayMessageForTime ("Please, dude! Only one buck...");
+		}
 	}
 }

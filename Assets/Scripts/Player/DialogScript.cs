@@ -17,6 +17,7 @@ public class DialogScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
+		// TODO: Check why is not being called.
 		Color temp = balloon.color;
 		temp.a = temp.a/4;
 		balloon.color = temp;
