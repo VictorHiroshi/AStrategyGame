@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 223227965660814362}
   - component: {fileID: 114190003492826942}
   - component: {fileID: 114966782352803468}
+  - component: {fileID: 114366359054996688}
   m_Layer: 5
   m_Name: BalloonCanvas
   m_TagString: Untagged
@@ -296,7 +297,6 @@ GameObject:
   - component: {fileID: 224445980679192474}
   - component: {fileID: 222109498703614518}
   - component: {fileID: 114681293897589880}
-  - component: {fileID: 114634731167947856}
   m_Layer: 5
   m_Name: TalkingBalloon
   m_TagString: Untagged
@@ -1092,6 +1092,7 @@ MonoBehaviour:
   animatorController: {fileID: 95176615447356794}
   healthSlider: {fileID: 114634568184693600}
   fillSliderImage: {fileID: 114491958729795952}
+  dialogCanvas: {fileID: 114366359054996688}
   shield: {fileID: 1150558244449122}
   HealingBox: {fileID: 1026932579399710}
   belongsToPlayer: 0
@@ -1135,6 +1136,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 16
+--- !u!114 &114366359054996688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1285604365676234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f71fd15d19654f42a5e6e43b336b6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balloon: {fileID: 114681293897589880}
+  dialogMessage: {fileID: 114813215622393066}
 --- !u!114 &114491958729795952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1231,17 +1245,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114634731167947856
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1513567281304292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f71fd15d19654f42a5e6e43b336b6b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114681293897589880
 MonoBehaviour:
   m_ObjectHideFlags: 1

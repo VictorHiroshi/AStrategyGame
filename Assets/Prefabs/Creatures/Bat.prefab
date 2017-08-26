@@ -655,6 +655,7 @@ GameObject:
   - component: {fileID: 223314911025320092}
   - component: {fileID: 114878726877412872}
   - component: {fileID: 114460525544230498}
+  - component: {fileID: 114324228489163728}
   m_Layer: 5
   m_Name: BalloonCanvas
   m_TagString: Untagged
@@ -954,7 +955,6 @@ GameObject:
   - component: {fileID: 224398526693896260}
   - component: {fileID: 222967695110923358}
   - component: {fileID: 114032852675179416}
-  - component: {fileID: 114889280244930394}
   m_Layer: 5
   m_Name: TalkingBalloon
   m_TagString: Untagged
@@ -2076,12 +2076,26 @@ MonoBehaviour:
   animatorController: {fileID: 95388609507416184}
   healthSlider: {fileID: 114689963907308074}
   fillSliderImage: {fileID: 114428199881659796}
+  dialogCanvas: {fileID: 114324228489163728}
   shield: {fileID: 1525338090508040}
   HealingBox: {fileID: 1384197144745266}
   belongsToPlayer: 0
   speed: 1
   moved: 0
   isTired: 0
+--- !u!114 &114324228489163728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1615365737644528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f71fd15d19654f42a5e6e43b336b6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balloon: {fileID: 114032852675179416}
+  dialogMessage: {fileID: 114845950885502430}
 --- !u!114 &114357177154240544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2275,17 +2289,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 16
---- !u!114 &114889280244930394
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1969308876797494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f71fd15d19654f42a5e6e43b336b6b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114892000192079176
 MonoBehaviour:
   m_ObjectHideFlags: 1

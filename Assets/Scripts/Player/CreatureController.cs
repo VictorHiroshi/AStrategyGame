@@ -7,6 +7,7 @@ public class CreatureController : MonoBehaviour {
 	public Animator animatorController;
 	public Slider healthSlider;
 	public Image fillSliderImage;
+	public DialogScript dialogCanvas;
 	public GameObject shield;
 	public GameObject HealingBox;
 	public int belongsToPlayer;
@@ -226,5 +227,7 @@ public class CreatureController : MonoBehaviour {
 	{
 		// TODO: Make creature plead for help until get healed in random time interval.
 		yield return null;
+
+		dialogCanvas.DisplayMessageForTime ("Don't let me die, bro!");
 	}
 }

@@ -7,13 +7,12 @@ using UnityEngine.EventSystems;
 
 public class DialogScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
-	private Image balloon;
-	private Text dialogMessage;
+	public Image balloon;
+	public Text dialogMessage;
 
 	void Awake()
 	{
-		balloon = GetComponent <Image> ();
-		dialogMessage = GetComponentInChildren <Text> ();
+		TurnBalloonVisibility (false);
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
@@ -36,5 +35,25 @@ public class DialogScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 		temp = dialogMessage.color;
 		temp.a = temp.a*4;
 		dialogMessage.color = temp;
+	}
+
+	public void TurnBalloonVisibility (bool isVisible)
+	{
+		balloon.gameObject.SetActive (isVisible);
+		dialogMessage.gameObject.SetActive (isVisible);
+	}
+
+
+	public void DisplayMessageForTime(string message, float deltaTime = 2.5f)
+	{
+		dialogMessage.text = message;
+		TurnBalloonVisibility (true);
+		StartCoroutine (Display (new WaitForSeconds (deltaTime)));
+	}
+
+	private IEnumerator Display(WaitForSeconds delay)
+	{
+		yield return delay;
+		TurnBalloonVisibility (false);
 	}
 }

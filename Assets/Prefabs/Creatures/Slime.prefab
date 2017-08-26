@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 223617589621338494}
   - component: {fileID: 114461531888353372}
   - component: {fileID: 114782528520660770}
+  - component: {fileID: 114068635738663616}
   m_Layer: 5
   m_Name: BalloonCanvas
   m_TagString: Untagged
@@ -1182,6 +1183,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114068635738663616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1368697938840650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f71fd15d19654f42a5e6e43b336b6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balloon: {fileID: 114313875711106238}
+  dialogMessage: {fileID: 114133931941270446}
 --- !u!114 &114133931941270446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1384,6 +1398,7 @@ MonoBehaviour:
   animatorController: {fileID: 95321951687361230}
   healthSlider: {fileID: 114416029568600796}
   fillSliderImage: {fileID: 114564334013335664}
+  dialogCanvas: {fileID: 114068635738663616}
   shield: {fileID: 1480250440502504}
   HealingBox: {fileID: 1919256402746184}
   belongsToPlayer: 0
