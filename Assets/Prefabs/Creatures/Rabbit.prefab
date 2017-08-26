@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 224447717209859184}
   - component: {fileID: 222471519092316478}
   - component: {fileID: 114025053805485600}
+  - component: {fileID: 114603557955894178}
   m_Layer: 5
   m_Name: TalkingBalloon
   m_TagString: Untagged
@@ -1491,6 +1492,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Please Heal me, dude!
+--- !u!114 &114603557955894178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1130615003848234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f71fd15d19654f42a5e6e43b336b6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114697124770615258
 MonoBehaviour:
   m_ObjectHideFlags: 1
