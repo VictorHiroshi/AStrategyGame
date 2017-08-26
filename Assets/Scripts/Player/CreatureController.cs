@@ -142,6 +142,8 @@ public class CreatureController : MonoBehaviour {
 			yield return lerpTime;
 		}
 
+		GameManager.instance.player [GameManager.instance.activePlayerIndex].Spend (ActionsManager.instance.healingCost);
+
 		HealingBox.SetActive (false);
 	}
 
