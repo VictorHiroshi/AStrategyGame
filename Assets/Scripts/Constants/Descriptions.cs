@@ -15,7 +15,7 @@ public class Descriptions
 	public static string HEAVY_EXPLOIT = "Cost: 1 coin!\nAction to exploit resources massively. It wil destroy the resource soon or later. Be careful!";
 
 	public static string ATTACK = "Cost: 2 coins!\nAction to attack an opponent. This destroys his creature and moves yours to take his place.";
-	public static string CONVERT = "Action to convert an opponent. This keeps the other creature alive, but it will from now on help you. You won't control its actions, though.";
+	public static string CONVERT = "Cost: 2 coins!\nAction to convert an opponent. This keeps the other creature alive, but it will from now on help you. You won't control its actions, though.";
 	public static string OPPRESS = "Action to oppress an opponent. This keeps the other creature alive and you get control of it for a couple turns.";
 	public static string DEFEND = "Cost: 1 coin!\nIf your creature is attacked while defending, it will lose only half of it's health. If you select this option with a defending creature, it will turn off the defense!";
 

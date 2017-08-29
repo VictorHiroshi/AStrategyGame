@@ -154,7 +154,7 @@ public class PanelController : MonoBehaviour {
 		string message = "";
 		if(tile.creature!=null)
 		{
-			message += "This tile belongs to player " + (tile.creature.belongsToPlayer+1)+"!\n";
+			message += "This tile belongs to player " + (tile.creature.belongsToPlayer.playerNumber+1)+"!\n";
 		}
 		else
 		{

@@ -10,11 +10,13 @@ public class CreatureController : MonoBehaviour {
 	public DialogScript dialogCanvas;
 	public GameObject shield;
 	public GameObject HealingBox;
-	public int belongsToPlayer;
+
 	public float speed = 0.1f;
 
 	[HideInInspector] public bool moved;
 	[HideInInspector] public bool isTired;
+	[HideInInspector] public PlayerController belongsToPlayer;
+	[HideInInspector] public PlayerController influencedByPlayer;
 
 	private int health;
 	private int defendingDamage;
@@ -44,6 +46,7 @@ public class CreatureController : MonoBehaviour {
 		TurnDefense (false);
 
 		HealingBox.SetActive (false);
+
 	}
 
 	public void FinishedAnimation()
@@ -73,8 +76,8 @@ public class CreatureController : MonoBehaviour {
 	public void ChangeTeam(int newPlayerIndex)
 	{
 		
-		belongsToPlayer = newPlayerIndex;
-		fillSliderImage.color = GameManager.instance.playersColors[belongsToPlayer];
+		belongsToPlayer = GameManager.instance.player[newPlayerIndex];
+		fillSliderImage.color = GameManager.instance.playersColors[newPlayerIndex];
 	}
 
 	public void MoveToTarget (Transform target)
@@ -89,7 +92,7 @@ public class CreatureController : MonoBehaviour {
 		GameObject instance = Instantiate (creatureModel, newPosition, Quaternion.identity);
 		newCreature = instance.GetComponent <CreatureController> ();
 
-		newCreature.ChangeTeam (belongsToPlayer);
+		newCreature.ChangeTeam (belongsToPlayer.playerNumber);
 
 		newCreature.MoveToTarget (target);
 	}
@@ -115,6 +118,17 @@ public class CreatureController : MonoBehaviour {
 	{
 		explosionParticles.Play ();
 		rocksParticles.Play ();
+	}
+
+	public void Convert(Transform origin, Transform target, CreatureController enemy)
+	{
+		this.enemy = enemy;
+
+		enemy.transform.rotation = Quaternion.LookRotation (origin.position - target.position);
+
+		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
+
+		StartCoroutine (Converting (origin, target, walkingPosition));
 	}
 
 	public void FinishExploringAnimation()
@@ -222,6 +236,30 @@ public class CreatureController : MonoBehaviour {
 			MoveToTarget (origin);
 			enemy.transform.rotation = Quaternion.identity;
 		}
+	}
+
+	private IEnumerator Converting(Transform origin, Transform target, Vector3 midTarget)
+	{
+		animatorController.SetTrigger ("Moves");
+
+		transform.rotation = Quaternion.LookRotation (midTarget - transform.position);
+		while((transform.position - midTarget).sqrMagnitude > 0.15)
+		{
+			transform.position = Vector3.Lerp (transform.position, midTarget, Time.deltaTime * speed);
+			yield return null;
+		}
+
+		// TODO: Exhibit convert message;
+
+
+		// TODO: Check if converted or influenced enemy;
+
+		Debug.Log ("Convert");
+
+
+		MoveToTarget (origin);
+		enemy.transform.rotation = Quaternion.identity;
+
 	}
 
 	private IEnumerator PleadForHelp()
