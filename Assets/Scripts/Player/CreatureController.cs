@@ -35,22 +35,28 @@ public class CreatureController : MonoBehaviour {
 		moved = false;
 		isTired = false;
 
-		health = ActionsManager.instance.maxHealth;
-		defendingDamage = ActionsManager.instance.defendingDamage;
-
-		healthSlider.value = health;
-		healthSlider.maxValue = ActionsManager.instance.maxHealth;
 		creatureModel = gameObject;
 		animatorController.SetTrigger ("IsIdle");
 
-		explosionParticles = Instantiate (GameManager.instance.boardScript.explosionParticles, transform.position, Quaternion.identity, transform);
-		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform);
 
 		TurnDefense (false);
 
 		HealingBox.SetActive (false);
 
 		inDoubtBlinkTime = new WaitForSeconds (inDoubtBlinkTimeValue);
+	}
+
+	void LateStart()
+	{
+		health = ActionsManager.instance.maxHealth;
+		healthSlider.maxValue = ActionsManager.instance.maxHealth;
+		healthSlider.value = health;
+
+		defendingDamage = ActionsManager.instance.defendingDamage;
+
+		explosionParticles = Instantiate (GameManager.instance.boardScript.explosionParticles, transform.position, Quaternion.identity, transform);
+		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform);
+
 	}
 
 	public void FinishedAnimation()

@@ -425,12 +425,12 @@ Prefab:
     - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: columns
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: rows
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -451,6 +451,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ActionConvert
+      objectReference: {fileID: 0}
+    - target: {fileID: 82543960544823774, guid: 7b35235e2a35d7742b27da443665c472,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b35235e2a35d7742b27da443665c472, type: 2}
