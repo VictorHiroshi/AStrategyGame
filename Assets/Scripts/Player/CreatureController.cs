@@ -12,13 +12,13 @@ public class CreatureController : MonoBehaviour {
 	public GameObject HealingBox;
 
 	public float speed = 0.1f;
-	public float inDoubtBlinkTimeValue = 2f;
 
 	[HideInInspector] public bool moved;
 	[HideInInspector] public bool isTired;
-	[HideInInspector] public PlayerController belongsToPlayer;
-	[HideInInspector] public PlayerController influencedByPlayer;
+	[HideInInspector] public PlayerController belongsToPlayer = null;
+	[HideInInspector] public PlayerController influencedByPlayer = null;
 
+	private float inDoubtBlinkTimeValue = 1f;
 	private int health;
 	private int defendingDamage;
 	private bool finishedInteractionAnimation = false;
@@ -50,7 +50,6 @@ public class CreatureController : MonoBehaviour {
 
 		HealingBox.SetActive (false);
 
-		influencedByPlayer = null;
 		inDoubtBlinkTime = new WaitForSeconds (inDoubtBlinkTimeValue);
 	}
 
@@ -80,7 +79,7 @@ public class CreatureController : MonoBehaviour {
 
 	public void ChangeTeam(int newPlayerIndex)
 	{
-		
+		influencedByPlayer = null;
 		belongsToPlayer = GameManager.instance.player[newPlayerIndex];
 		fillSliderImage.color = GameManager.instance.playersColors[newPlayerIndex];
 	}
@@ -168,31 +167,25 @@ public class CreatureController : MonoBehaviour {
 
 	public IEnumerator CheckIfConverted(CreatureController savior)
 	{
-		Debug.Log (influencedByPlayer);
-		if(influencedByPlayer == null)
-		{
-			influencedByPlayer = savior.belongsToPlayer;
-			inDoubtBlinkLoop = InDoubt ();
-			StartCoroutine (inDoubtBlinkLoop);
-		}
-		else if (influencedByPlayer == savior.belongsToPlayer)
+		
+		if (influencedByPlayer == savior.belongsToPlayer)
 		{
 			StopCoroutine (inDoubtBlinkLoop);
-			influencedByPlayer = null;
 			ChangeTeam (savior.belongsToPlayer.playerNumber);
 		}
 		else if (savior.belongsToPlayer == belongsToPlayer)
 		{
 			StopCoroutine (inDoubtBlinkLoop);
-			influencedByPlayer = null;
 			ChangeTeam (belongsToPlayer.playerNumber);
 		}
 		else
 		{
-			StopCoroutine (inDoubtBlinkLoop);
+			if(inDoubtBlinkLoop != null)
+				StopCoroutine (inDoubtBlinkLoop);
 			influencedByPlayer = savior.belongsToPlayer;
 			inDoubtBlinkLoop = InDoubt ();
 			StartCoroutine (inDoubtBlinkLoop);	
+			Debug.Log (influencedByPlayer);
 		}
 
 		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
