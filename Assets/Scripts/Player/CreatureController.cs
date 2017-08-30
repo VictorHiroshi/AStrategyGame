@@ -177,6 +177,11 @@ public class CreatureController : MonoBehaviour {
 		if (influencedByPlayer == savior.belongsToPlayer)
 		{
 			StopCoroutine (inDoubtBlinkLoop);
+
+			//Informs GameManager that the enemy lost this creature.
+			ActionsManager.instance.EnemyLostControlOverTarget ();
+			ActionsManager.instance.ActiveControllNewTile ();
+
 			ChangeTeam (savior.belongsToPlayer.playerNumber);
 		}
 		else if (savior.belongsToPlayer == belongsToPlayer)
@@ -188,10 +193,10 @@ public class CreatureController : MonoBehaviour {
 		{
 			if(inDoubtBlinkLoop != null)
 				StopCoroutine (inDoubtBlinkLoop);
+	
 			influencedByPlayer = savior.belongsToPlayer;
 			inDoubtBlinkLoop = InDoubt ();
 			StartCoroutine (inDoubtBlinkLoop);	
-			Debug.Log (influencedByPlayer);
 		}
 
 		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
@@ -291,9 +296,9 @@ public class CreatureController : MonoBehaviour {
 			
 		animatorController.SetTrigger ("IsIdle");
 		string convertingMessage = "Come to the true " +  "<color=#" + ColorUtility.ToHtmlStringRGB(belongsToPlayer.color) + ">COLOR" + "</color>" + "!";
+
 		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
 		dialogCanvas.DisplayMessageForTime (convertingMessage);
-
 		yield return exhibitMessageTime;
 
 		StartCoroutine (enemy.CheckIfConverted (this));

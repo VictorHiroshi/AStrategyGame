@@ -26,7 +26,6 @@ public class PlayerController {
 
 	public void ControllNewTile(TileController newTile)
 	{
-		// TODO: Verify if new tile has stones in it to add to controlled stones and add tile to controlledTiles
 		controlledTiles.Add (TileController.GetStringID (newTile.xIndex, newTile.zIndex));
 		if(newTile.resource!=null)
 		{
@@ -36,7 +35,6 @@ public class PlayerController {
 
 	public void LeaveTile(TileController oldTile)
 	{
-		// TODO: Verify if old tile had stones in it to remove it from controlled stones and remove tile from controlledTiles
 		controlledTiles.Remove (TileController.GetStringID (oldTile.xIndex, oldTile.zIndex));
 		if(oldTile.resource!=null)
 		{
