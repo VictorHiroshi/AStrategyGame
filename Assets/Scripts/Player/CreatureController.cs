@@ -46,7 +46,7 @@ public class CreatureController : MonoBehaviour {
 		inDoubtBlinkTime = new WaitForSeconds (inDoubtBlinkTimeValue);
 	}
 
-	void LateStart()
+	void Start()
 	{
 		health = ActionsManager.instance.maxHealth;
 		healthSlider.maxValue = ActionsManager.instance.maxHealth;
