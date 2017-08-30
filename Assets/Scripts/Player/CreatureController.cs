@@ -12,6 +12,7 @@ public class CreatureController : MonoBehaviour {
 	public GameObject HealingBox;
 
 	public float speed = 0.1f;
+	public float inDoubtBlinkTimeValue = 2f;
 
 	[HideInInspector] public bool moved;
 	[HideInInspector] public bool isTired;
@@ -22,10 +23,12 @@ public class CreatureController : MonoBehaviour {
 	private int defendingDamage;
 	private bool finishedInteractionAnimation = false;
 	private bool isDefending;
+	private IEnumerator inDoubtBlinkLoop;
 	private GameObject creatureModel;
 	private ParticleSystem explosionParticles;
 	private ParticleSystem rocksParticles;
 	private CreatureController enemy;
+	private WaitForSeconds inDoubtBlinkTime;
 
 	void Awake()
 	{
@@ -47,6 +50,8 @@ public class CreatureController : MonoBehaviour {
 
 		HealingBox.SetActive (false);
 
+		influencedByPlayer = null;
+		inDoubtBlinkTime = new WaitForSeconds (inDoubtBlinkTimeValue);
 	}
 
 	public void FinishedAnimation()
@@ -161,6 +166,42 @@ public class CreatureController : MonoBehaviour {
 		HealingBox.SetActive (false);
 	}
 
+	public IEnumerator CheckIfConverted(CreatureController savior)
+	{
+		Debug.Log (influencedByPlayer);
+		if(influencedByPlayer == null)
+		{
+			influencedByPlayer = savior.belongsToPlayer;
+			inDoubtBlinkLoop = InDoubt ();
+			StartCoroutine (inDoubtBlinkLoop);
+		}
+		else if (influencedByPlayer == savior.belongsToPlayer)
+		{
+			StopCoroutine (inDoubtBlinkLoop);
+			influencedByPlayer = null;
+			ChangeTeam (savior.belongsToPlayer.playerNumber);
+		}
+		else if (savior.belongsToPlayer == belongsToPlayer)
+		{
+			StopCoroutine (inDoubtBlinkLoop);
+			influencedByPlayer = null;
+			ChangeTeam (belongsToPlayer.playerNumber);
+		}
+		else
+		{
+			StopCoroutine (inDoubtBlinkLoop);
+			influencedByPlayer = savior.belongsToPlayer;
+			inDoubtBlinkLoop = InDoubt ();
+			StartCoroutine (inDoubtBlinkLoop);	
+		}
+
+		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
+		dialogCanvas.DisplayMessageForTime ("Oh Boy...");
+
+		yield return exhibitMessageTime;
+
+	}
+
 	private IEnumerator CheckIfDie (CreatureController killer)
 	{
 		// TODO: Play animation
@@ -248,14 +289,15 @@ public class CreatureController : MonoBehaviour {
 			transform.position = Vector3.Lerp (transform.position, midTarget, Time.deltaTime * speed);
 			yield return null;
 		}
+			
+		animatorController.SetTrigger ("IsIdle");
+		string convertingMessage = "Come to the true " +  "<color=#" + ColorUtility.ToHtmlStringRGB(belongsToPlayer.color) + ">COLOR" + "</color>" + "!";
+		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
+		dialogCanvas.DisplayMessageForTime (convertingMessage);
 
-		// TODO: Exhibit convert message;
+		yield return exhibitMessageTime;
 
-
-		// TODO: Check if converted or influenced enemy;
-
-		Debug.Log ("Convert");
-
+		StartCoroutine (enemy.CheckIfConverted (this));
 
 		MoveToTarget (origin);
 		enemy.transform.rotation = Quaternion.identity;
@@ -268,5 +310,22 @@ public class CreatureController : MonoBehaviour {
 		yield return null;
 
 		dialogCanvas.DisplayMessageForTime ("Don't let me die, bro!");
+	}
+
+	private IEnumerator InDoubt()
+	{
+		while(true)
+		{
+			if(fillSliderImage.color == belongsToPlayer.color)
+			{
+				fillSliderImage.color = influencedByPlayer.color;
+			}
+			else
+			{
+				fillSliderImage.color = belongsToPlayer.color;
+			}
+
+			yield return inDoubtBlinkTime;
+		}
 	}
 }
