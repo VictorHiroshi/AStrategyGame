@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 
 public class Descriptions
@@ -6,18 +7,18 @@ public class Descriptions
 	public static string RESOURCE_STONE = "Stones increase the total income when within your territory. You can exploit then to get more coins.";
 
 	public static string NO_DESCRIPTION = "=)";
-	public static string HEALING = "Cost: 1 coin!\nClick here to heal this creature.";
+	public static string HEALING = String.Format("Cost: {0} coin!\nClick here to heal this creature.", ActionsManager.instance.healingCost);
 
-	public static string MOVE = "Cost: 1 coin!\nAction to move your creature around the board. Remember that once a criature leaves a tile, it's no longer part of your territory.";
-	public static string DUPLICATE = "Cost: 2 coins!\nAction to expand your therritory with new creatures.";
+	public static string MOVE = String.Format("Cost: {0} coin!\nAction to move your creature around the board. Remember that once a criature leaves a tile, it's no longer part of your territory.", ActionsManager.instance.movingCost);
+	public static string DUPLICATE = String.Format("Cost: {0} coins!\nAction to expand your therritory with new creatures.", ActionsManager.instance.duplicateCost);
 
-	public static string LIGHT_EXPLOIT = "Cost: 1 coin!\nAction to exploit resources gathering just as much as mother nature gives you.";
-	public static string HEAVY_EXPLOIT = "Cost: 1 coin!\nAction to exploit resources massively. It wil destroy the resource soon or later. Be careful!";
+	public static string LIGHT_EXPLOIT = String.Format("Cost: {0} coin!\nAction to exploit resources gathering just as much as mother nature gives you.", ActionsManager.instance.exploitCost);
+	public static string HEAVY_EXPLOIT = String.Format("Cost: {0} coin!\nAction to exploit resources massively. It wil destroy the resource soon or later. Be careful!", ActionsManager.instance.exploitCost);
 
-	public static string ATTACK = "Cost: 2 coins!\nAction to attack an opponent. This destroys his creature and moves yours to take his place.";
-	public static string CONVERT = "Cost: 2 coins!\nAction to convert an opponent. This keeps the other creature alive, but it will from now on help you. You won't control its actions, though.";
+	public static string ATTACK = String.Format("Cost: {0} coins!\nAction to attack an opponent. This destroys his creature and moves yours to take his place.", ActionsManager.instance.attackCost);
+	public static string CONVERT = String.Format("Cost: {0} coins!\nAction to convert an opponent. This keeps the other creature alive, but it will from now on help you. You won't control its actions, though.", ActionsManager.instance.convertingCost);
 	public static string OPPRESS = "Action to oppress an opponent. This keeps the other creature alive and you get control of it for a couple turns.";
-	public static string DEFEND = "Cost: 1 coin!\nIf your creature is attacked while defending, it will lose only half of it's health. If you select this option with a defending creature, it will turn off the defense!";
+	public static string DEFEND = String.Format("Cost: {0} coin!\nIf your creature is attacked while defending, it will lose only half of it's health. If you select this option with a defending creature, it will turn off the defense!", ActionsManager.instance.defenseCost);
 
 	public static string NEXT_TURN_BUTTON = "ATTENTION!\nThis will take you to the next turn!";
 	public static string COINS = "This is your money. Use it to pay creatures to perform actions. Each turn you'll receive some more coins. You can get then by exploring resources, by the way.";
