@@ -31,12 +31,13 @@ public class OppressCount : MonoBehaviour {
 			temporaryCountingStruct.renderer = child.GetComponentInParent <Renderer> ();
 			if (temporaryCountingStruct.renderer == null)
 				Debug.LogError ("No renderer in children");
+
+			temporaryCountingStruct.gameObject.SetActive (false);
 			
 			countingMeshes.Add (temporaryCountingStruct);
 
 		}
 
-		countingOppressTurns = countingMeshes.Count;
 	}
 	
 	public void SetColors(Color newColor)
@@ -50,9 +51,25 @@ public class OppressCount : MonoBehaviour {
 	public void CountDown()
 	{
 		if (countingOppressTurns == 0)
+		{
+			Oppress ();
 			return;
+		}
 
 		countingOppressTurns--;
 		countingMeshes [countingOppressTurns].gameObject.SetActive (false);
+	}
+
+	public void Oppress()
+	{
+
+		foreach (CountingStruct mesh in countingMeshes)
+		{
+			mesh.gameObject.SetActive (true);
+		}
+
+		countingOppressTurns = countingMeshes.Count;
+		Color tempColor = Random.ColorHSV ();
+		SetColors (tempColor);
 	}
 }
