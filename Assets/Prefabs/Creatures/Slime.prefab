@@ -1399,12 +1399,26 @@ MonoBehaviour:
   healthSlider: {fileID: 114416029568600796}
   fillSliderImage: {fileID: 114564334013335664}
   dialogCanvas: {fileID: 114068635738663616}
+  creatureTransform: {fileID: 4302609671920228}
   shield: {fileID: 1480250440502504}
   HealingBox: {fileID: 1919256402746184}
-  belongsToPlayer: 0
   speed: 1
   moved: 0
   isTired: 0
+  belongsToPlayer:
+    color: {r: 0, g: 0, b: 0, a: 0}
+    controlledTiles: []
+    creature: {fileID: 0}
+    coinCount: 0
+    playerNumber: 0
+    controlledStones: 0
+  influencedByPlayer:
+    color: {r: 0, g: 0, b: 0, a: 0}
+    controlledTiles: []
+    creature: {fileID: 0}
+    coinCount: 0
+    playerNumber: 0
+    controlledStones: 0
 --- !u!114 &114564334013335664
 MonoBehaviour:
   m_ObjectHideFlags: 1

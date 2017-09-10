@@ -14,6 +14,7 @@ public class DialogScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 	{
 		TurnBalloonVisibility (false);
 	}
+		
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{

@@ -8,6 +8,7 @@ public class CreatureController : MonoBehaviour {
 	public Slider healthSlider;
 	public Image fillSliderImage;
 	public DialogScript dialogCanvas;
+	public Transform creatureTransform;
 	public GameObject shield;
 	public GameObject HealingBox;
 
@@ -111,7 +112,7 @@ public class CreatureController : MonoBehaviour {
 	{
 		this.enemy = enemy;
 
-		enemy.transform.rotation = Quaternion.LookRotation (origin.position - target.position);
+		enemy.creatureTransform.rotation = Quaternion.LookRotation (origin.position - target.position);
 
 		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
 
@@ -134,7 +135,7 @@ public class CreatureController : MonoBehaviour {
 	{
 		this.enemy = enemy;
 
-		enemy.transform.rotation = Quaternion.LookRotation (origin.position - target.position);
+		enemy.creatureTransform.rotation = Quaternion.LookRotation (origin.position - target.position);
 
 		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
 
@@ -230,7 +231,10 @@ public class CreatureController : MonoBehaviour {
 
 	private IEnumerator Moving(Transform target)
 	{
-		transform.rotation = Quaternion.LookRotation (target.position - transform.position);
+		creatureTransform.rotation = Quaternion.LookRotation (target.position - transform.position);
+
+		Debug.Log ("Player: " + belongsToPlayer + " - R " + creatureTransform.rotation);
+
 		while(transform.position!=target.position){
 			float step = speed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards (transform.position, target.position, step);
@@ -239,7 +243,7 @@ public class CreatureController : MonoBehaviour {
 		animatorController.SetTrigger ("IsIdle");
 
 
-		transform.rotation = Quaternion.identity;
+		creatureTransform.rotation = Quaternion.identity;
 		ActionsManager.instance.FinishAction ();
 
 	}
@@ -248,7 +252,7 @@ public class CreatureController : MonoBehaviour {
 	{
 		animatorController.SetTrigger ("Moves");
 
-		transform.rotation = Quaternion.LookRotation (midTarget - transform.position);
+		creatureTransform.rotation = Quaternion.LookRotation (midTarget - transform.position);
 		while((transform.position - midTarget).sqrMagnitude > 0.15)
 		{
 			transform.position = Vector3.Lerp (transform.position, midTarget, Time.deltaTime * speed);
@@ -279,7 +283,7 @@ public class CreatureController : MonoBehaviour {
 		else
 		{
 			MoveToTarget (origin);
-			enemy.transform.rotation = Quaternion.identity;
+			enemy.creatureTransform.rotation = Quaternion.identity;
 		}
 	}
 
@@ -287,7 +291,7 @@ public class CreatureController : MonoBehaviour {
 	{
 		animatorController.SetTrigger ("Moves");
 
-		transform.rotation = Quaternion.LookRotation (midTarget - transform.position);
+		creatureTransform.rotation = Quaternion.LookRotation (midTarget - transform.position);
 		while((transform.position - midTarget).sqrMagnitude > 0.15)
 		{
 			transform.position = Vector3.Lerp (transform.position, midTarget, Time.deltaTime * speed);
@@ -304,7 +308,7 @@ public class CreatureController : MonoBehaviour {
 		StartCoroutine (enemy.CheckIfConverted (this));
 
 		MoveToTarget (origin);
-		enemy.transform.rotation = Quaternion.identity;
+		enemy.creatureTransform.rotation = Quaternion.identity;
 
 	}
 

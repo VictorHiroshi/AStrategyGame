@@ -96,7 +96,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1193606607781900
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -299,6 +299,21 @@ GameObject:
   - component: {fileID: 114681293897589880}
   m_Layer: 5
   m_Name: TalkingBalloon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1557314780256748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4543458890109566}
+  m_Layer: 0
+  m_Name: RigTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -586,13 +601,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1193606607781900}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.099999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4935041843396492}
-  m_Father: {fileID: 4649690426517634}
-  m_RootOrder: 1
+  m_Father: {fileID: 4543458890109566}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4388176305080376
 Transform:
@@ -647,6 +662,20 @@ Transform:
   m_Father: {fileID: 4222229662506278}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!4 &4543458890109566
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557314780256748}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4355877413264200}
+  m_Father: {fileID: 4649690426517634}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4649690426517634
 Transform:
   m_ObjectHideFlags: 1
@@ -658,7 +687,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4422228817688672}
-  - {fileID: 4355877413264200}
+  - {fileID: 4543458890109566}
   - {fileID: 224901190022147572}
   - {fileID: 4388176305080376}
   - {fileID: 4222229662506278}
@@ -726,7 +755,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1948661982628758}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1093,12 +1122,26 @@ MonoBehaviour:
   healthSlider: {fileID: 114634568184693600}
   fillSliderImage: {fileID: 114491958729795952}
   dialogCanvas: {fileID: 114366359054996688}
+  creatureTransform: {fileID: 4543458890109566}
   shield: {fileID: 1150558244449122}
   HealingBox: {fileID: 1026932579399710}
-  belongsToPlayer: 0
   speed: 1
   moved: 0
   isTired: 0
+  belongsToPlayer:
+    color: {r: 0, g: 0, b: 0, a: 0}
+    controlledTiles: []
+    creature: {fileID: 0}
+    coinCount: 0
+    playerNumber: 0
+    controlledStones: 0
+  influencedByPlayer:
+    color: {r: 0, g: 0, b: 0, a: 0}
+    controlledTiles: []
+    creature: {fileID: 0}
+    coinCount: 0
+    playerNumber: 0
+    controlledStones: 0
 --- !u!114 &114147490942300494
 MonoBehaviour:
   m_ObjectHideFlags: 1
