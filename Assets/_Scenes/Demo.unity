@@ -108,12 +108,23 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &293003588 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114883887595158414, guid: 206c8ae450ccb6f4f827cb847df1c926,
+--- !u!1 &293003585 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1652046207837132, guid: 206c8ae450ccb6f4f827cb847df1c926,
     type: 2}
   m_PrefabInternal: {fileID: 1323677443}
+--- !u!114 &293003588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 293003585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f8ed43c47e0d4241aafc2bef895b1b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countingOppressTurns: 0
 --- !u!1001 &675493412
 Prefab:
   m_ObjectHideFlags: 0
@@ -315,7 +326,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 293003588}
-        m_MethodName: SetColors
+        m_MethodName: CountDown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -464,21 +475,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 4935811886982888, guid: 206c8ae450ccb6f4f827cb847df1c926, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4197156293704764, guid: 206c8ae450ccb6f4f827cb847df1c926, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4385765388211544, guid: 206c8ae450ccb6f4f827cb847df1c926, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4191681409608324, guid: 206c8ae450ccb6f4f827cb847df1c926, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
+    - target: {fileID: 1652046207837132, guid: 206c8ae450ccb6f4f827cb847df1c926, type: 2}
+      propertyPath: m_Name
+      value: OppressCount
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 206c8ae450ccb6f4f827cb847df1c926, type: 2}

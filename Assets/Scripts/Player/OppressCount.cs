@@ -8,7 +8,9 @@ public class CountingStruct
 	public Renderer renderer;
 }
 
-public class ConvertingCount : MonoBehaviour {
+public class OppressCount : MonoBehaviour {
+
+	public int countingOppressTurns = 0;
 
 	private List<CountingStruct> countingMeshes;
 
@@ -33,7 +35,8 @@ public class ConvertingCount : MonoBehaviour {
 			countingMeshes.Add (temporaryCountingStruct);
 
 		}
-		Debug.Log (countingMeshes.Count);
+
+		countingOppressTurns = countingMeshes.Count;
 	}
 	
 	public void SetColors(Color newColor)
@@ -42,5 +45,14 @@ public class ConvertingCount : MonoBehaviour {
 		{
 			mesh.renderer.material.SetColor ("_Color", newColor);
 		}
+	}
+
+	public void CountDown()
+	{
+		if (countingOppressTurns == 0)
+			return;
+
+		countingOppressTurns--;
+		countingMeshes [countingOppressTurns].gameObject.SetActive (false);
 	}
 }
