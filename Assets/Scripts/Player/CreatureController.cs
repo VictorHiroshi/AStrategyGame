@@ -86,8 +86,8 @@ public class CreatureController : MonoBehaviour {
 
 	public void ChangeTeam(int newPlayerIndex)
 	{
-		influencedByPlayer = null;
 		belongsToPlayer = GameManager.instance.player[newPlayerIndex];
+		influencedByPlayer = null;
 		fillSliderImage.color = GameManager.instance.playersColors[newPlayerIndex];
 	}
 
