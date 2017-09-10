@@ -17,7 +17,7 @@ public class Descriptions
 
 	public static string ATTACK = String.Format("Cost: {0} coins!\nAction to attack an opponent. This destroys his creature and moves yours to take his place.", ActionsManager.instance.attackCost);
 	public static string CONVERT = String.Format("Cost: {0} coins!\nAction to convert an opponent. This keeps the other creature alive, but it will from now on help you. You won't control its actions, though.", ActionsManager.instance.convertingCost);
-	public static string OPPRESS = "Action to oppress an opponent. This keeps the other creature alive and you get control of it for a couple turns.";
+	public static string OPPRESS = String.Format("Cost: {0} coins!\nAction to oppress an opponent. This keeps the other creature alive and you get control of it for a couple turns.", ActionsManager.instance.oppressingCost);
 	public static string DEFEND = String.Format("Cost: {0} coin!\nIf your creature is attacked while defending, it will lose only half of it's health. If you select this option with a defending creature, it will turn off the defense!", ActionsManager.instance.defenseCost);
 
 	public static string NEXT_TURN_BUTTON = "ATTENTION!\nThis will take you to the next turn!";

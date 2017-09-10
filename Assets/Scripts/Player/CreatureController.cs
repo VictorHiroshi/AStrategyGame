@@ -233,8 +233,6 @@ public class CreatureController : MonoBehaviour {
 	{
 		creatureTransform.rotation = Quaternion.LookRotation (target.position - transform.position);
 
-		Debug.Log ("Player: " + belongsToPlayer + " - R " + creatureTransform.rotation);
-
 		while(transform.position!=target.position){
 			float step = speed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards (transform.position, target.position, step);
