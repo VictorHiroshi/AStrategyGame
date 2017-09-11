@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿//using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Class to control player informations.
 [System.Serializable]
-public class PlayerController {
+public class PlayerController : ScriptableObject{
 	public Color color;
 	public List<string> controlledTiles;
 	public GameObject creature;

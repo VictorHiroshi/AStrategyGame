@@ -8,8 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
 	[HideInInspector]public BoardManager boardScript;
-	/*[HideInInspector]*/
-public PlayerController[] player;
+	[HideInInspector] public PlayerController[] player;
 
 	public int coinsPerStone = 2;
 	public int coinsPerTurn = 4;
@@ -68,6 +67,7 @@ public PlayerController[] player;
 		FocusCameraOn (player [activePlayerIndex]);
 		ClearTiredCreaturesList ();
 		ClearSelections ();
+
 	}
 
 	public void ClearSelections()
@@ -111,7 +111,6 @@ public PlayerController[] player;
 
 	private void TurnChangingIncome ()
 	{
-		// TODO: Give turn changing money for all players.
 		for (int i = 0; i < player.Length; i++) {
 			player [i].coinCount += coinsPerTurn;
 			player [i].coinCount += (coinsPerStone * player [i].controlledStones);

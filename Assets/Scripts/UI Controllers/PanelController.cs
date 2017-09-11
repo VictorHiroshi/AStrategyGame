@@ -155,9 +155,10 @@ public class PanelController : MonoBehaviour {
 		if(tile.creature!=null)
 		{
 			message += "This tile belongs to player " + (tile.creature.belongsToPlayer.playerNumber+1)+"!\n";
-			if(tile.creature.influencedByPlayer != null)
+
+			if(tile.creature.InfluencedByPlayer != null)
 			{
-				message += "But this creature is under the influence of player " + (tile.creature.influencedByPlayer.playerNumber+1) + "!\n";
+				message += "But this creature is under the influence of player " + (tile.creature.InfluencedByPlayer.playerNumber+1) + "!\n";
 			}
 		}
 		else

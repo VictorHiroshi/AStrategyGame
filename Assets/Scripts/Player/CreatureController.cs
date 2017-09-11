@@ -16,8 +16,15 @@ public class CreatureController : MonoBehaviour {
 
 	[HideInInspector] public bool moved;
 	[HideInInspector] public bool isTired;
-	[HideInInspector] public PlayerController belongsToPlayer = null;
-	[HideInInspector] public PlayerController influencedByPlayer = null;
+/*	[HideInInspector] */
+public PlayerController belongsToPlayer;
+/*	[HideInInspector] */
+private PlayerController influencedByPlayer;
+
+	public PlayerController InfluencedByPlayer
+	{
+		get{return influencedByPlayer;}
+	}
 
 	private float inDoubtBlinkTimeValue = 1f;
 	private int health;
@@ -25,7 +32,6 @@ public class CreatureController : MonoBehaviour {
 	private bool finishedInteractionAnimation = false;
 	private bool isDefending;
 	private IEnumerator inDoubtBlinkLoop;
-	private GameObject creatureModel;
 	private ParticleSystem explosionParticles;
 	private ParticleSystem rocksParticles;
 	private CreatureController enemy;
@@ -36,9 +42,7 @@ public class CreatureController : MonoBehaviour {
 		moved = false;
 		isTired = false;
 
-		creatureModel = gameObject;
 		animatorController.SetTrigger ("IsIdle");
-
 
 		TurnDefense (false);
 
@@ -55,8 +59,8 @@ public class CreatureController : MonoBehaviour {
 
 		defendingDamage = ActionsManager.instance.defendingDamage;
 
-		explosionParticles = Instantiate (GameManager.instance.boardScript.explosionParticles, transform.position, Quaternion.identity, transform);
-		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform);
+		explosionParticles = Instantiate (GameManager.instance.boardScript.explosionParticles, transform.position, Quaternion.identity, transform) as ParticleSystem;
+		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform) as ParticleSystem;
 
 	}
 
@@ -84,11 +88,11 @@ public class CreatureController : MonoBehaviour {
 		return (health == 0);
 	}
 
-	public void ChangeTeam(int newPlayerIndex)
+	public void ChangeTeam(PlayerController player)
 	{
-		belongsToPlayer = GameManager.instance.player[newPlayerIndex];
+		belongsToPlayer = player;
 		influencedByPlayer = null;
-		fillSliderImage.color = GameManager.instance.playersColors[newPlayerIndex];
+		fillSliderImage.color = player.color;
 	}
 
 	public void MoveToTarget (Transform target)
@@ -100,12 +104,15 @@ public class CreatureController : MonoBehaviour {
 	public void DuplicateToTarget (Transform target, out CreatureController newCreature)
 	{
 		Vector3 newPosition = transform.position + (0.3f * (target.position - transform.position));
-		GameObject instance = Instantiate (creatureModel, newPosition, Quaternion.identity);
+
+		GameObject instance = Instantiate (gameObject, newPosition, Quaternion.identity) as GameObject;
+
 		newCreature = instance.GetComponent <CreatureController> ();
 
-		newCreature.ChangeTeam (belongsToPlayer.playerNumber);
+		newCreature.ChangeTeam (belongsToPlayer);
 
 		newCreature.MoveToTarget (target);
+
 	}
 
 	public void Attack(Transform origin, Transform target, CreatureController enemy)
@@ -158,12 +165,10 @@ public class CreatureController : MonoBehaviour {
 
 		WaitForSeconds lerpTime = new WaitForSeconds (0.1f);
 
-		Debug.Log ("Health: " + health);
 
 		while(healthSlider.value != health)
 		{
 			healthSlider.value += 1;
-			Debug.Log ("HealthSlider: " + healthSlider);
 			yield return lerpTime;
 		}
 
@@ -174,26 +179,31 @@ public class CreatureController : MonoBehaviour {
 
 	public IEnumerator CheckIfConverted(CreatureController savior)
 	{
-		
-		if (influencedByPlayer == savior.belongsToPlayer)
+		if(influencedByPlayer == null)
 		{
+			influencedByPlayer = savior.belongsToPlayer;
+			inDoubtBlinkLoop = InDoubt ();
+			StartCoroutine (inDoubtBlinkLoop);
+		}
+		else if (influencedByPlayer == savior.belongsToPlayer)
+		{
+
 			StopCoroutine (inDoubtBlinkLoop);
 
 			//Informs GameManager that the enemy lost this creature.
 			ActionsManager.instance.EnemyLostControlOverTarget ();
 			ActionsManager.instance.ActiveControllNewTile ();
 
-			ChangeTeam (savior.belongsToPlayer.playerNumber);
+			ChangeTeam (savior.belongsToPlayer);
 		}
 		else if (savior.belongsToPlayer == belongsToPlayer)
 		{
 			StopCoroutine (inDoubtBlinkLoop);
-			ChangeTeam (belongsToPlayer.playerNumber);
+			ChangeTeam (belongsToPlayer);
 		}
 		else
 		{
-			if(inDoubtBlinkLoop != null)
-				StopCoroutine (inDoubtBlinkLoop);
+			StopCoroutine (inDoubtBlinkLoop);
 	
 			influencedByPlayer = savior.belongsToPlayer;
 			inDoubtBlinkLoop = InDoubt ();

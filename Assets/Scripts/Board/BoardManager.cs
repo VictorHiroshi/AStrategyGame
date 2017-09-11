@@ -51,7 +51,6 @@ public class BoardManager : MonoBehaviour {
 		BoardSetup ();
 		CreateResources ();
 		CreateInitialCreatures ();
-		// TODO: setup HUD.
 
 		selectedTile = null;
 		existsSelectedTile = false;
@@ -89,7 +88,6 @@ public class BoardManager : MonoBehaviour {
 	// Given an ID, returns the controller of the tile, if exists.
 	public TileController getTile(string id)
 	{
-		// TODO: Test if id is valid;
 		TileController tileInstance = boardGameByID [id].GetComponent <TileController>();
 		return tileInstance;
 	}
@@ -168,7 +166,7 @@ public class BoardManager : MonoBehaviour {
 					toInstantiate = tiles.normalTiles [Random.Range (0, tiles.normalTiles.Length)];
 				}
 
-				GameObject instance = Instantiate (toInstantiate, new Vector3 (z * tiles.tileSideSize, 0f, x * tiles.tileSideSize), Quaternion.identity);
+				GameObject instance = Instantiate (toInstantiate, new Vector3 (z * tiles.tileSideSize, 0f, x * tiles.tileSideSize), Quaternion.identity) as GameObject;
 				instance.transform.SetParent (boardHolder);
 
 				TileController tile = instance.GetComponent<TileController> ();
@@ -254,12 +252,13 @@ public class BoardManager : MonoBehaviour {
 	// Instantiates every creature of a given player.
 	private void InstantiateCreatures(PlayerController playerInstance)
 	{
+
 		TileController tileInstance;
 		foreach ( string id in playerInstance.controlledTiles){
 			tileInstance = boardGameByID [id].GetComponent <TileController>();
 
 			if(tileInstance!=null){
-				tileInstance.InstantiateCreature (playerInstance.creature, playerInstance.playerNumber);
+				tileInstance.InstantiateCreature (playerInstance);
 			}
 		}
 	}

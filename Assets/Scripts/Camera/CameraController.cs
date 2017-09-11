@@ -41,9 +41,6 @@ public class CameraController : MonoBehaviour {
 	// Move the camera to look at the specified target, maintaining the actual ratio.
 	public void MoveToTarget (Transform target)
 	{
-		// TODO: Smooth the transition.
-		//transform.position = target.position;
-
 		StartCoroutine (SmoothlyMove (target));
 	}
 

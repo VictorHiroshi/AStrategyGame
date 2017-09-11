@@ -85,7 +85,7 @@ public class TileController : MonoBehaviour {
 	// Instantiates the highlight object over this tile.
 	public void Highlight()
 	{
-		highlightInstance = Instantiate(highlightObject, instantiatingPosition, Quaternion.identity);
+		highlightInstance = Instantiate(highlightObject, instantiatingPosition, Quaternion.identity) as GameObject;
 		isHighlighted = true;
 		GameManager.instance.highlightedTiles.Add (this);
 	}
@@ -120,23 +120,23 @@ public class TileController : MonoBehaviour {
 	}
 		
 	// Receives a game object and instantiates it as a creature.
-	public void InstantiateCreature(GameObject creature, int playerIndex)
+	public void InstantiateCreature(PlayerController player)
 	{
-		GameObject instance = Instantiate (creature, spawnPoint.position, Quaternion.identity);
+		GameObject instance = Instantiate (player.creature, spawnPoint.position, Quaternion.identity) as GameObject;
 		this.creature = instance.GetComponent <CreatureController> ();
 
 		if(this.creature==null)
 		{
 			Debug.LogError ("Can't reach creature controller.");
 		}
-
-		this.creature.ChangeTeam (playerIndex);
+			
+		this.creature.ChangeTeam (player);
 	}
 
 	// Receives a gameobject and instantiates it as a resource.
 	public void InstantiateResource(GameObject resource)
 	{
-		this.resource = Instantiate (resource, transform, false);
+		this.resource = Instantiate (resource, transform, false) as GameObject;
 		resourceScript = this.resource.GetComponent <Resource> ();
 	}
 

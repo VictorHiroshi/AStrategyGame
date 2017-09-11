@@ -26,7 +26,6 @@ public class HealingBoxScript : MonoBehaviour {
 
 	void OnMouseEnter()
 	{
-		// TODO: Make creature plead for healing.
 		GameManager.instance.panelControler.ShowMessage (3f, MessageType.Healing);
 
 		if (parent.belongsToPlayer.playerNumber == GameManager.instance.activePlayerIndex) 
