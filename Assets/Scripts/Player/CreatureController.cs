@@ -102,7 +102,7 @@ public class CreatureController : MonoBehaviour {
 	{
 		Vector3 newPosition = transform.position + (0.3f * (target.position - transform.position));
 
-		GameObject instance = Instantiate (gameObject, newPosition, Quaternion.identity) as GameObject;
+		GameObject instance = Instantiate (belongsToPlayer.creature, newPosition, Quaternion.identity) as GameObject;
 
 		newCreature = instance.GetComponent <CreatureController> ();
 

@@ -18,6 +18,7 @@ public class OppressCount : MonoBehaviour {
 	void Awake () {
 		
 		countingMeshes = new List<CountingStruct> ();
+
 		CountingStruct temporaryCountingStruct;
 
 		foreach (Transform child in transform)
@@ -27,13 +28,13 @@ public class OppressCount : MonoBehaviour {
 			temporaryCountingStruct.gameObject = child.gameObject;
 			if (temporaryCountingStruct.gameObject == null)
 				Debug.LogError ("No game object in children");
-			
+
 			temporaryCountingStruct.renderer = child.GetComponentInParent <Renderer> ();
 			if (temporaryCountingStruct.renderer == null)
 				Debug.LogError ("No renderer in children");
 
 			temporaryCountingStruct.gameObject.SetActive (false);
-			
+
 			countingMeshes.Add (temporaryCountingStruct);
 
 		}
