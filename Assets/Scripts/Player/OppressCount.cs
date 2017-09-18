@@ -53,13 +53,12 @@ public class OppressCount : MonoBehaviour {
 		countingMeshes [countingOppressTurns].gameObject.SetActive (false);
 
 		//TODO: Verify if oppressing count is already over and give creature back to it's owner.
-		if(countingOppressTurns <= 0)
-		{
-			if(GameManager.instance.oppressedCreatures.Contains (creature))
-			{
-				GameManager.instance.oppressedCreatures.Remove (creature);
-			}
-		}
+		
+	}
+
+	public bool HasTurnsLeft()
+	{
+		return (countingOppressTurns > 0);
 	}
 
 	public void Oppress(Color newColor)

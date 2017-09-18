@@ -125,9 +125,20 @@ public class GameManager : MonoBehaviour {
 
 	private void CountDownOppressingTurns()
 	{
+		List<CreatureController> toRemove = new List<CreatureController> ();
 		foreach(CreatureController creature in oppressedCreatures)
 		{
 			creature.oppressScript.CountDown ();
+			if(!creature.oppressScript.HasTurnsLeft ())
+			{
+				toRemove.Add (creature);
+				creature.oppressedByPlayer = null;
+			}
+		}
+
+		foreach(CreatureController creature in toRemove)
+		{
+			oppressedCreatures.Remove (creature);
 		}
 	}
 
