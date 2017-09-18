@@ -39,28 +39,16 @@ public class OppressCount : MonoBehaviour {
 		}
 
 	}
-	
-	public void SetColors(Color newColor)
-	{
-		foreach (CountingStruct mesh in countingMeshes)
-		{
-			mesh.renderer.material.SetColor ("_Color", newColor);
-		}
-	}
 
 	public void CountDown()
 	{
-		if (countingOppressTurns == 0)
-		{
-			Oppress ();
-			return;
-		}
-
 		countingOppressTurns--;
 		countingMeshes [countingOppressTurns].gameObject.SetActive (false);
+
+		//TODO: Verify if oppressing count is already over and give creature back to it's owner.
 	}
 
-	public void Oppress()
+	public void Oppress(Color newColor)
 	{
 
 		foreach (CountingStruct mesh in countingMeshes)
@@ -69,7 +57,14 @@ public class OppressCount : MonoBehaviour {
 		}
 
 		countingOppressTurns = countingMeshes.Count;
-		Color tempColor = Random.ColorHSV ();
-		SetColors (tempColor);
+		SetColors (newColor);
+	}
+
+	private void SetColors(Color newColor)
+	{
+		foreach (CountingStruct mesh in countingMeshes)
+		{
+			mesh.renderer.material.SetColor ("_Color", newColor);
+		}
 	}
 }

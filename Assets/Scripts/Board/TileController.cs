@@ -88,6 +88,7 @@ public class TileController : MonoBehaviour {
 		highlightInstance = Instantiate(highlightObject, instantiatingPosition, Quaternion.identity) as GameObject;
 		isHighlighted = true;
 		GameManager.instance.highlightedTiles.Add (this);
+
 	}
 
 	// Delete highlight object from this tile.

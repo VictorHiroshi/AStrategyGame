@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]public BoardManager boardScript;
 	[HideInInspector] public PlayerController[] player;
 
+	public int maxHealth = 10;
 	public int coinsPerStone = 2;
 	public int coinsPerTurn = 4;
 	public PanelController panelControler;

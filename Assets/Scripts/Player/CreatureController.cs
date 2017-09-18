@@ -16,15 +16,10 @@ public class CreatureController : MonoBehaviour {
 
 	[HideInInspector] public bool moved;
 	[HideInInspector] public bool isTired;
-/*	[HideInInspector] */
-public PlayerController belongsToPlayer;
-/*	[HideInInspector] */
-private PlayerController influencedByPlayer;
+	[HideInInspector] public PlayerController belongsToPlayer;
+	[HideInInspector] public PlayerController influencedByPlayer;
+	[HideInInspector] public PlayerController oppressedByPlayer;
 
-	public PlayerController InfluencedByPlayer
-	{
-		get{return influencedByPlayer;}
-	}
 
 	private float inDoubtBlinkTimeValue = 1f;
 	private int health;
@@ -53,8 +48,8 @@ private PlayerController influencedByPlayer;
 
 	void Start()
 	{
-		health = ActionsManager.instance.maxHealth;
-		healthSlider.maxValue = ActionsManager.instance.maxHealth;
+		health = GameManager.instance.maxHealth;
+		healthSlider.maxValue = GameManager.instance.maxHealth;
 		healthSlider.value = health;
 
 		defendingDamage = ActionsManager.instance.defendingDamage;
@@ -92,6 +87,7 @@ private PlayerController influencedByPlayer;
 	{
 		belongsToPlayer = player;
 		influencedByPlayer = null;
+		oppressedByPlayer = null;
 		fillSliderImage.color = player.color;
 	}
 
@@ -149,6 +145,17 @@ private PlayerController influencedByPlayer;
 		StartCoroutine (Converting (origin, target, walkingPosition));
 	}
 
+	public void Oppress(Transform origin, Transform target, CreatureController enemy)
+	{
+		this.enemy = enemy;
+
+		enemy.creatureTransform.rotation = Quaternion.LookRotation (origin.position - target.position);
+
+		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
+
+		StartCoroutine (Oppressing (origin, target, walkingPosition));
+	}
+
 	public void FinishExploringAnimation()
 	{
 		ActionsManager.instance.FinishAction ();
@@ -161,7 +168,7 @@ private PlayerController influencedByPlayer;
 
 	public IEnumerator Heal()
 	{
-		health = ActionsManager.instance.maxHealth;
+		health = GameManager.instance.maxHealth;
 
 		WaitForSeconds lerpTime = new WaitForSeconds (0.1f);
 
@@ -192,7 +199,7 @@ private PlayerController influencedByPlayer;
 
 			//Informs GameManager that the enemy lost this creature.
 			ActionsManager.instance.EnemyLostControlOverTarget ();
-			ActionsManager.instance.ActiveControllNewTile ();
+			ActionsManager.instance.ActivePlayerControllNewTile ();
 
 			ChangeTeam (savior.belongsToPlayer);
 		}
@@ -314,6 +321,31 @@ private PlayerController influencedByPlayer;
 		yield return exhibitMessageTime;
 
 		StartCoroutine (enemy.CheckIfConverted (this));
+
+		MoveToTarget (origin);
+		enemy.creatureTransform.rotation = Quaternion.identity;
+
+	}
+
+	private IEnumerator Oppressing(Transform origin, Transform target, Vector3 midTarget)
+	{
+		animatorController.SetTrigger ("Moves");
+
+		creatureTransform.rotation = Quaternion.LookRotation (midTarget - transform.position);
+		while((transform.position - midTarget).sqrMagnitude > 0.15)
+		{
+			transform.position = Vector3.Lerp (transform.position, midTarget, Time.deltaTime * speed);
+			yield return null;
+		}
+
+		animatorController.SetTrigger ("IsIdle");
+		string convertingMessage = "RESPECT MA' AUTHORITA'!";
+
+		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
+		dialogCanvas.DisplayMessageForTime (convertingMessage);
+		yield return exhibitMessageTime;
+
+		//TODO: Turn enemy to oppressed state.
 
 		MoveToTarget (origin);
 		enemy.creatureTransform.rotation = Quaternion.identity;
