@@ -346,8 +346,8 @@ public class CreatureController : MonoBehaviour {
 		dialogCanvas.DisplayMessageForTime (convertingMessage);
 		yield return exhibitMessageTime;
 
-		//TODO: Turn enemy to oppressed state.
 		enemy.oppressScript.Oppress (belongsToPlayer.color);
+		enemy.oppressedByPlayer = belongsToPlayer;
 		GameManager.instance.oppressedCreatures.Add (enemy);
 
 		MoveToTarget (origin);
