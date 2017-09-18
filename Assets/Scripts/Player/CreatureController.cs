@@ -11,6 +11,7 @@ public class CreatureController : MonoBehaviour {
 	public Transform creatureTransform;
 	public GameObject shield;
 	public GameObject HealingBox;
+	public OppressCount oppressScript;
 
 	public float speed = 0.1f;
 
@@ -346,6 +347,8 @@ public class CreatureController : MonoBehaviour {
 		yield return exhibitMessageTime;
 
 		//TODO: Turn enemy to oppressed state.
+		enemy.oppressScript.Oppress (belongsToPlayer.color);
+		GameManager.instance.oppressedCreatures.Add (enemy);
 
 		MoveToTarget (origin);
 		enemy.creatureTransform.rotation = Quaternion.identity;

@@ -10,8 +10,8 @@ public class CountingStruct
 
 public class OppressCount : MonoBehaviour {
 
-	public int countingOppressTurns = 0;
-
+	private int countingOppressTurns = 0;
+	private CreatureController creature;
 	private List<CountingStruct> countingMeshes;
 
 	// Use this for initialization
@@ -38,6 +38,12 @@ public class OppressCount : MonoBehaviour {
 
 		}
 
+		creature = GetComponentInParent <CreatureController> ();
+		if(creature==null)
+		{
+			Debug.LogError ("Oppress count can't reach it's creature controller.");
+		}
+
 	}
 
 	public void CountDown()
@@ -46,6 +52,13 @@ public class OppressCount : MonoBehaviour {
 		countingMeshes [countingOppressTurns].gameObject.SetActive (false);
 
 		//TODO: Verify if oppressing count is already over and give creature back to it's owner.
+		if(countingOppressTurns <= 0)
+		{
+			if(GameManager.instance.oppressedCreatures.Contains (creature))
+			{
+				GameManager.instance.oppressedCreatures.Remove (creature);
+			}
+		}
 	}
 
 	public void Oppress(Color newColor)

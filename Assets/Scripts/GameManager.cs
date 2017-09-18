@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]public int activePlayerIndex;
 	[HideInInspector]public List<TileController> highlightedTiles;
 	[HideInInspector]public List<CreatureController> tiredCreatures;
+	[HideInInspector]public List<CreatureController> oppressedCreatures;
 
 	private int actualTurn;
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour {
 
 		highlightedTiles = new List<TileController> ();
 		tiredCreatures = new List<CreatureController> ();
+		oppressedCreatures = new List<CreatureController> ();
 	}
 		
 	void InitializeGame ()
@@ -52,11 +54,13 @@ public class GameManager : MonoBehaviour {
 
 	public void NextTurn()
 	{
+		//TODO: Verify winning condition.
 		do {
 			activePlayerIndex += 1;
 			activePlayerIndex = activePlayerIndex % player.Length;
 
 			if (activePlayerIndex == 0) {
+				CountDownOppressingTurns();
 				TurnChangingIncome ();
 				actualTurn += 1;
 				panelControler.ChangeTurnText (actualTurn);
@@ -117,6 +121,14 @@ public class GameManager : MonoBehaviour {
 			player [i].coinCount += (coinsPerStone * player [i].controlledStones);
 		}
 
+	}
+
+	private void CountDownOppressingTurns()
+	{
+		foreach(CreatureController creature in oppressedCreatures)
+		{
+			creature.oppressScript.CountDown ();
+		}
 	}
 
 	private void ClearTiredCreaturesList()
