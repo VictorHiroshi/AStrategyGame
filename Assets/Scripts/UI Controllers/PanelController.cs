@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None, Empty};
-public enum MessageType {CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoEnemy, NoCreatureThere, NoStone, Healing, CreatureDefending};
+public enum MessageType {None, CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoEnemy, NoCreatureThere, NoStone, Healing, CreatureDefending};
 
 public class PanelController : MonoBehaviour {
 
