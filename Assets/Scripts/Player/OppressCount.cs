@@ -51,8 +51,6 @@ public class OppressCount : MonoBehaviour {
 	{
 		countingOppressTurns--;
 		countingMeshes [countingOppressTurns].gameObject.SetActive (false);
-
-		//TODO: Verify if oppressing count is already over and give creature back to it's owner.
 		
 	}
 
@@ -71,6 +69,16 @@ public class OppressCount : MonoBehaviour {
 
 		countingOppressTurns = countingMeshes.Count;
 		SetColors (newColor);
+	}
+
+	public void Unoppress()
+	{
+		foreach (CountingStruct mesh in countingMeshes)
+		{
+			mesh.gameObject.SetActive (false);
+		}
+
+		countingOppressTurns = 0;
 	}
 
 	private void SetColors(Color newColor)

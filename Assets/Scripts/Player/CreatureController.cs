@@ -353,8 +353,18 @@ public class CreatureController : MonoBehaviour {
 		dialogCanvas.DisplayMessageForTime (convertingMessage);
 		yield return exhibitMessageTime;
 
-		enemy.oppressScript.Oppress (belongsToPlayer.color);
-		enemy.oppressedByPlayer = belongsToPlayer;
+		PlayerController oppressorPlayer = GameManager.instance.player [GameManager.instance.activePlayerIndex];
+
+		if(belongsToPlayer == enemy.belongsToPlayer)
+		{
+			enemy.oppressScript.Unoppress ();
+		}
+		else
+		{
+			enemy.oppressScript.Oppress (oppressorPlayer.color);
+		}
+
+		enemy.oppressedByPlayer = oppressorPlayer;
 		GameManager.instance.oppressedCreatures.Add (enemy);
 
 		MoveToTarget (origin);
