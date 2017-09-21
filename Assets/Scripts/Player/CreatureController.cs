@@ -187,13 +187,19 @@ public class CreatureController : MonoBehaviour {
 
 	public IEnumerator CheckIfConverted(CreatureController savior)
 	{
+		PlayerController saviorPlayer = savior.belongsToPlayer;
+		if(savior.oppressedByPlayer!=null)
+		{
+			saviorPlayer = savior.oppressedByPlayer;
+		}
+
 		if(influencedByPlayer == null)
 		{
-			influencedByPlayer = savior.belongsToPlayer;
+			influencedByPlayer = saviorPlayer;
 			inDoubtBlinkLoop = InDoubt ();
 			StartCoroutine (inDoubtBlinkLoop);
 		}
-		else if (influencedByPlayer == savior.belongsToPlayer)
+		else if (influencedByPlayer == saviorPlayer)
 		{
 
 			StopCoroutine (inDoubtBlinkLoop);
@@ -202,7 +208,7 @@ public class CreatureController : MonoBehaviour {
 			ActionsManager.instance.EnemyLostControlOverTarget ();
 			ActionsManager.instance.ActivePlayerControllNewTile ();
 
-			ChangeTeam (savior.belongsToPlayer);
+			ChangeTeam (saviorPlayer);
 		}
 		else if (savior.belongsToPlayer == belongsToPlayer)
 		{
@@ -213,7 +219,7 @@ public class CreatureController : MonoBehaviour {
 		{
 			StopCoroutine (inDoubtBlinkLoop);
 	
-			influencedByPlayer = savior.belongsToPlayer;
+			influencedByPlayer = saviorPlayer;
 			inDoubtBlinkLoop = InDoubt ();
 			StartCoroutine (inDoubtBlinkLoop);	
 		}
@@ -315,7 +321,8 @@ public class CreatureController : MonoBehaviour {
 		}
 			
 		animatorController.SetTrigger ("IsIdle");
-		string convertingMessage = "Come to the true " +  "<color=#" + ColorUtility.ToHtmlStringRGB(belongsToPlayer.color) + ">COLOR" + "</color>" + "!";
+		Color newColor = GameManager.instance.player [GameManager.instance.activePlayerIndex].color;
+		string convertingMessage = "Come to the true " +  "<color=#" + ColorUtility.ToHtmlStringRGB(newColor) + ">COLOR" + "</color>" + "!";
 
 		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
 		dialogCanvas.DisplayMessageForTime (convertingMessage);
