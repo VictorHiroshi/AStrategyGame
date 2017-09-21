@@ -366,9 +366,9 @@ public class CreatureController : MonoBehaviour {
 		else
 		{
 			enemy.oppressScript.Oppress (oppressorPlayer.color);
+			enemy.oppressedByPlayer = oppressorPlayer;
 		}
 
-		enemy.oppressedByPlayer = oppressorPlayer;
 		if (!GameManager.instance.oppressedCreatures.Contains (enemy)) 
 		{
 			GameManager.instance.oppressedCreatures.Add (enemy);
