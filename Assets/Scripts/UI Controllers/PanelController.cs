@@ -78,13 +78,6 @@ public class PanelController : MonoBehaviour {
 		}
 	}
 
-
-	/*REMOVE THIS LATER*/
-	public void StillWorking()
-	{
-		StartCoroutine (ShowingMessage (4f, "I'm still working in this feature, ma'am!"));
-	}
-
 	public void ChangeActivePlayer(string player)
 	{
 		playerText.text = player;
@@ -158,7 +151,12 @@ public class PanelController : MonoBehaviour {
 
 			if(tile.creature.influencedByPlayer != null)
 			{
-				message += "But this creature is under the influence of player " + (tile.creature.influencedByPlayer.playerNumber+1) + "!\n";
+				message += "This creature is under the influence of player " + (tile.creature.influencedByPlayer.playerNumber+1) + "!\n";
+			}
+
+			if(tile.creature.oppressedByPlayer != null)
+			{
+				message += "This creature is controlled by oppression of player " + (tile.creature.oppressedByPlayer.playerNumber+1) + "!\n";
 			}
 		}
 		else
