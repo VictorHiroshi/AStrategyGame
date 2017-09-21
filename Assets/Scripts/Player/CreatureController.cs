@@ -209,6 +209,9 @@ public class CreatureController : MonoBehaviour {
 			ActionsManager.instance.ActivePlayerControllNewTile ();
 
 			ChangeTeam (saviorPlayer);
+
+			oppressScript.Unoppress ();
+			oppressedByPlayer = null;
 		}
 		else if (savior.belongsToPlayer == belongsToPlayer)
 		{
@@ -358,6 +361,7 @@ public class CreatureController : MonoBehaviour {
 		if(belongsToPlayer == enemy.belongsToPlayer)
 		{
 			enemy.oppressScript.Unoppress ();
+			enemy.oppressedByPlayer = null;
 		}
 		else
 		{
@@ -365,7 +369,10 @@ public class CreatureController : MonoBehaviour {
 		}
 
 		enemy.oppressedByPlayer = oppressorPlayer;
-		GameManager.instance.oppressedCreatures.Add (enemy);
+		if (!GameManager.instance.oppressedCreatures.Contains (enemy)) 
+		{
+			GameManager.instance.oppressedCreatures.Add (enemy);
+		}
 
 		MoveToTarget (origin);
 		enemy.creatureTransform.rotation = Quaternion.identity;
