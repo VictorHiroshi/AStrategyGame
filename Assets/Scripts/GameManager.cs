@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < player.Length; i++) {
 			player [i] = new PlayerController ();
 			player [i].controlledTiles = new List<string> ();
-			player [i].creature = creature [i];
 			player [i].coinCount = 0;
 			player [i].controlledStones = 0;
 			player [i].playerNumber = i;

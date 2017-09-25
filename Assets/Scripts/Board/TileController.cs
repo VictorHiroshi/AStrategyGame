@@ -123,7 +123,8 @@ public class TileController : MonoBehaviour {
 	// Receives a game object and instantiates it as a creature.
 	public void InstantiateCreature(PlayerController player)
 	{
-		GameObject instance = Instantiate (player.creature, spawnPoint.position, Quaternion.identity) as GameObject;
+		GameObject model = GameManager.instance.creature [player.playerNumber];
+		GameObject instance = Instantiate (model, spawnPoint.position, Quaternion.identity) as GameObject;
 		this.creature = instance.GetComponent <CreatureController> ();
 
 		if(this.creature==null)
