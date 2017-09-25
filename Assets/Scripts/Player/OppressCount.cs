@@ -50,6 +50,10 @@ public class OppressCount : MonoBehaviour {
 	public void CountDown()
 	{
 		countingOppressTurns--;
+
+		if (countingOppressTurns < 0)
+			return;
+		
 		countingMeshes [countingOppressTurns].gameObject.SetActive (false);
 		
 	}

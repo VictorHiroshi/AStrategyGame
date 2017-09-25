@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerController : ScriptableObject{
 	public Color color;
 	public List<string> controlledTiles;
-	//public GameObject creature;
 	public int coinCount;
 	public int playerNumber;
 	public int controlledStones;

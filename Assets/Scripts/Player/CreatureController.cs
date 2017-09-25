@@ -250,8 +250,14 @@ public class CreatureController : MonoBehaviour {
 			yield return lerpTime;
 		}
 
-		if(health == 0)
+		if (health == 0) 
+		{
+			if(GameManager.instance.oppressedCreatures.Contains (this))
+			{
+				GameManager.instance.oppressedCreatures.Remove (this);
+			}
 			Destroy (gameObject);
+		}
 		else 
 		{
 			HealingBox.SetActive (true);
