@@ -172,7 +172,7 @@ public class PanelController : MonoBehaviour {
 		else{
 			message += "Resource: None\n";
 		}
-		descriptionText.text = message;
+		StartCoroutine (ShowingMessage (3f, message));
 	}
 
 	//Verifies if any button is highlighted to update the description text.
