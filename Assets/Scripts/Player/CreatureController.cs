@@ -83,6 +83,12 @@ public class CreatureController : MonoBehaviour {
 		return (health == 0);
 	}
 
+	public void TakeHalfDamage()
+	{
+		health -= defendingDamage;
+		StartCoroutine(CheckIfDie (this));
+	}
+
 	public void ChangeTeam(PlayerController player)
 	{
 		belongsToPlayer = player;
@@ -252,6 +258,7 @@ public class CreatureController : MonoBehaviour {
 			{
 				GameManager.instance.oppressedCreatures.Remove (this);
 			}
+			PlayExplosionParticles ();
 			Destroy (gameObject);
 		}
 		else 
@@ -259,8 +266,9 @@ public class CreatureController : MonoBehaviour {
 			HealingBox.SetActive (true);
 			StartCoroutine (PleadForHelp ());
 		}
-		
-		killer.FinishedAnimation ();
+
+		if(killer != null)
+			killer.FinishedAnimation ();
 	}
 
 	private IEnumerator Moving(Transform target)
@@ -301,11 +309,18 @@ public class CreatureController : MonoBehaviour {
 		animatorController.SetTrigger ("IsIdle");
 		finishedInteractionAnimation = false;
 
+		bool enemyIsDefending = enemy.isDefending;
+
 		StartCoroutine (enemy.CheckIfDie (this));
 
 		while(!finishedInteractionAnimation)
 		{
 			yield return null;
+		}
+
+		if(enemyIsDefending)
+		{
+			TakeHalfDamage ();
 		}
 
 		if(enemy == null)
