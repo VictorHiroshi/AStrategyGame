@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,6 +51,11 @@ public class GameManager : MonoBehaviour {
 		boardScript.SetupScene ();
 		NextTurn ();
 		panelControler.selectedUI = HighlightType.None;
+	}
+
+	public void RestartGame()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void NextTurn()
