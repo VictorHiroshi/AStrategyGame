@@ -47,6 +47,22 @@ public class OppressCount : MonoBehaviour {
 
 	}
 
+	public void SetAllActive()
+	{
+		foreach (CountingStruct mesh in countingMeshes)
+		{
+			mesh.gameObject.SetActive (true);
+		}
+	}
+
+	public void SetAllFalse()
+	{
+		foreach (CountingStruct mesh in countingMeshes)
+		{
+			mesh.gameObject.SetActive (false);
+		}
+	}
+
 	public void CountDown()
 	{
 		countingOppressTurns--;
@@ -66,10 +82,7 @@ public class OppressCount : MonoBehaviour {
 	public void Oppress(Color newColor)
 	{
 
-		foreach (CountingStruct mesh in countingMeshes)
-		{
-			mesh.gameObject.SetActive (true);
-		}
+		SetAllActive ();
 
 		countingOppressTurns = countingMeshes.Count;
 		SetColors (newColor);
@@ -77,10 +90,7 @@ public class OppressCount : MonoBehaviour {
 
 	public void Unoppress()
 	{
-		foreach (CountingStruct mesh in countingMeshes)
-		{
-			mesh.gameObject.SetActive (false);
-		}
+		SetAllFalse ();
 
 		countingOppressTurns = 0;
 	}

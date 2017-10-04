@@ -175,7 +175,7 @@ Prefab:
     - target: {fileID: 224125919725920072, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 106.28702
+      value: 106.14029
       objectReference: {fileID: 0}
     - target: {fileID: 224125919725920072, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -205,7 +205,7 @@ Prefab:
     - target: {fileID: 224598214187827224, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 350.28702
+      value: 350.1403
       objectReference: {fileID: 0}
     - target: {fileID: 224598214187827224, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -235,7 +235,7 @@ Prefab:
     - target: {fileID: 224219542524568938, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 106.28702
+      value: 106.14029
       objectReference: {fileID: 0}
     - target: {fileID: 224219542524568938, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -265,7 +265,7 @@ Prefab:
     - target: {fileID: 224289548757738340, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 350.28702
+      value: 350.1403
       objectReference: {fileID: 0}
     - target: {fileID: 224289548757738340, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -295,7 +295,7 @@ Prefab:
     - target: {fileID: 224648913159791640, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 106.28702
+      value: 106.14029
       objectReference: {fileID: 0}
     - target: {fileID: 224648913159791640, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -325,7 +325,7 @@ Prefab:
     - target: {fileID: 224700629974707144, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 350.28705
+      value: 350.14032
       objectReference: {fileID: 0}
     - target: {fileID: 224700629974707144, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -355,7 +355,7 @@ Prefab:
     - target: {fileID: 224908554461042250, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 106.28702
+      value: 106.14029
       objectReference: {fileID: 0}
     - target: {fileID: 224908554461042250, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -385,7 +385,7 @@ Prefab:
     - target: {fileID: 224410236805220634, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 350.28702
+      value: 350.1403
       objectReference: {fileID: 0}
     - target: {fileID: 224410236805220634, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -415,7 +415,7 @@ Prefab:
     - target: {fileID: 224255319976888944, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: -25.574036
+      value: -25.280579
       objectReference: {fileID: 0}
     - target: {fileID: 224992970535013356, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -455,7 +455,7 @@ Prefab:
     - target: {fileID: 82543960544823774, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114163747973106584, guid: 7b35235e2a35d7742b27da443665c472,
         type: 2}
@@ -472,6 +472,12 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ActionOppress
       objectReference: {fileID: 0}
+    - target: {fileID: 114576467902937686, guid: 7b35235e2a35d7742b27da443665c472,
+        type: 2}
+      propertyPath: explosionParticles
+      value: 
+      objectReference: {fileID: 19800004, guid: 031d08f52af1daa4f929b85221519426,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b35235e2a35d7742b27da443665c472, type: 2}
   m_IsPrefabParent: 0

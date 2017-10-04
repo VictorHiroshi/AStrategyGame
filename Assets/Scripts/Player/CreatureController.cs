@@ -20,7 +20,6 @@ public class CreatureController : MonoBehaviour {
 	[HideInInspector] public PlayerController influencedByPlayer;
 	[HideInInspector] public PlayerController oppressedByPlayer;
 
-	private GameObject creatureModel;
 	private float inDoubtBlinkTimeValue = 1f;
 	private int health;
 	private int defendingDamage;
@@ -58,11 +57,6 @@ public class CreatureController : MonoBehaviour {
 
 		explosionParticles = Instantiate (GameManager.instance.boardScript.explosionParticles, transform.position, Quaternion.identity, transform) as ParticleSystem;
 		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform) as ParticleSystem;
-
-		if(creatureModel == null)
-		{
-			creatureModel = GameManager.instance.creature [belongsToPlayer.playerNumber];
-		}
 	}
 
 	public void FinishedAnimation()
@@ -107,7 +101,9 @@ public class CreatureController : MonoBehaviour {
 	{
 		Vector3 newPosition = transform.position + (0.3f * (target.position - transform.position));
 
-		GameObject instance = Instantiate (creatureModel, newPosition, Quaternion.identity) as GameObject;
+		oppressScript.SetAllActive ();
+		GameObject instance = Instantiate (gameObject, newPosition, Quaternion.identity) as GameObject;
+		oppressScript.SetAllFalse ();
 
 		newCreature = instance.GetComponent <CreatureController> ();
 
