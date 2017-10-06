@@ -259,6 +259,7 @@ public class CreatureController : MonoBehaviour {
 				GameManager.instance.oppressedCreatures.Remove (this);
 			}
 			PlayExplosionParticles ();
+			GameManager.instance.tiredCreatures.Remove (this);
 			Destroy (gameObject);
 		}
 		else 
@@ -323,7 +324,11 @@ public class CreatureController : MonoBehaviour {
 			TakeHalfDamage ();
 		}
 
-		if(enemy == null)
+		if(health <= 0)
+		{
+			ActionsManager.instance.FinishAction ();
+		}
+		else if(enemy == null)
 		{
 			MoveToTarget (target);
 		}
