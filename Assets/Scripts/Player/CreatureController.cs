@@ -258,7 +258,7 @@ public class CreatureController : MonoBehaviour {
 			{
 				GameManager.instance.oppressedCreatures.Remove (this);
 			}
-			PlayExplosionParticles ();
+			//PlayExplosionParticles ();
 			GameManager.instance.tiredCreatures.Remove (this);
 			Destroy (gameObject);
 		}
