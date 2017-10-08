@@ -25,12 +25,13 @@ public class CameraController : MonoBehaviour {
 	private Camera m_Camera;
 	private Vector3 cameraOrigin;
 	private Vector3 clickPoint;
-
+	private Vector3 constZoom;
 
 	void Awake () {
 		m_Camera = GetComponentInChildren<Camera> ();
 		canZoom = true;
 		canMove = true;
+		constZoom = new Vector3(0f, 1f, 1f);
 	}
 
 	void Update () {
@@ -42,6 +43,22 @@ public class CameraController : MonoBehaviour {
 	public void MoveToTarget (Transform target)
 	{
 		StartCoroutine (SmoothlyMove (target));
+	}
+
+	public void ZoomIn()
+	{
+		if(m_Camera.transform.position.y > cameraBoundaries.yMin)
+		{
+			m_Camera.transform.position -= constZoom;
+		}
+	}
+
+	public void ZoomOut()
+	{
+		if(m_Camera.transform.position.y < cameraBoundaries.yMax)
+		{
+			m_Camera.transform.position += constZoom;
+		}
 	}
 
 	// Guarantees that the camera will remain within the boardgame space.
