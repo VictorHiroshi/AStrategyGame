@@ -97,13 +97,13 @@ public class CreatureController : MonoBehaviour {
 		fillSliderImage.color = player.color;
 	}
 
-	public void MoveToTarget (Transform target)
+	public IEnumerator MoveToTarget (Transform target)
 	{
 		animatorController.SetTrigger ("Moves");
-		StartCoroutine (Moving (target));
+		yield return StartCoroutine (Moving (target));
 	}
 
-	public void DuplicateToTarget (Transform target, out CreatureController newCreature)
+	public CreatureController DuplicateToTarget (Transform target)
 	{
 		Vector3 newPosition = transform.position + (0.3f * (target.position - transform.position));
 
@@ -111,12 +111,11 @@ public class CreatureController : MonoBehaviour {
 		GameObject instance = Instantiate (gameObject, newPosition, Quaternion.identity) as GameObject;
 		oppressScript.SetAllFalse ();
 
-		newCreature = instance.GetComponent <CreatureController> ();
+		CreatureController newCreature = instance.GetComponent <CreatureController> ();
 
 		newCreature.ChangeTeam (belongsToPlayer);
 
-		newCreature.MoveToTarget (target);
-
+		return newCreature;
 	}
 
 	public void Attack(Transform origin, Transform target, CreatureController enemy)
