@@ -100,8 +100,7 @@ public class GameManager : MonoBehaviour {
 
 	private void AssignPlayers ()
 	{
-		int xMax = boardScript.columns;
-		int zMax = boardScript.rows;
+		int size = boardScript.boardSize;
 
 		player = new PlayerController[creature.Length];
 		
@@ -114,9 +113,9 @@ public class GameManager : MonoBehaviour {
 			player [i].color = playersColors[i];
 		}
 
-		player[0].controlledTiles.Add (boardScript.getTile(xMax -1, zMax-1));
-		player[1].controlledTiles.Add (boardScript.getTile(xMax -1, 0));
-		player[2].controlledTiles.Add (boardScript.getTile(0, zMax-1));
+		player[0].controlledTiles.Add (boardScript.getTile(size -1, size-1));
+		player[1].controlledTiles.Add (boardScript.getTile(size -1, 0));
+		player[2].controlledTiles.Add (boardScript.getTile(0, size-1));
 		player[3].controlledTiles.Add (boardScript.getTile(0, 0));
 	}
 

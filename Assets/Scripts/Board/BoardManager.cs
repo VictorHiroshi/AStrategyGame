@@ -31,23 +31,25 @@ public class ResourceList{
 // Script to handle general operations of the boardgame.
 public class BoardManager : MonoBehaviour {
 
-	public int columns = 20;
-	public int rows = 20;
+	public int boardSize = 16;
 	public int stonesPerQuadrant = 5;
 	public TileLists tiles;
 	public ResourceList resources;
 	public ParticleSystem explosionParticles;
 	public ParticleSystem rockExplorationParticles;
 
+	private int columns;
+	private int rows;
 	private Transform boardHolder;
 	private GameObject selectedTile;
 	private bool existsSelectedTile;
 
 	private Dictionary<string, GameObject> boardGameByID;
 
-		
 	// Creates a new boardgame with all the necessary setups to start a new game.
 	public void SetupScene(){
+		columns = boardSize;
+		rows = boardSize;
 		BoardSetup ();
 		CreateResources ();
 		StartCoroutine(CreateInitialCreatures ());
@@ -193,29 +195,29 @@ public class BoardManager : MonoBehaviour {
 		int maxZ;
 		// First quadrant.
 		minX = 1;
-		maxX = (columns / 2) - 1;
+		maxX = ((columns + 1) / 2);
 		minZ = 1;
-		maxZ = (rows / 2) - 1;
+		maxZ = ((rows + 1)/ 2);
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Second quadrant.
-		minX = (columns / 2);
+		minX = ((columns + 1) / 2);
 		maxX = columns - 1;
 		minZ = 1;
-		maxZ = (rows / 2) - 1;
+		maxZ = ((rows + 1) / 2);
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Third quadrant.
-		minX = (columns / 2);
+		minX = ((columns + 1) / 2);
 		maxX = columns - 1;
-		minZ = (rows / 2);
+		minZ = ((rows + 1) / 2);
 		maxZ = rows - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Fourth quadrant.
 		minX = 1;
-		maxX = (columns / 2) - 1;
-		minZ = (rows / 2);
+		maxX = ((columns + 1) / 2);
+		minZ = ((rows + 1)/ 2);
 		maxZ = rows - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
@@ -231,6 +233,7 @@ public class BoardManager : MonoBehaviour {
 			xIndex = Random.Range (minXIndex, maxXIndex);
 			zIndex = Random.Range (minZIndex, maxZIndex);
 			TileController tileInstance = boardGameByID [TileController.GetStringID (xIndex, zIndex)].GetComponent <TileController> ();
+
 
 			if(tileInstance!=null && tileInstance.resourceType == TileController.ResourceType.None){
 				i++;
