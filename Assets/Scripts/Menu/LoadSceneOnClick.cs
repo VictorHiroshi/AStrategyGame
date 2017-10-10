@@ -7,7 +7,11 @@ public class LoadSceneOnClick : MonoBehaviour {
 
 	public void LoadByIndex(int sceneIndex)
 	{
-		SceneManager.LoadScene (sceneIndex);
+		if(!SceneManager.GetSceneByBuildIndex (sceneIndex).IsValid ())
+			SceneManager.LoadScene (sceneIndex, LoadSceneMode.Additive);
+		
+		SceneManager.SetActiveScene (SceneManager.GetSceneByBuildIndex (sceneIndex));
+
 	}
 
 }

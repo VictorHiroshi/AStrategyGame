@@ -50,7 +50,7 @@ public class BoardManager : MonoBehaviour {
 	public void SetupScene(){
 		BoardSetup ();
 		CreateResources ();
-		CreateInitialCreatures ();
+		StartCoroutine(CreateInitialCreatures ());
 
 		selectedTile = null;
 		existsSelectedTile = false;
@@ -86,8 +86,9 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	// Given an ID, returns the controller of the tile, if exists.
-	public TileController getTile(string id)
+	public TileController getTile(int x, int z)
 	{
+		string id = TileController.GetStringID (x, z);
 		TileController tileInstance = boardGameByID [id].GetComponent <TileController>();
 		return tileInstance;
 	}
@@ -241,9 +242,9 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	// Populates the boardgame with the initial creatures for all players.
-	private void CreateInitialCreatures ()
+	private IEnumerator CreateInitialCreatures ()
 	{
-
+		yield return null;
 		for (int i = 0; i < GameManager.instance.player.Length; i++) {
 			InstantiateCreatures (GameManager.instance.player[i]);
 		}
@@ -252,14 +253,8 @@ public class BoardManager : MonoBehaviour {
 	// Instantiates every creature of a given player.
 	private void InstantiateCreatures(PlayerController playerInstance)
 	{
-
-		TileController tileInstance;
-		foreach ( string id in playerInstance.controlledTiles){
-			tileInstance = boardGameByID [id].GetComponent <TileController>();
-
-			if(tileInstance!=null){
-				tileInstance.InstantiateCreature (playerInstance);
-			}
+		foreach (TileController tileInstance in playerInstance.controlledTiles){
+			tileInstance.InstantiateCreature (playerInstance);
 		}
 	}
 

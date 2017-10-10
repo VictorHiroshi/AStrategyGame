@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerController : ScriptableObject{
 	public Color color;
-	public List<string> controlledTiles;
+	public List<TileController> controlledTiles;
 	public int coinCount;
 	public int playerNumber;
 	public int controlledStones;
@@ -25,7 +25,7 @@ public class PlayerController : ScriptableObject{
 
 	public void ControllNewTile(TileController newTile)
 	{
-		controlledTiles.Add (TileController.GetStringID (newTile.xIndex, newTile.zIndex));
+		controlledTiles.Add (newTile);
 		if(newTile.resource!=null)
 		{
 			controlledStones++;
@@ -34,7 +34,7 @@ public class PlayerController : ScriptableObject{
 
 	public void LeaveTile(TileController oldTile)
 	{
-		controlledTiles.Remove (TileController.GetStringID (oldTile.xIndex, oldTile.zIndex));
+		controlledTiles.Remove (oldTile);
 		if(oldTile.resource!=null)
 		{
 			controlledStones--;

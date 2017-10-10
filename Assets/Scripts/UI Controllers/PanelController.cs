@@ -95,6 +95,7 @@ public class PanelController : MonoBehaviour {
 
 	public void ShowMessage(float displayingTime, MessageType type)
 	{
+		StopAllCoroutines ();
 		switch(type)
 		{
 		case MessageType.CantPerformAction:
@@ -142,6 +143,7 @@ public class PanelController : MonoBehaviour {
 
 	public void UpdateTileMessage(TileController tile)
 	{
+		StopAllCoroutines ();
 		selectedUI = HighlightType.Empty;
 		descriptionPanelScrollbar.value = 1;
 		string message = "";

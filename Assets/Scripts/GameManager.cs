@@ -47,15 +47,23 @@ public class GameManager : MonoBehaviour {
 	{
 		activePlayerIndex = 3;
 		actualTurn = 0;
-		AssignPlayers ();
 		boardScript.SetupScene ();
-		NextTurn ();
 		panelControler.selectedUI = HighlightType.None;
+		AssignPlayers ();
+		NextTurn ();
 	}
 
 	public void RestartGame()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	public void BackToMenu()
+	{
+		if(!SceneManager.GetSceneByName ("MainMenu").IsValid ())
+			SceneManager.LoadScene ("MainMenu", LoadSceneMode.Additive);
+		
+		SceneManager.SetActiveScene (SceneManager.GetSceneByName ("MainMenu"));
 	}
 
 	public void NextTurn()
@@ -99,23 +107,23 @@ public class GameManager : MonoBehaviour {
 		
 		for (int i = 0; i < player.Length; i++) {
 			player [i] = new PlayerController ();
-			player [i].controlledTiles = new List<string> ();
+			player [i].controlledTiles = new List<TileController> ();
 			player [i].coinCount = 0;
 			player [i].controlledStones = 0;
 			player [i].playerNumber = i;
 			player [i].color = playersColors[i];
 		}
 
-		player[0].controlledTiles.Add (TileController.GetStringID (xMax -1, zMax-1));
-		player[1].controlledTiles.Add (TileController.GetStringID (xMax -1, 0));
-		player[2].controlledTiles.Add (TileController.GetStringID (0, zMax-1));
-		player[3].controlledTiles.Add (TileController.GetStringID (0, 0));
+		player[0].controlledTiles.Add (boardScript.getTile(xMax -1, zMax-1));
+		player[1].controlledTiles.Add (boardScript.getTile(xMax -1, 0));
+		player[2].controlledTiles.Add (boardScript.getTile(0, zMax-1));
+		player[3].controlledTiles.Add (boardScript.getTile(0, 0));
 	}
 
 	private void FocusCameraOn (PlayerController player)
 	{
-		string id = player.controlledTiles [0];
-		Transform target = boardScript.getTile (id).spawnPoint;
+		TileController tile = player.controlledTiles [0];
+		Transform target = tile.spawnPoint;
 		m_camera.MoveToTarget (target);
 	}
 
