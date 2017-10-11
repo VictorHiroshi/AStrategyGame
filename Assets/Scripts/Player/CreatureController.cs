@@ -173,7 +173,7 @@ public class CreatureController : MonoBehaviour {
 		}
 		else
 		{
-			target = origin;
+			targetTile = originTile;
 			enemy.creatureTransform.rotation = Quaternion.identity;
 		}
 
@@ -461,9 +461,12 @@ public class CreatureController : MonoBehaviour {
 	private IEnumerator PleadForHelp()
 	{
 		// TODO: Make creature plead for help until get healed in random time interval.
-		yield return null;
-
-		dialogCanvas.DisplayMessageForTime ("Don't let me die, bro!");
+		WaitForSeconds randomTime;
+		do {
+			randomTime = new WaitForSeconds(Random.Range (5f, 30f));
+			dialogCanvas.DisplayMessageForTime ("Don't let me die, bro!");
+			yield return randomTime;
+		} while(health != GameManager.instance.maxHealth);
 	}
 
 	private IEnumerator InDoubt()
