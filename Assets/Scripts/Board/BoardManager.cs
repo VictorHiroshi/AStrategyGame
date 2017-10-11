@@ -38,8 +38,6 @@ public class BoardManager : MonoBehaviour {
 	public ParticleSystem explosionParticles;
 	public ParticleSystem rockExplorationParticles;
 
-	private int columns;
-	private int rows;
 	private Transform boardHolder;
 	private GameObject selectedTile;
 	private bool existsSelectedTile;
@@ -48,11 +46,8 @@ public class BoardManager : MonoBehaviour {
 
 	// Creates a new boardgame with all the necessary setups to start a new game.
 	public void SetupScene(){
-		columns = boardSize;
-		rows = boardSize;
 		BoardSetup ();
 		CreateResources ();
-		StartCoroutine(CreateInitialCreatures ());
 
 		selectedTile = null;
 		existsSelectedTile = false;
@@ -102,7 +97,7 @@ public class BoardManager : MonoBehaviour {
 
 		neighbours = new List<GameObject> ();
 
-		if (x < 0 || x >= rows || z < 0 || z >= columns)
+		if (x < 0 || x >= boardSize || z < 0 || z >= boardSize)
 			return false;
 
 		GameObject neighbourTile;
@@ -114,7 +109,7 @@ public class BoardManager : MonoBehaviour {
 		}
 
 		// Add right neighbour to the list.
-		if (x < rows - 1) {
+		if (x < boardSize - 1) {
 			neighbourTile = boardGameByID [TileController.GetStringID (x + 1, z)];
 			neighbours.Add(neighbourTile);
 		}
@@ -126,7 +121,7 @@ public class BoardManager : MonoBehaviour {
 		}
 
 		// Add lower neighbour to the list.
-		if (z < columns - 1) {
+		if (z < boardSize - 1) {
 			neighbourTile = boardGameByID [TileController.GetStringID (x, z + 1)];
 			neighbours.Add (neighbourTile);
 		}
@@ -137,33 +132,32 @@ public class BoardManager : MonoBehaviour {
 	// Instantiates all tiles of the boardgame.
 	private void BoardSetup()
 	{
-
 		boardGameByID = new Dictionary<string, GameObject> ();
 
 		boardHolder = new GameObject ("Board").transform;
 
-		for (int z = -1; z < columns + 1; z++) 
+		for (int z = -1; z < boardSize + 1; z++) 
 		{
-			for (int x = -1; x < rows + 1; x++)
+			for (int x = -1; x < boardSize + 1; x++)
 			{
 				GameObject toInstantiate;
 				if (z == -1) {
 					if (x == -1)
 						toInstantiate = tiles.upperRightCornerTile [Random.Range (0, tiles.upperRightCornerTile.Length)];
-					else if (x == rows)
+					else if (x == boardSize)
 						toInstantiate = tiles.lowerRightCornerTile [Random.Range (0, tiles.lowerRightCornerTile.Length)];
 					else
 						toInstantiate = tiles.rightEdgeTiles [Random.Range (0, tiles.rightEdgeTiles.Length)];
-				} else if (z == columns) {
+				} else if (z == boardSize) {
 					if (x == -1)
 						toInstantiate = tiles.upperLeftCornerTile [Random.Range (0, tiles.upperLeftCornerTile.Length)];
-					else if (x == rows)
+					else if (x == boardSize)
 						toInstantiate = tiles.lowerLeftCornerTile [Random.Range (0, tiles.lowerLeftCornerTile.Length)];
 					else
 						toInstantiate = tiles.leftEdgeTiles [Random.Range (0, tiles.leftEdgeTiles.Length)];
 				} else if (x == -1) {
 					toInstantiate = tiles.upEdgeTiles [Random.Range (0, tiles.upEdgeTiles.Length)];
-				} else if (x == rows) {
+				} else if (x == boardSize) {
 					toInstantiate = tiles.downEdgeTiles [Random.Range (0, tiles.downEdgeTiles.Length)];
 				} else {
 					toInstantiate = tiles.normalTiles [Random.Range (0, tiles.normalTiles.Length)];
@@ -195,30 +189,30 @@ public class BoardManager : MonoBehaviour {
 		int maxZ;
 		// First quadrant.
 		minX = 1;
-		maxX = ((columns + 1) / 2);
+		maxX = ((boardSize + 1) / 2);
 		minZ = 1;
-		maxZ = ((rows + 1)/ 2);
+		maxZ = ((boardSize + 1)/ 2);
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Second quadrant.
-		minX = ((columns + 1) / 2);
-		maxX = columns - 1;
+		minX = ((boardSize + 1) / 2);
+		maxX = boardSize - 1;
 		minZ = 1;
-		maxZ = ((rows + 1) / 2);
+		maxZ = ((boardSize + 1) / 2);
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Third quadrant.
-		minX = ((columns + 1) / 2);
-		maxX = columns - 1;
-		minZ = ((rows + 1) / 2);
-		maxZ = rows - 1;
+		minX = ((boardSize + 1) / 2);
+		maxX = boardSize - 1;
+		minZ = ((boardSize + 1) / 2);
+		maxZ = boardSize - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 		// Fourth quadrant.
 		minX = 1;
-		maxX = ((columns + 1) / 2);
-		minZ = ((rows + 1)/ 2);
-		maxZ = rows - 1;
+		maxX = ((boardSize + 1) / 2);
+		minZ = ((boardSize + 1)/ 2);
+		maxZ = boardSize - 1;
 		GenerateAllRocks (minX, maxX, minZ, maxZ);
 
 	}
@@ -241,23 +235,6 @@ public class BoardManager : MonoBehaviour {
 				tileInstance.InstantiateResource (stoneModel);
 				tileInstance.resourceType = TileController.ResourceType.Stone;
 			}
-		}
-	}
-
-	// Populates the boardgame with the initial creatures for all players.
-	private IEnumerator CreateInitialCreatures ()
-	{
-		yield return null;
-		for (int i = 0; i < GameManager.instance.player.Length; i++) {
-			InstantiateCreatures (GameManager.instance.player[i]);
-		}
-	}
-
-	// Instantiates every creature of a given player.
-	private void InstantiateCreatures(PlayerController playerInstance)
-	{
-		foreach (TileController tileInstance in playerInstance.controlledTiles){
-			tileInstance.InstantiateCreature (playerInstance);
 		}
 	}
 

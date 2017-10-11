@@ -120,7 +120,6 @@ public class TileController : MonoBehaviour {
 		UnHighlight ();
 	}
 		
-	// Receives a game object and instantiates it as a creature.
 	public void InstantiateCreature(PlayerController player)
 	{
 		GameObject model = GameManager.instance.creature [player.playerNumber];
@@ -132,6 +131,7 @@ public class TileController : MonoBehaviour {
 			Debug.LogError ("Can't reach creature controller.");
 		}
 			
+		this.creature.occupiedTile = this;
 		this.creature.ChangeTeam (player);
 	}
 

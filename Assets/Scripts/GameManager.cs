@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour {
 			Destroy (this);
 
 		boardScript = GetComponent <BoardManager> ();
+
 		InitializeGame ();	
 
 		highlightedTiles = new List<TileController> ();
@@ -79,7 +80,7 @@ public class GameManager : MonoBehaviour {
 				actualTurn += 1;
 				panelControler.ChangeTurnText (actualTurn);
 			}
-		} while(player [activePlayerIndex].controlledTiles.Count <= 0);
+		} while(player [activePlayerIndex].controlledCreatures.Count <= 0);
 
 		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1));
 		panelControler.updateCoins (player [activePlayerIndex].coinCount);
@@ -106,22 +107,23 @@ public class GameManager : MonoBehaviour {
 		
 		for (int i = 0; i < player.Length; i++) {
 			player [i] = new PlayerController ();
-			player [i].controlledTiles = new List<TileController> ();
+			player [i].controlledCreatures = new List<CreatureController> ();
+			player [i].oppressedEnemyCreatures = new List<CreatureController> ();
 			player [i].coinCount = 0;
 			player [i].controlledStones = 0;
 			player [i].playerNumber = i;
 			player [i].color = playersColors[i];
 		}
 
-		player[0].controlledTiles.Add (boardScript.getTile(size -1, size-1));
-		player[1].controlledTiles.Add (boardScript.getTile(size -1, 0));
-		player[2].controlledTiles.Add (boardScript.getTile(0, size-1));
-		player[3].controlledTiles.Add (boardScript.getTile(0, 0));
+		player[0].InstantiateCreature (boardScript.getTile(size -1, size-1));
+		player[1].InstantiateCreature (boardScript.getTile(size -1, 0));
+		player[2].InstantiateCreature (boardScript.getTile(0, size-1));
+		player[3].InstantiateCreature (boardScript.getTile(0, 0));
 	}
 
 	private void FocusCameraOn (PlayerController player)
 	{
-		TileController tile = player.controlledTiles [0];
+		TileController tile = player.controlledCreatures [0].occupiedTile;
 		Transform target = tile.spawnPoint;
 		m_camera.MoveToTarget (target);
 	}

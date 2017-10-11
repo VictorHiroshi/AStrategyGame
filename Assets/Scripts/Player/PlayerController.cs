@@ -6,7 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerController : ScriptableObject{
 	public Color color;
-	public List<TileController> controlledTiles;
+	public List<CreatureController> controlledCreatures;
+	public List<CreatureController> oppressedEnemyCreatures;
 	public int coinCount;
 	public int playerNumber;
 	public int controlledStones;
@@ -23,21 +24,46 @@ public class PlayerController : ScriptableObject{
 		GameManager.instance.panelControler.updateCoins (coinCount);
 	}
 
-	public void ControllNewTile(TileController newTile)
+	public void InstantiateCreature(TileController tile)
 	{
-		controlledTiles.Add (newTile);
+		tile.InstantiateCreature (this);
+	}
+
+	public void ControllCreature(CreatureController creature)
+	{
+		controlledCreatures.Add (creature);
+
+		if(creature.occupiedTile.resource != null)
+		{
+			controlledStones++;
+		}
+	}
+
+	public void LoseCreature(CreatureController creature)
+	{
+		if (controlledCreatures.Contains (creature)) {
+			controlledCreatures.Remove (creature);
+
+			if (creature.occupiedTile.resource != null) {
+				controlledStones--;
+			}
+		}
+	}
+/*	public void ControllNewTile(CreatureController creature)
+	{
+		controlledTiles.Add (creature);
 		if(newTile.resource!=null)
 		{
 			controlledStones++;
 		}
 	}
 
-	public void LeaveTile(TileController oldTile)
+	public void LeaveTile(CreatureController creature)
 	{
-		controlledTiles.Remove (oldTile);
+		controlledTiles.Remove (creature);
 		if(oldTile.resource!=null)
 		{
 			controlledStones--;
 		}
-	}
+	}*/
 }
