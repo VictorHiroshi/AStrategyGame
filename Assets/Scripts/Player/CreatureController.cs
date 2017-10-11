@@ -307,7 +307,7 @@ public class CreatureController : MonoBehaviour {
 	public void SetToTired(bool halfTired)
 	{
 		
-		if(halfTired)
+		/*	if(halfTired)
 		{
 			if(moved)
 			{
@@ -328,7 +328,7 @@ public class CreatureController : MonoBehaviour {
 			animatorController.SetTrigger ("IsTired");
 
 		if(!GameManager.instance.tiredCreatures.Contains (this))
-			GameManager.instance.tiredCreatures.Add (this);
+			GameManager.instance.tiredCreatures.Add (this);*/
 
 	}
 

@@ -894,10 +894,10 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1471467165053478}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4ee59653945f45c48a7034e93fc4f2be, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d9bcc409687c0094c86a34b068242026, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2062,7 +2062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fcabacbd85c1d41b9ec8f09a3a71a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardSize: 6
+  boardSize: 4
   stonesPerQuadrant: 1
   tiles:
     normalTiles:
@@ -2071,10 +2071,14 @@ MonoBehaviour:
     - {fileID: 1256009948441292, guid: 4878307d245780c4485fa328251b8087, type: 2}
     rightEdgeTiles:
     - {fileID: 1016738296956598, guid: a8fd8e690a1d0fc439414db056274ed7, type: 2}
+    - {fileID: 1421608641295552, guid: 0f923464a225bde4daf6f4b77c45ef07, type: 2}
     leftEdgeTiles:
+    - {fileID: 1184541143924880, guid: b0e26c09a1a6c834190b4b3fb2c58a86, type: 2}
     - {fileID: 1066737926114058, guid: 36a49977d46d6804d94266386de974b6, type: 2}
     upEdgeTiles:
     - {fileID: 1246569332100500, guid: d1099760f48ff8b4681bf7b4c60a6918, type: 2}
+    - {fileID: 1913835890697212, guid: 68e1670c7d9c24742b18b46adcf69df5, type: 2}
+    - {fileID: 1629260180985090, guid: 7ff3b0b57f92d354188fc58123ff8865, type: 2}
     downEdgeTiles:
     - {fileID: 1351306893761238, guid: 756792a2a7313b64c9244cfcf510a57a, type: 2}
     upperLeftCornerTile:
@@ -2816,7 +2820,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224992970535013356}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.290146
+  m_Size: 0.29014596
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

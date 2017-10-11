@@ -51,9 +51,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4317060152419680}
-  - component: {fileID: 54164276716283072}
-  - component: {fileID: 64863063046575930}
   - component: {fileID: 114548312728763856}
+  - component: {fileID: 65741809094130070}
   m_Layer: 0
   m_Name: Normal_Tile_2
   m_TagString: Untagged
@@ -142,35 +141,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1423985382411270}
   m_Mesh: {fileID: 4300000, guid: 36d01a7e99983034f9107d2cacf55bbe, type: 3}
---- !u!54 &54164276716283072
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552921531394016}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: Infinity
-  m_AngularDrag: Infinity
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!64 &64863063046575930
-MeshCollider:
+--- !u!65 &65741809094130070
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552921531394016}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 36d01a7e99983034f9107d2cacf55bbe, type: 3}
+  m_Size: {x: 3, y: 0.4, z: 3}
+  m_Center: {x: -1.5, y: 0.2, z: -1.5}
 --- !u!114 &114548312728763856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,7 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a7ddf6af0c734ab27d701f3455654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 4135704339019448}
   creature: {fileID: 0}
   resource: {fileID: 0}
   resourceType: 0
-  spawnPoint: {fileID: 4135704339019448}
+  xIndex: 0
+  zIndex: 0

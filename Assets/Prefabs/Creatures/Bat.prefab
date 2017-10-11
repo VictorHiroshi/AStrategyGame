@@ -2438,6 +2438,7 @@ MonoBehaviour:
   shield: {fileID: 1525338090508040}
   HealingBox: {fileID: 1384197144745266}
   oppressScript: {fileID: 114929927241009060}
+  occupiedTile: {fileID: 0}
   speed: 1
   moved: 0
   isTired: 0
@@ -2684,11 +2685,11 @@ SkinnedMeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743535933460058}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 2100000, guid: 6a9d5602ab51ed243b686397b63daeb8, type: 2}
   m_StaticBatchInfo:
