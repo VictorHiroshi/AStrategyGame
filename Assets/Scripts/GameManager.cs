@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
 	[HideInInspector]public BoardManager boardScript;
-	[HideInInspector] public PlayerController[] player;
+	public PlayerController[] player;
 
 	public int maxHealth = 10;
 	public int coinsPerStone = 2;
@@ -61,10 +61,7 @@ public class GameManager : MonoBehaviour {
 
 	public void BackToMenu()
 	{
-		if(!SceneManager.GetSceneByName ("MainMenu").IsValid ())
-			SceneManager.LoadScene ("MainMenu", LoadSceneMode.Additive);
-		
-		SceneManager.SetActiveScene (SceneManager.GetSceneByName ("MainMenu"));
+		SceneManager.LoadScene ("MainMenu");
 	}
 
 	public void NextTurn()
@@ -108,7 +105,8 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < player.Length; i++) {
 			player [i] = new PlayerController ();
 			player [i].controlledCreatures = new List<CreatureController> ();
-			player [i].oppressedEnemyCreatures = new List<CreatureController> ();
+			player [i].oppressedCreatures = new List<CreatureController> ();
+			player [i].attemptingToConvert = new List<CreatureController> ();
 			player [i].coinCount = 0;
 			player [i].controlledStones = 0;
 			player [i].playerNumber = i;
@@ -146,6 +144,10 @@ public class GameManager : MonoBehaviour {
 			if(!creature.oppressScript.HasTurnsLeft ())
 			{
 				toRemove.Add (creature);
+
+				creature.belongsToPlayer.GetBackOppressedCreature (creature);
+				creature.oppressedByPlayer.controlledCreatures.Remove (creature);
+
 				creature.oppressedByPlayer = null;
 			}
 		}

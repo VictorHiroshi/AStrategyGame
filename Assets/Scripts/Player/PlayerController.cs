@@ -7,7 +7,8 @@ using UnityEngine;
 public class PlayerController : ScriptableObject{
 	public Color color;
 	public List<CreatureController> controlledCreatures;
-	public List<CreatureController> oppressedEnemyCreatures;
+	public List<CreatureController> oppressedCreatures;
+	public List<CreatureController> attemptingToConvert;
 	public int coinCount;
 	public int playerNumber;
 	public int controlledStones;
@@ -22,6 +23,12 @@ public class PlayerController : ScriptableObject{
 	{
 		coinCount += money;
 		GameManager.instance.panelControler.updateCoins (coinCount);
+	}
+
+	public bool CheckIfLost()
+	{
+		// TODO: Check if lost game, if yes, reassign oppressed creatures and turn of attempting to convert creatures.
+		return false;
 	}
 
 	public void InstantiateCreature(TileController tile)
@@ -49,21 +56,21 @@ public class PlayerController : ScriptableObject{
 			}
 		}
 	}
-/*	public void ControllNewTile(CreatureController creature)
+
+	public void CreatureGetOppressed(CreatureController creature)
 	{
-		controlledTiles.Add (creature);
-		if(newTile.resource!=null)
-		{
-			controlledStones++;
+		if (controlledCreatures.Contains (creature)) {
+			controlledCreatures.Remove (creature);
+			oppressedCreatures.Add (creature);
 		}
 	}
 
-	public void LeaveTile(CreatureController creature)
+	public void GetBackOppressedCreature(CreatureController creature)
 	{
-		controlledTiles.Remove (creature);
-		if(oldTile.resource!=null)
+		if (oppressedCreatures.Contains (creature))
 		{
-			controlledStones--;
+			oppressedCreatures.Remove (creature);
+			controlledCreatures.Add (creature);
 		}
-	}*/
+	}
 }

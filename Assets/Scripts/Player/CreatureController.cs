@@ -34,8 +34,6 @@ public class CreatureController : MonoBehaviour {
 
 	void Awake()
 	{
-		
-
 		animatorController.SetTrigger ("IsIdle");
 
 		TurnDefense (false);
@@ -60,27 +58,22 @@ public class CreatureController : MonoBehaviour {
 		rocksParticles = Instantiate (GameManager.instance.boardScript.rockExplorationParticles, transform.position, Quaternion.identity, transform) as ParticleSystem;
 	}
 
-	public void FinishedAnimation()
+	public IEnumerator Heal()
 	{
-		finishedInteractionAnimation = true;
-	}
-
-	public bool IsDefending()
-	{
-		return isDefending;
-	}
-
-	public IEnumerator TakeDamage(int damage)
-	{
-		health -= damage;
+		health = GameManager.instance.maxHealth;
 
 		WaitForSeconds lerpTime = new WaitForSeconds (0.1f);
 
+
 		while(healthSlider.value != health)
 		{
-			healthSlider.value -= 1;
+			healthSlider.value += 1;
 			yield return lerpTime;
 		}
+
+		GameManager.instance.player [GameManager.instance.activePlayerIndex].Spend (ActionsManager.instance.healingCost);
+
+		HealingBox.SetActive (false);
 	}
 
 	public void ChangeTeam(PlayerController player)
@@ -136,17 +129,9 @@ public class CreatureController : MonoBehaviour {
 
 	public IEnumerator Attack(TileController originTile, TileController targetTile)
 	{
-		Transform origin = originTile.spawnPoint;
-		Transform target = targetTile.spawnPoint;
-
 		enemy = targetTile.creature;
 
-		enemy.creatureTransform.rotation = Quaternion.LookRotation (origin.position - target.position);
-
-		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
-
-
-		yield return StartCoroutine (Moving (walkingPosition));
+		yield return StartCoroutine (ApproachTarget (originTile, targetTile));
 
 		animatorController.SetTrigger ("Attacks");
 		finishedInteractionAnimation = false;
@@ -154,22 +139,20 @@ public class CreatureController : MonoBehaviour {
 		{
 			yield return null;
 		}
-		animatorController.SetTrigger ("IsIdle");
 
 		if(enemy.isDefending)
 		{
-			yield return StartCoroutine (TakeDamage (defendingDamage));
-			yield return StartCoroutine (enemy.TakeDamage (defendingDamage));
+			StartCoroutine (TakeDamage (defendingDamage));
+			StartCoroutine (enemy.TakeDamage (defendingDamage));
 		}
 		else
 		{
-			yield return StartCoroutine (enemy.TakeDamage (GameManager.instance.maxHealth));
+			StartCoroutine (enemy.TakeDamage (GameManager.instance.maxHealth));
 		}
 
 		if (enemy.CheckIfDie ())
 		{
-			/*enemy.belongsToPlayer.LeaveTile (*/
-			StartCoroutine (enemy.Die ());
+			yield return StartCoroutine (enemy.Die ());
 		}
 		else
 		{
@@ -189,6 +172,101 @@ public class CreatureController : MonoBehaviour {
 
 	}
 
+	public IEnumerator Convert(TileController originTile, TileController targetTile)
+	{
+		enemy = targetTile.creature;
+
+		yield return StartCoroutine (ApproachTarget (originTile, targetTile));
+
+		/* TODO: Set converting animation.
+		animatorController.SetTrigger ("Converts");
+		finishedInteractionAnimation = false;
+		while(!finishedInteractionAnimation)
+		{
+			yield return null;
+		}
+		*/
+
+		Color newColor = GameManager.instance.player [GameManager.instance.activePlayerIndex].color;
+		string convertingMessage = "Come to the true " +  "<color=#" + ColorUtility.ToHtmlStringRGB(newColor) + ">COLOR" + "</color>" + "!";
+
+		yield return StartCoroutine (dialogCanvas.DisplayMessageForTime (convertingMessage));
+
+		enemy.CheckIfConverted (this);
+
+		StartCoroutine(MoveToTarget(originTile));
+
+		enemy.creatureTransform.rotation = Quaternion.identity;
+	}
+
+	public IEnumerator Oppress(TileController originTile, TileController targetTile)
+	{
+		enemy = targetTile.creature;
+
+		yield return StartCoroutine (ApproachTarget (originTile, targetTile));
+
+		/* TODO: Set oppressing animation.
+		animatorController.SetTrigger ("Oppresses");
+		finishedInteractionAnimation = false;
+		while(!finishedInteractionAnimation)
+		{
+			yield return null;
+		}
+		*/
+
+		string oppressingMessage = "RESPECT MA' AUTHORITA'!";
+
+		yield return StartCoroutine (dialogCanvas.DisplayMessageForTime (oppressingMessage));
+
+		PlayerController oppressorPlayer = GameManager.instance.player [GameManager.instance.activePlayerIndex];
+
+		if(belongsToPlayer == enemy.belongsToPlayer)
+		{
+			enemy.oppressScript.Unoppress ();
+
+			enemy.oppressedByPlayer.controlledCreatures.Remove (enemy);
+			enemy.belongsToPlayer.GetBackOppressedCreature (enemy);
+
+			enemy.oppressedByPlayer = null;
+		}
+		else
+		{
+			enemy.oppressScript.Oppress (oppressorPlayer.color);
+
+			oppressorPlayer.controlledCreatures.Add (enemy);
+			enemy.belongsToPlayer.CreatureGetOppressed (enemy);
+
+			enemy.oppressedByPlayer = oppressorPlayer;
+		}
+
+		if (!GameManager.instance.oppressedCreatures.Contains (enemy)) 
+		{
+			GameManager.instance.oppressedCreatures.Add (enemy);
+		}
+
+		StartCoroutine(MoveToTarget(originTile));
+
+		enemy.creatureTransform.rotation = Quaternion.identity;
+	}
+
+	public IEnumerator TakeDamage(int damage)
+	{
+		health -= damage;
+
+		WaitForSeconds lerpTime = new WaitForSeconds (0.1f);
+
+		while(healthSlider.value != health)
+		{
+			healthSlider.value -= 1;
+			yield return lerpTime;
+		}
+	}
+
+	public bool IsDefending()
+	{
+		return isDefending;
+	}
+
 	public void TurnDefense(bool defenseState)
 	{
 		shield.SetActive (defenseState);
@@ -205,30 +283,9 @@ public class CreatureController : MonoBehaviour {
 		SetToTired (false);
 	}
 
-	public void Convert(Transform origin, Transform target, CreatureController enemy)
-	{
-		this.enemy = enemy;
-
-		enemy.creatureTransform.rotation = Quaternion.LookRotation (origin.position - target.position);
-
-		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
-
-		StartCoroutine (Converting (origin, target, walkingPosition));
-	}
-
-	public void Oppress(Transform origin, Transform target, CreatureController enemy)
-	{
-		this.enemy = enemy;
-
-		enemy.creatureTransform.rotation = Quaternion.LookRotation (origin.position - target.position);
-
-		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
-
-		StartCoroutine (Oppressing (origin, target, walkingPosition));
-	}
-
 	public void FinishExploringAnimation()
 	{
+		animatorController.SetTrigger ("IsIdle");
 		ActionsManager.instance.FinishAction ();
 	}
 
@@ -237,25 +294,7 @@ public class CreatureController : MonoBehaviour {
 		explosionParticles.Play ();
 	}
 
-	public IEnumerator Heal()
-	{
-		health = GameManager.instance.maxHealth;
-
-		WaitForSeconds lerpTime = new WaitForSeconds (0.1f);
-
-
-		while(healthSlider.value != health)
-		{
-			healthSlider.value += 1;
-			yield return lerpTime;
-		}
-
-		GameManager.instance.player [GameManager.instance.activePlayerIndex].Spend (ActionsManager.instance.healingCost);
-
-		HealingBox.SetActive (false);
-	}
-
-	public IEnumerator CheckIfConverted(CreatureController savior)
+	public void CheckIfConverted(CreatureController savior)
 	{
 		PlayerController saviorPlayer = savior.belongsToPlayer;
 		if(savior.oppressedByPlayer!=null)
@@ -274,9 +313,8 @@ public class CreatureController : MonoBehaviour {
 
 			StopCoroutine (inDoubtBlinkLoop);
 
-			//Informs GameManager that the enemy lost this creature.
-/*			ActionsManager.instance.EnemyLostControlOverTarget ();
-			ActionsManager.instance.ActivePlayerControllNewTile ();*/
+			belongsToPlayer.LoseCreature (this);
+			saviorPlayer.ControllCreature (this);
 
 			ChangeTeam (saviorPlayer);
 
@@ -296,18 +334,14 @@ public class CreatureController : MonoBehaviour {
 			inDoubtBlinkLoop = InDoubt ();
 			StartCoroutine (inDoubtBlinkLoop);	
 		}
-
-		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
-		dialogCanvas.DisplayMessageForTime ("Oh Boy...");
-
-		yield return exhibitMessageTime;
-
+			
+		StartCoroutine ( dialogCanvas.DisplayMessageForTime ("Oh Boy..."));
 	}
 
 	public void SetToTired(bool halfTired)
 	{
 		
-		/*	if(halfTired)
+		/*if(halfTired)
 		{
 			if(moved)
 			{
@@ -328,8 +362,14 @@ public class CreatureController : MonoBehaviour {
 			animatorController.SetTrigger ("IsTired");
 
 		if(!GameManager.instance.tiredCreatures.Contains (this))
-			GameManager.instance.tiredCreatures.Add (this);*/
+			GameManager.instance.tiredCreatures.Add (this);
+*/
 
+	}
+
+	public void FinishedAnimation()
+	{
+		finishedInteractionAnimation = true;
 	}
 
 	private bool CheckIfDie ()
@@ -375,87 +415,25 @@ public class CreatureController : MonoBehaviour {
 		animatorController.SetTrigger ("IsIdle");
 	}
 
-	private IEnumerator Moving(Vector3 target)
+	private IEnumerator ApproachTarget (TileController originTile, TileController targetTile)
 	{
-		animatorController.SetTrigger ("Moves");
-		creatureTransform.rotation = Quaternion.LookRotation (target - transform.position);
+		Transform origin = originTile.spawnPoint;
+		Transform target = targetTile.spawnPoint;
 
-		while((transform.position - target).sqrMagnitude > 0.15)
+		enemy.creatureTransform.rotation = Quaternion.LookRotation (origin.position - target.position);
+
+		Vector3 walkingPosition = target.position - ((target.position - origin.position) / GameManager.instance.boardScript.tiles.tileSideSize);
+
+		animatorController.SetTrigger ("Moves");
+		creatureTransform.rotation = Quaternion.LookRotation (target.position - walkingPosition);
+
+		while((transform.position - walkingPosition).sqrMagnitude > 0.15)
 		{
-			transform.position = Vector3.Lerp (transform.position, target, Time.deltaTime * speed);
+			transform.position = Vector3.Lerp (transform.position, walkingPosition, Time.deltaTime * speed);
 			yield return null;
 		}
 
 		animatorController.SetTrigger ("IsIdle");
-	}
-
-
-
-	private IEnumerator Converting(Transform origin, Transform target, Vector3 midTarget)
-	{
-		animatorController.SetTrigger ("Moves");
-
-		creatureTransform.rotation = Quaternion.LookRotation (midTarget - transform.position);
-		while((transform.position - midTarget).sqrMagnitude > 0.15)
-		{
-			transform.position = Vector3.Lerp (transform.position, midTarget, Time.deltaTime * speed);
-			yield return null;
-		}
-			
-		animatorController.SetTrigger ("IsIdle");
-		Color newColor = GameManager.instance.player [GameManager.instance.activePlayerIndex].color;
-		string convertingMessage = "Come to the true " +  "<color=#" + ColorUtility.ToHtmlStringRGB(newColor) + ">COLOR" + "</color>" + "!";
-
-		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
-		dialogCanvas.DisplayMessageForTime (convertingMessage);
-		yield return exhibitMessageTime;
-
-		StartCoroutine (enemy.CheckIfConverted (this));
-
-//		MoveToTarget (origin);
-		enemy.creatureTransform.rotation = Quaternion.identity;
-
-	}
-
-	private IEnumerator Oppressing(Transform origin, Transform target, Vector3 midTarget)
-	{
-		animatorController.SetTrigger ("Moves");
-
-		creatureTransform.rotation = Quaternion.LookRotation (midTarget - transform.position);
-		while((transform.position - midTarget).sqrMagnitude > 0.15)
-		{
-			transform.position = Vector3.Lerp (transform.position, midTarget, Time.deltaTime * speed);
-			yield return null;
-		}
-
-		animatorController.SetTrigger ("IsIdle");
-		string convertingMessage = "RESPECT MA' AUTHORITA'!";
-
-		WaitForSeconds exhibitMessageTime = new WaitForSeconds(3f);
-		dialogCanvas.DisplayMessageForTime (convertingMessage);
-		yield return exhibitMessageTime;
-
-		PlayerController oppressorPlayer = GameManager.instance.player [GameManager.instance.activePlayerIndex];
-
-		if(belongsToPlayer == enemy.belongsToPlayer)
-		{
-			enemy.oppressScript.Unoppress ();
-			enemy.oppressedByPlayer = null;
-		}
-		else
-		{
-			enemy.oppressScript.Oppress (oppressorPlayer.color);
-			enemy.oppressedByPlayer = oppressorPlayer;
-		}
-
-		if (!GameManager.instance.oppressedCreatures.Contains (enemy)) 
-		{
-			GameManager.instance.oppressedCreatures.Add (enemy);
-		}
-
-		//MoveToTarget (origin);
-		enemy.creatureTransform.rotation = Quaternion.identity;
-
 	}
 
 	private IEnumerator PleadForHelp()

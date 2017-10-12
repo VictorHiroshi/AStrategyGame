@@ -46,16 +46,11 @@ public class DialogScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 	}
 
 
-	public void DisplayMessageForTime(string message, float deltaTime = 2.5f)
+	public IEnumerator DisplayMessageForTime(string message, float deltaTime = 2.5f)
 	{
 		dialogMessage.text = message;
 		TurnBalloonVisibility (true);
-		StartCoroutine (Display (new WaitForSeconds (deltaTime)));
-	}
-
-	private IEnumerator Display(WaitForSeconds delay)
-	{
-		yield return delay;
+		yield return new WaitForSeconds (deltaTime);
 		TurnBalloonVisibility (false);
 	}
 }

@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneOnClick : MonoBehaviour {
 
-	public void LoadByIndex(int sceneIndex)
+	public void LoadScene(string sceneName)
 	{
-		if(!SceneManager.GetSceneByBuildIndex (sceneIndex).IsValid ())
-			SceneManager.LoadScene (sceneIndex, LoadSceneMode.Additive);
-		
-		SceneManager.SetActiveScene (SceneManager.GetSceneByBuildIndex (sceneIndex));
+		SceneManager.LoadScene (sceneName);
 
 	}
 
