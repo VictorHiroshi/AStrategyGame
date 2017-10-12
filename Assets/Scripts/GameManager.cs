@@ -8,9 +8,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-	[HideInInspector]public BoardManager boardScript;
-	public PlayerController[] player;
-
+	public bool neverTiredCreatures = false;
 	public int maxHealth = 10;
 	public int coinsPerStone = 2;
 	public int coinsPerTurn = 4;
@@ -21,12 +19,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject [] creature;
 	public Color[] playersColors;
 
+	[HideInInspector]public BoardManager boardScript;
+	[HideInInspector]public PlayerController[] player;
 	[HideInInspector]public int activePlayerIndex;
 	[HideInInspector]public List<TileController> highlightedTiles;
 	[HideInInspector]public List<CreatureController> tiredCreatures;
 	[HideInInspector]public List<CreatureController> oppressedCreatures;
 
 	private int actualTurn;
+	private bool [] playerIsActive;
 
 	void Awake () {
 		// Defining this object as a singleton.
@@ -67,17 +68,33 @@ public class GameManager : MonoBehaviour {
 	public void NextTurn()
 	{
 		//TODO: Verify winning condition.
-		do {
-			activePlayerIndex += 1;
-			activePlayerIndex = activePlayerIndex % player.Length;
 
-			if (activePlayerIndex == 0) {
-				CountDownOppressingTurns();
-				TurnChangingIncome ();
-				actualTurn += 1;
-				panelControler.ChangeTurnText (actualTurn);
+		activePlayerIndex += 1;
+		activePlayerIndex = activePlayerIndex % player.Length;
+
+		if (activePlayerIndex == 0) {
+			CountDownOppressingTurns();
+			if(GameOver())
+			{
+				return;
 			}
-		} while(player [activePlayerIndex].controlledCreatures.Count <= 0);
+			TurnChangingIncome ();
+			actualTurn += 1;
+			panelControler.ChangeTurnText (actualTurn);
+		}
+
+		if(!playerIsActive[activePlayerIndex])
+		{
+			NextTurn ();
+			return;
+		}
+
+		if(player[activePlayerIndex].CheckIfLost ())
+		{
+			playerIsActive [activePlayerIndex] = false;
+			NextTurn ();
+			return;
+		}
 
 		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1));
 		panelControler.updateCoins (player [activePlayerIndex].coinCount);
@@ -101,6 +118,7 @@ public class GameManager : MonoBehaviour {
 		int size = boardScript.boardSize;
 
 		player = new PlayerController[creature.Length];
+		playerIsActive = new bool[creature.Length];
 		
 		for (int i = 0; i < player.Length; i++) {
 			player [i] = new PlayerController ();
@@ -111,18 +129,40 @@ public class GameManager : MonoBehaviour {
 			player [i].controlledStones = 0;
 			player [i].playerNumber = i;
 			player [i].color = playersColors[i];
+			playerIsActive [i] = true;
+
+			ListOfInitialTile list = boardScript.intialTilesForPlayer [i];
+
+			foreach(InitialTile tileCoord in list.initialTiles)
+			{
+				player [i].InstantiateCreature (boardScript.getTile (tileCoord.coordX, tileCoord.coordY));
+			}
 		}
 
-		player[0].InstantiateCreature (boardScript.getTile(size -1, size-1));
+		/*player[0].InstantiateCreature (boardScript.getTile(size -1, size-1));
 		player[1].InstantiateCreature (boardScript.getTile(size -1, 0));
 		player[2].InstantiateCreature (boardScript.getTile(0, size-1));
-		player[3].InstantiateCreature (boardScript.getTile(0, 0));
+		player[3].InstantiateCreature (boardScript.getTile(0, 0));*/
+
+
 	}
 
 	private void FocusCameraOn (PlayerController player)
 	{
-		TileController tile = player.controlledCreatures [0].occupiedTile;
-		Transform target = tile.spawnPoint;
+		TileController tile;
+
+		if(player.controlledCreatures.Count>0)
+			tile = player.controlledCreatures [0].occupiedTile;
+		else
+			tile = player.oppressedCreatures[0].occupiedTile;
+
+		Transform target;
+
+		if (tile == null)
+			target = transform;
+		else 
+			target = tile.spawnPoint;
+		
 		m_camera.MoveToTarget (target);
 	}
 
@@ -167,5 +207,33 @@ public class GameManager : MonoBehaviour {
 			creature.animatorController.SetTrigger ("IsIdle");
 		}
 		tiredCreatures.Clear ();
+	}
+
+	private bool GameOver()
+	{
+		int playerCount = 0;
+		PlayerController winner = player[0];
+
+		for(int i = 0; i<player.Length; i++)
+		{
+			if (playerIsActive[i]) 
+			{
+				playerCount++;
+				winner = player [i];
+			}
+		}
+
+		if (playerCount > 1)
+			return false;
+
+		StartCoroutine (FinishGame(winner));
+		return true;
+	}
+
+	private IEnumerator FinishGame(PlayerController winner)
+	{
+		ActionsManager.instance.actualState = ActionState.GameOver;
+		panelControler.GameOverMessage (winner);
+		yield return null;
 	}
 }

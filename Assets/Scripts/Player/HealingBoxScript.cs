@@ -15,8 +15,9 @@ public class HealingBoxScript : MonoBehaviour {
 	{
 		if (parent.belongsToPlayer.playerNumber == GameManager.instance.activePlayerIndex)
 		{
+			StopAllCoroutines ();
 			StartCoroutine (parent.Heal ());
-			parent.dialogCanvas.DisplayMessageForTime ("Thanks, ma'am!");
+			StartCoroutine (parent.dialogCanvas.DisplayMessageForTime ("Thanks, ma'am!"));
 		}
 		else
 		{
@@ -30,7 +31,8 @@ public class HealingBoxScript : MonoBehaviour {
 
 		if (parent.belongsToPlayer.playerNumber == GameManager.instance.activePlayerIndex) 
 		{
-			parent.dialogCanvas.DisplayMessageForTime ("Please, dude! Only one buck...");
+			StopAllCoroutines ();
+			StartCoroutine (parent.dialogCanvas.DisplayMessageForTime ("Please, dude! Only one buck..."));
 		}
 	}
 }

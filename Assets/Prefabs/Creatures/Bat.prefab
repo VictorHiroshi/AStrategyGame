@@ -724,6 +724,7 @@ GameObject:
   - component: {fileID: 114878726877412872}
   - component: {fileID: 114460525544230498}
   - component: {fileID: 114324228489163728}
+  - component: {fileID: 65997007478870454}
   m_Layer: 5
   m_Name: BalloonCanvas
   m_TagString: Untagged
@@ -1055,6 +1056,7 @@ GameObject:
   - component: {fileID: 224398526693896260}
   - component: {fileID: 222967695110923358}
   - component: {fileID: 114032852675179416}
+  - component: {fileID: 223776488533978366}
   m_Layer: 5
   m_Name: TalkingBalloon
   m_TagString: Untagged
@@ -2330,6 +2332,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.45, z: 0.45}
   m_Center: {x: 0.75, y: 0.2, z: 0}
+--- !u!65 &65997007478870454
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1615365737644528}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 70, z: 0.05}
+  m_Center: {x: 0, y: -12, z: 0}
 --- !u!95 &95345632186668146
 Animator:
   serializedVersion: 3
@@ -2794,6 +2808,26 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628108208482428}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!223 &223776488533978366
+Canvas:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969308876797494}
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2

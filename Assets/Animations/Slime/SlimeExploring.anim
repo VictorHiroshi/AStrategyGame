@@ -1878,7 +1878,7 @@ AnimationClip:
     floatParameter: 0.1
     intParameter: 0
     messageOptions: 0
-  - time: 0.75
+  - time: 0.73333335
     functionName: FinishExploringAnimation
     data: 
     objectReferenceParameter: {fileID: 0}

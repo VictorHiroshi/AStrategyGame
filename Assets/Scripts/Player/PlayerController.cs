@@ -28,7 +28,18 @@ public class PlayerController : ScriptableObject{
 	public bool CheckIfLost()
 	{
 		// TODO: Check if lost game, if yes, reassign oppressed creatures and turn of attempting to convert creatures.
-		return false;
+		bool lost = false;
+
+		if(controlledCreatures.Count == 0 && oppressedCreatures.Count == 0)
+		{
+			lost = true;
+			foreach(CreatureController creature in attemptingToConvert)
+			{
+				creature.ConvertingTeamLost();
+			}
+		}
+
+		return lost;
 	}
 
 	public void InstantiateCreature(TileController tile)
@@ -38,11 +49,12 @@ public class PlayerController : ScriptableObject{
 
 	public void ControllCreature(CreatureController creature)
 	{
-		controlledCreatures.Add (creature);
+		if (!controlledCreatures.Contains (creature)) {
+			controlledCreatures.Add (creature);
 
-		if(creature.occupiedTile.resource != null)
-		{
-			controlledStones++;
+			if (creature.occupiedTile.resource != null) {
+				controlledStones++;
+			}
 		}
 	}
 
@@ -50,6 +62,13 @@ public class PlayerController : ScriptableObject{
 	{
 		if (controlledCreatures.Contains (creature)) {
 			controlledCreatures.Remove (creature);
+
+			if (creature.occupiedTile.resource != null) {
+				controlledStones--;
+			}
+		}
+		else if(oppressedCreatures.Contains (creature)){
+			oppressedCreatures.Remove (creature);
 
 			if (creature.occupiedTile.resource != null) {
 				controlledStones--;

@@ -81,6 +81,11 @@ public class CreatureController : MonoBehaviour {
 		if(belongsToPlayer!=null)
 			belongsToPlayer.LoseCreature (this);
 
+		if(GameManager.instance.oppressedCreatures.Contains (this))
+		{
+			GameManager.instance.oppressedCreatures.Remove (this);
+		}
+
 		player.ControllCreature (this);
 
 		belongsToPlayer = player;
@@ -122,7 +127,7 @@ public class CreatureController : MonoBehaviour {
 		// Assign creature to new tile.
 		newCreature.occupiedTile = targetTile;
 
-		//SetToTired (false);
+		SetToTired(halfTired: false);
 
 		return newCreature;
 	}
@@ -279,14 +284,13 @@ public class CreatureController : MonoBehaviour {
 	{
 		explosionParticles.Play ();
 		rocksParticles.Play ();
-
-		SetToTired (false);
 	}
 
 	public void FinishExploringAnimation()
 	{
 		animatorController.SetTrigger ("IsIdle");
 		ActionsManager.instance.FinishAction ();
+		SetToTired (false);
 	}
 
 	public void PlayExplosionParticles()
@@ -343,10 +347,18 @@ public class CreatureController : MonoBehaviour {
 		StartCoroutine ( dialogCanvas.DisplayMessageForTime ("Oh Boy..."));
 	}
 
+	public void ConvertingTeamLost()
+	{
+		StopCoroutine (inDoubtBlinkLoop);
+		influencedByPlayer = null;
+	}
+
 	public void SetToTired(bool halfTired)
 	{
+		if (GameManager.instance.neverTiredCreatures)
+			return;
 		
-		/*if(halfTired)
+		if(halfTired)
 		{
 			if(moved)
 			{
@@ -368,7 +380,6 @@ public class CreatureController : MonoBehaviour {
 
 		if(!GameManager.instance.tiredCreatures.Contains (this))
 			GameManager.instance.tiredCreatures.Add (this);
-*/
 
 	}
 
@@ -447,7 +458,7 @@ public class CreatureController : MonoBehaviour {
 		WaitForSeconds randomTime;
 		do {
 			randomTime = new WaitForSeconds(Random.Range (5f, 30f));
-			dialogCanvas.DisplayMessageForTime ("Don't let me die, bro!");
+			yield return StartCoroutine (dialogCanvas.DisplayMessageForTime ("Don't let me die, bro!"));
 			yield return randomTime;
 		} while(health != GameManager.instance.maxHealth);
 	}

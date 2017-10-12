@@ -19,6 +19,17 @@ public class TileLists{
 	public float tileSideSize = 3.0f;
 }
 
+[System.Serializable]
+public class InitialTile{
+	public int coordX;
+	public int coordY;
+}
+
+[System.Serializable]
+public class ListOfInitialTile{
+	public List<InitialTile> initialTiles;
+}
+
 // Class to organize all sorts of resources.
 [System.Serializable]
 public class ResourceList{
@@ -31,12 +42,15 @@ public class ResourceList{
 // Script to handle general operations of the boardgame.
 public class BoardManager : MonoBehaviour {
 
+	public int maxResourceGenerationAttempts = 20;
 	public int boardSize = 16;
 	public int stonesPerQuadrant = 5;
 	public TileLists tiles;
 	public ResourceList resources;
 	public ParticleSystem explosionParticles;
 	public ParticleSystem rockExplorationParticles;
+
+	public List<ListOfInitialTile> intialTilesForPlayer;
 
 	private Transform boardHolder;
 	private GameObject selectedTile;
@@ -223,7 +237,7 @@ public class BoardManager : MonoBehaviour {
 		int xIndex;
 		int zIndex;
 		GameObject stoneModel;
-		for(int i=0; i<stonesPerQuadrant;){
+		for(int i=0, attempt = 0; i<stonesPerQuadrant && attempt < maxResourceGenerationAttempts; attempt++){
 			xIndex = Random.Range (minXIndex, maxXIndex);
 			zIndex = Random.Range (minZIndex, maxZIndex);
 			TileController tileInstance = boardGameByID [TileController.GetStringID (xIndex, zIndex)].GetComponent <TileController> ();

@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 114654736320091190}
   - component: {fileID: 114721592917653162}
   - component: {fileID: 114179631310654434}
+  - component: {fileID: 65352502025465116}
   m_Layer: 5
   m_Name: BalloonCanvas
   m_TagString: Untagged
@@ -1535,6 +1536,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1282152790457256}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65352502025465116
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1577081647259538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 70, z: 0.05}
+  m_Center: {x: 0, y: -12, z: 0}
 --- !u!65 &65372172170272926
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1808,6 +1821,7 @@ MonoBehaviour:
   shield: {fileID: 1528255890587414}
   HealingBox: {fileID: 1391064937481780}
   oppressScript: {fileID: 114126917205885574}
+  occupiedTile: {fileID: 0}
   speed: 1
   moved: 0
   isTired: 0

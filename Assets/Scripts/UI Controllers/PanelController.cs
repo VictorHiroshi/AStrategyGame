@@ -8,6 +8,8 @@ public enum MessageType {None, CantPerformAction, CreatureTooTired, SelectTileFi
 
 public class PanelController : MonoBehaviour {
 
+	public GameObject winningPanel;
+	public Text winningMessage;
 	public Text turnText;
 	public Text playerText;
 	public Text coinsCount;
@@ -60,6 +62,8 @@ public class PanelController : MonoBehaviour {
 		defend = defendButton.GetComponent <UIHighlightController> ();
 
 		HideCancelButton ();
+
+		winningPanel.SetActive (false);
 	}
 
 	void Update () {
@@ -151,6 +155,15 @@ public class PanelController : MonoBehaviour {
 		{
 			message += "This tile belongs to player " + (tile.creature.belongsToPlayer.playerNumber+1)+"!\n";
 
+			if(tile.creature.moved)
+			{
+				message += "This creature is half tired. It can only move or defend.\n";
+			}
+			else if(tile.creature.isTired)
+			{
+				message += "This creature is tired. It cannot do anything in this turn.\n";
+			}
+
 			if(tile.creature.influencedByPlayer != null)
 			{
 				message += "This creature is under the influence of player " + (tile.creature.influencedByPlayer.playerNumber+1) + "!\n";
@@ -175,6 +188,16 @@ public class PanelController : MonoBehaviour {
 			message += "Resource: None\n";
 		}
 		StartCoroutine (ShowingMessage (5f, message));
+	}
+
+	public void GameOverMessage(PlayerController player)
+	{
+		canChangePlayerText = false;
+		DisableAllButtons ();
+		string message = "Game Over!\n";
+		message += "<color=#" + ColorUtility.ToHtmlStringRGB (player.color) + ">Player " + (player.playerNumber + 1) + "</color>" + " won the game!";
+		winningPanel.SetActive (true);
+		winningMessage.text = message;
 	}
 
 	//Verifies if any button is highlighted to update the description text.
