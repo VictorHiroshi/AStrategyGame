@@ -304,6 +304,7 @@ public class CreatureController : MonoBehaviour {
 
 		if(influencedByPlayer == null)
 		{
+			saviorPlayer.attemptingToConvert.Add (this);
 			influencedByPlayer = saviorPlayer;
 			inDoubtBlinkLoop = InDoubt ();
 			StartCoroutine (inDoubtBlinkLoop);
@@ -313,8 +314,8 @@ public class CreatureController : MonoBehaviour {
 
 			StopCoroutine (inDoubtBlinkLoop);
 
+			saviorPlayer.attemptingToConvert.Remove (this);
 			belongsToPlayer.LoseCreature (this);
-			saviorPlayer.ControllCreature (this);
 
 			ChangeTeam (saviorPlayer);
 
@@ -323,12 +324,16 @@ public class CreatureController : MonoBehaviour {
 		}
 		else if (savior.belongsToPlayer == belongsToPlayer)
 		{
+			influencedByPlayer.attemptingToConvert.Remove (this);
 			StopCoroutine (inDoubtBlinkLoop);
 			ChangeTeam (belongsToPlayer);
 		}
 		else
 		{
 			StopCoroutine (inDoubtBlinkLoop);
+
+			influencedByPlayer.attemptingToConvert.Remove (this);
+			saviorPlayer.attemptingToConvert.Add (this);
 	
 			influencedByPlayer = saviorPlayer;
 			inDoubtBlinkLoop = InDoubt ();

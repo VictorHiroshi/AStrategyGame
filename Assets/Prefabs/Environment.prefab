@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 4260531531048556}
   - component: {fileID: 108169663679330158}
   m_Layer: 0
-  m_Name: Second Light
+  m_Name: Main Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: 4820900771059446}
   - component: {fileID: 108358930811792856}
   m_Layer: 0
-  m_Name: Main Light
+  m_Name: Second Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -860,7 +860,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4782356258526736}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 148.262, y: 82.02899, z: -52.505005}
 --- !u!4 &4432805048452922
 Transform:
@@ -886,8 +886,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4820900771059446}
   - {fileID: 4260531531048556}
+  - {fileID: 4820900771059446}
   m_Father: {fileID: 4145369871412070}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -902,7 +902,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4782356258526736}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 42.411003, y: 103.088005, z: 70.395004}
 --- !u!20 &20884696255910654
 Camera:
@@ -1044,7 +1044,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.9815416, b: 0.9485294, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1079,8 +1079,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.75
+  m_Color: {r: 1, g: 0.9852941, b: 0.9632353, a: 1}
+  m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
