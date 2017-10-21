@@ -147,12 +147,12 @@ public class CreatureController : MonoBehaviour {
 
 		if(enemy.isDefending)
 		{
-			StartCoroutine (TakeDamage (defendingDamage));
-			StartCoroutine (enemy.TakeDamage (defendingDamage));
+			yield return StartCoroutine (TakeDamage (defendingDamage));
+			yield return StartCoroutine (enemy.TakeDamage (defendingDamage));
 		}
 		else
 		{
-			StartCoroutine (enemy.TakeDamage (GameManager.instance.maxHealth));
+			yield return StartCoroutine (enemy.TakeDamage (GameManager.instance.maxHealth));
 		}
 
 		if (enemy.CheckIfDie ())
@@ -397,6 +397,7 @@ public class CreatureController : MonoBehaviour {
 				GameManager.instance.oppressedCreatures.Remove (this);
 			}
 			GameManager.instance.tiredCreatures.Remove (this);
+			StartCoroutine (Die ());
 			return true;
 		}
 		else if(health < GameManager.instance.maxHealth)
@@ -413,6 +414,12 @@ public class CreatureController : MonoBehaviour {
 		PlayExplosionParticles ();
 		yield return new WaitForSeconds (0.8f);
 		belongsToPlayer.LoseCreature (this);
+
+		if(oppressedByPlayer != null)
+		{
+			oppressedByPlayer.LoseCreature (this);
+		}
+
 		Destroy (gameObject);
 	}
 

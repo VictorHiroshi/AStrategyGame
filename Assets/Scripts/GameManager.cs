@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour {
 	public Color[] playersColors;
 
 	[HideInInspector]public BoardManager boardScript;
-	[HideInInspector]public PlayerController[] player;
+	/*[HideInInspector]*/
+public PlayerController[] player;
 	[HideInInspector]public int activePlayerIndex;
 	[HideInInspector]public List<TileController> highlightedTiles;
 	[HideInInspector]public List<CreatureController> tiredCreatures;
