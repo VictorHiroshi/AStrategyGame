@@ -197,6 +197,8 @@ public class CreatureController : MonoBehaviour {
 
 		yield return StartCoroutine (dialogCanvas.DisplayMessageForTime (convertingMessage));
 
+		GameManager.instance.PlayAudioVoice (AudioVoices.confusedVoice);
+
 		enemy.CheckIfConverted (this);
 
 		StartCoroutine(MoveToTarget(originTile));
@@ -419,6 +421,8 @@ public class CreatureController : MonoBehaviour {
 		{
 			oppressedByPlayer.LoseCreature (this);
 		}
+
+		GameManager.instance.PlayAudioVoice (AudioVoices.dyingVoice);
 
 		Destroy (gameObject);
 	}

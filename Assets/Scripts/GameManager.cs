@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 // Script to handle general game information, such as score points and turn information.
 
+public enum AudioVoices {dyingVoice, confusedVoice};
+
 public class GameManager : MonoBehaviour {
 
 	public bool neverTiredCreatures = false;
@@ -18,6 +20,11 @@ public class GameManager : MonoBehaviour {
 	public GameObject tileHighlightObject;
 	public GameObject [] creature;
 	public Color[] playersColors;
+	public AudioSource musicAudioSource;
+	public AudioSource voicesAudioSource;
+	public AudioClip dyingVoice;
+	public AudioClip confusedVoice;
+	public AudioClip[] musics;
 
 	[HideInInspector]public BoardManager boardScript;
 	/*[HideInInspector]*/
@@ -48,6 +55,10 @@ public PlayerController[] player;
 		
 	void InitializeGame ()
 	{
+		if(musics.Length>0)
+		{
+			StartCoroutine (ManageMusics ());
+		}
 		activePlayerIndex = 3;
 		actualTurn = 0;
 		boardScript.SetupScene ();
@@ -112,6 +123,21 @@ public PlayerController[] player;
 			tile.Unselect ();
 		}
 		highlightedTiles.Clear ();
+	}
+
+	public void PlayAudioVoice(AudioVoices type)
+	{
+		switch(type)
+		{
+		case AudioVoices.confusedVoice:
+			voicesAudioSource.clip = confusedVoice;
+			break;
+		case AudioVoices.dyingVoice:
+			voicesAudioSource.clip = dyingVoice;
+			break;
+		}
+
+		voicesAudioSource.Play ();
 	}
 
 	private void AssignPlayers ()
@@ -236,5 +262,21 @@ public PlayerController[] player;
 		ActionsManager.instance.actualState = ActionState.GameOver;
 		panelControler.GameOverMessage (winner);
 		yield return null;
+	}
+
+	private IEnumerator ManageMusics()
+	{
+		float musicTime;
+
+		while (true)
+		{
+			foreach(AudioClip music in musics)
+			{
+				musicAudioSource.clip = music;
+				musicTime = 0.1f + music.length;
+				musicAudioSource.Play ();
+				yield return new WaitForSeconds (musicTime);
+			}
+		}
 	}
 }

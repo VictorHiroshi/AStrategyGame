@@ -340,7 +340,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4145369871412070}
-  - component: {fileID: 82543960544823774}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -359,6 +358,8 @@ GameObject:
   - component: {fileID: 114576467902937686}
   - component: {fileID: 114114910773886154}
   - component: {fileID: 114163747973106584}
+  - component: {fileID: 82515634300396436}
+  - component: {fileID: 82164937158967112}
   m_Layer: 8
   m_Name: BoardManager
   m_TagString: BoardManager
@@ -983,20 +984,21 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525129001731564}
   m_Enabled: 1
---- !u!82 &82543960544823774
+--- !u!82 &82164937158967112
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1471467165053478}
+  m_GameObject: {fileID: 1474257948902744}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d9bcc409687c0094c86a34b068242026, type: 3}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 243510475055527944, guid: f161dba70646c0747a4cf6ead9f7038b,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1050,7 +1052,88 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82515634300396436
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474257948902744}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243073169150954022, guid: f161dba70646c0747a4cf6ead9f7038b,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: d9bcc409687c0094c86a34b068242026, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1375,7 +1458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb3687f097563f4abbbbcfdda66e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neverTiredCreatures: 0
+  neverTiredCreatures: 1
   maxHealth: 10
   coinsPerStone: 5
   coinsPerTurn: 12
@@ -1393,6 +1476,13 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 0.8627451}
   - {r: 1, g: 0.85294116, b: 0.99594325, a: 0.8627451}
   - {r: 0.44492912, g: 0, b: 0.60294116, a: 0.8627451}
+  musicAudioSource: {fileID: 82515634300396436}
+  voicesAudioSource: {fileID: 82164937158967112}
+  dyingVoice: {fileID: 8300000, guid: e46f77b4afefe144f8dec048690e6538, type: 3}
+  confusedVoice: {fileID: 8300000, guid: a68a5fd6b64fe1545894d83db8ed5526, type: 3}
+  musics:
+  - {fileID: 8300000, guid: d9bcc409687c0094c86a34b068242026, type: 3}
+  - {fileID: 8300000, guid: 4ee59653945f45c48a7034e93fc4f2be, type: 3}
   boardScript: {fileID: 0}
   player: []
   activePlayerIndex: 0
@@ -3823,7 +3913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -110.500015, y: 0}
+  m_AnchoredPosition: {x: -110.5, y: 0}
   m_SizeDelta: {x: 22.099998, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224061819949747224
