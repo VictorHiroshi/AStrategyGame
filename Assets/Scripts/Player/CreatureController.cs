@@ -71,9 +71,10 @@ public class CreatureController : MonoBehaviour {
 			yield return lerpTime;
 		}
 
-		GameManager.instance.player [GameManager.instance.activePlayerIndex].Spend (ActionsManager.instance.healingCost);
+		GameManager.instance.GetActivePlayer ().Spend (ActionsManager.instance.healingCost);
 
 		HealingBox.SetActive (false);
+		StartCoroutine (dialogCanvas.DisplayMessageForTime ("Thanks, ma'am!"));
 	}
 
 	public void ChangeTeam(PlayerController player)
@@ -87,6 +88,8 @@ public class CreatureController : MonoBehaviour {
 		}
 
 		player.ControllCreature (this);
+
+		oppressScript.Unoppress ();
 
 		belongsToPlayer = player;
 		influencedByPlayer = null;
@@ -192,7 +195,7 @@ public class CreatureController : MonoBehaviour {
 		}
 		*/
 
-		Color newColor = GameManager.instance.player [GameManager.instance.activePlayerIndex].color;
+		Color newColor = GameManager.instance.GetActivePlayer ().color;
 		string convertingMessage = "Come to the true " +  "<color=#" + ColorUtility.ToHtmlStringRGB(newColor) + ">COLOR" + "</color>" + "!";
 
 		yield return StartCoroutine (dialogCanvas.DisplayMessageForTime (convertingMessage));
@@ -325,8 +328,7 @@ public class CreatureController : MonoBehaviour {
 
 			ChangeTeam (saviorPlayer);
 
-			oppressScript.Unoppress ();
-			oppressedByPlayer = null;
+
 		}
 		else if (savior.belongsToPlayer == belongsToPlayer)
 		{

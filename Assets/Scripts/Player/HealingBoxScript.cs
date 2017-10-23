@@ -15,9 +15,13 @@ public class HealingBoxScript : MonoBehaviour {
 	{
 		if (parent.belongsToPlayer.playerNumber == GameManager.instance.activePlayerIndex)
 		{
+			if(GameManager.instance.GetActivePlayer ().coinCount < ActionsManager.instance.healingCost)
+			{
+				GameManager.instance.panelControler.ShowMessage (3f, MessageType.NotEnoughtMoney);
+				return;
+			}
 			StopAllCoroutines ();
 			StartCoroutine (parent.Heal ());
-			StartCoroutine (parent.dialogCanvas.DisplayMessageForTime ("Thanks, ma'am!"));
 		}
 		else
 		{

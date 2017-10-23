@@ -1482,6 +1482,9 @@ MonoBehaviour:
   confusedVoice: {fileID: 8300000, guid: a68a5fd6b64fe1545894d83db8ed5526, type: 3}
   musics:
   - {fileID: 8300000, guid: d9bcc409687c0094c86a34b068242026, type: 3}
+  - {fileID: 8300000, guid: d9bcc409687c0094c86a34b068242026, type: 3}
+  - {fileID: 8300000, guid: 4ee59653945f45c48a7034e93fc4f2be, type: 3}
+  - {fileID: 8300000, guid: 4ee59653945f45c48a7034e93fc4f2be, type: 3}
   - {fileID: 8300000, guid: 4ee59653945f45c48a7034e93fc4f2be, type: 3}
   boardScript: {fileID: 0}
   player: []
@@ -3153,8 +3156,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114879235710165176}
   m_HandleRect: {fileID: 224992970535013356}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.290146
+  m_Value: 0.00000007845134
+  m_Size: 0.29014596
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4023,7 +4026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 21, y: 778}
+  m_AnchoredPosition: {x: 21, y: 777.99994}
   m_SizeDelta: {x: 350, y: 1096}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224143342471492752

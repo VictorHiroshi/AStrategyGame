@@ -67,6 +67,11 @@ public PlayerController[] player;
 		NextTurn ();
 	}
 
+	public PlayerController GetActivePlayer()
+	{
+		return player [activePlayerIndex];
+	}
+
 	public void RestartGame()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
