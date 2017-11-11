@@ -27,8 +27,7 @@ public class GameManager : MonoBehaviour {
 	public AudioClip[] musics;
 
 	[HideInInspector]public BoardManager boardScript;
-	/*[HideInInspector]*/
-public PlayerController[] player;
+	[HideInInspector]public PlayerController[] player;
 	[HideInInspector]public int activePlayerIndex;
 	[HideInInspector]public List<TileController> highlightedTiles;
 	[HideInInspector]public List<CreatureController> tiredCreatures;
@@ -53,7 +52,7 @@ public PlayerController[] player;
 		oppressedCreatures = new List<CreatureController> ();
 	}
 		
-	void InitializeGame ()
+	public void InitializeGame ()
 	{
 		if(musics.Length>0)
 		{

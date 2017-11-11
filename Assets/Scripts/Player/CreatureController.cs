@@ -71,7 +71,11 @@ public class CreatureController : MonoBehaviour {
 			yield return lerpTime;
 		}
 
-		GameManager.instance.GetActivePlayer ().Spend (ActionsManager.instance.healingCost);
+		// Spend money.
+		int cost = ActionsManager.instance.healingCost;
+		if (isDefending)
+			cost += ActionsManager.instance.defenseExtraCost;
+		GameManager.instance.GetActivePlayer ().Spend (cost);
 
 		HealingBox.SetActive (false);
 		StartCoroutine (dialogCanvas.DisplayMessageForTime ("Thanks, ma'am!"));
@@ -281,8 +285,6 @@ public class CreatureController : MonoBehaviour {
 	{
 		shield.SetActive (defenseState);
 		isDefending = defenseState;
-
-		SetToTired (true);
 	}
 
 	public void Explore()

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum HighlightType {NextTurn, Coins, Move, Duplicate, LightExploit, HeavyExploit, Attack, Convert, Oppress, Defend, None, Empty};
-public enum MessageType {None, CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoEnemy, NoCreatureThere, NoStone, Healing, CreatureDefending};
+public enum MessageType {None, CantPerformAction, CreatureTooTired, SelectTileFirst, NotEnoughtMoney, NotYourCreature, NoEnemy, NoCreatureThere, NoStone, Healing};
 
 public class PanelController : MonoBehaviour {
 
@@ -126,9 +126,6 @@ public class PanelController : MonoBehaviour {
 		case MessageType.NoStone:
 			StartCoroutine (ShowingMessage (displayingTime, Descriptions.NO_STONE));
 			break;
-		case MessageType.CreatureDefending:
-			StartCoroutine (ShowingMessage (displayingTime, Descriptions.CREATURE_DEFENDING));
-			break;
 		case MessageType.Healing:
 			StartCoroutine (ShowingMessage (displayingTime, Descriptions.HEALING));
 			break;
@@ -154,6 +151,11 @@ public class PanelController : MonoBehaviour {
 		if(tile.creature!=null)
 		{
 			message += "This tile belongs to player " + (tile.creature.belongsToPlayer.playerNumber+1)+"!\n";
+
+			if(tile.creature.IsDefending ())
+			{
+				message += string.Format ("This creature is defending. While defending, all actions costs {0} extra.\n", ActionsManager.instance.defenseExtraCost);
+			}
 
 			if(tile.creature.moved)
 			{

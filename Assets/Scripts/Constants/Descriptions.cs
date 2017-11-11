@@ -31,5 +31,4 @@ public class Descriptions
 	public static string NO_MONEY = "You don't have enought money for this action now. :(";
 	public static string NO_CREATURE_THERE = "There's no creature in this tile, ma'am!";
 	public static string NO_STONE = "I have nothing to gather here, dude!";
-	public static string CREATURE_DEFENDING = "You must turn off the defense mode before executing any action, bro!";
 }
