@@ -13,6 +13,12 @@ public class PlayerController : ScriptableObject{
 	public int playerNumber;
 	public int controlledStones;
 
+	public float controlledCreaturesPoints = 2.5f;
+	public float creatureGetOppressedDiscountPoints = 2f;
+	public float partialyConvertedCreaturePoints = 1.5f;
+	public float pointsPerCoins = 0.1f;
+	public float pointsPerStones = 10f;
+
 	public void Spend(int money)
 	{
 		coinCount -= money;
@@ -91,5 +97,29 @@ public class PlayerController : ScriptableObject{
 			oppressedCreatures.Remove (creature);
 			controlledCreatures.Add (creature);
 		}
+	}
+
+	public float GetActualStateCost(bool normalizeByOtherPlayers = true)
+	{
+		float stateCost = 0f;
+
+		stateCost += controlledStones * pointsPerStones;
+		stateCost += attemptingToConvert.Count * partialyConvertedCreaturePoints;
+		stateCost -= oppressedCreatures.Count * creatureGetOppressedDiscountPoints;
+
+		if(normalizeByOtherPlayers)
+		{
+			stateCost += (controlledCreatures.Count / GameManager.instance.GetTotalCreaturesFromActualState ())
+																					* controlledCreaturesPoints;
+
+			stateCost += (coinCount / GameManager.instance.GetTotalCoinsFromActualState ()) * pointsPerCoins;
+		}
+		else
+		{
+			stateCost += controlledCreatures.Count * controlledCreaturesPoints;
+			stateCost += coinCount * pointsPerCoins;
+		}
+
+		return stateCost;
 	}
 }

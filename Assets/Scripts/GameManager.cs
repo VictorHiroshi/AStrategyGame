@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Script to handle general game information, such as score points and turn information.
+using System;
 
 public enum AudioVoices {dyingVoice, confusedVoice};
 
@@ -112,6 +113,9 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 
+		Debug.Log (String.Format ("Player {0} has {1} points in actual state!", activePlayerIndex, 
+			player [activePlayerIndex].GetActualStateCost (true)));
+
 		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1));
 		panelControler.updateCoins (player [activePlayerIndex].coinCount);
 		FocusCameraOn (player [activePlayerIndex]);
@@ -142,6 +146,32 @@ public class GameManager : MonoBehaviour {
 		}
 
 		voicesAudioSource.Play ();
+	}
+
+	public float GetTotalCoinsFromActualState()
+	{
+		int totalCoins = 0;
+		foreach(PlayerController playerInstace in player)
+		{
+			totalCoins += playerInstace.coinCount;
+		}
+
+		//Debug.Log ("Total coins: " + totalCoins);
+
+		return totalCoins;
+	}
+
+	public float GetTotalCreaturesFromActualState()
+	{
+		int totalCreatures = 0;
+		foreach (PlayerController playerInstace in player) 
+		{
+			totalCreatures += playerInstace.controlledCreatures.Count;
+		}
+
+		//Debug.Log ("Total creatures: " + totalCreatures);
+
+		return totalCreatures;
 	}
 
 	private void AssignPlayers ()
