@@ -18,6 +18,8 @@ public class PlayerController : ScriptableObject{
 	public float partialyConvertedCreaturePoints = 1.5f;
 	public float pointsPerCoins = 0.1f;
 	public float pointsPerStones = 10f;
+	// TODO: use defending points.
+	public float defendingCreaturePoints = 30f;
 
 	public void Spend(int money)
 	{
@@ -121,5 +123,16 @@ public class PlayerController : ScriptableObject{
 		}
 
 		return stateCost;
+	}
+
+	public void SetAllPunctuations(float controlledCreaturesPoints, float creatureGetOppressedDiscountPoints,
+		float partialyConvertedCreaturePoints, float pointsPerCoins, float pointsPerStones, float defendingCreaturePoints)
+	{
+		this.controlledCreaturesPoints = controlledCreaturesPoints;
+		this.creatureGetOppressedDiscountPoints = creatureGetOppressedDiscountPoints;
+		this.partialyConvertedCreaturePoints = partialyConvertedCreaturePoints;
+		this.pointsPerCoins = pointsPerCoins;
+		this.pointsPerStones = pointsPerStones;
+		this.defendingCreaturePoints = defendingCreaturePoints;
 	}
 }
