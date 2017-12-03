@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour {
 	public AudioClip confusedVoice;
 	public AudioClip[] musics;
 
+	public Stack<GameState> gameStateHistory;
+
 	[HideInInspector]public BoardManager boardScript;
 	[HideInInspector]public PlayerController[] player;
 	[HideInInspector]public int activePlayerIndex;
@@ -59,12 +61,19 @@ public class GameManager : MonoBehaviour {
 		{
 			StartCoroutine (ManageMusics ());
 		}
+
+		gameStateHistory = new Stack<GameState> ();
+
 		activePlayerIndex = 3;
 		actualTurn = 0;
 		boardScript.SetupScene ();
 		panelControler.selectedUI = HighlightType.None;
 		AssignPlayers ();
 		NextTurn ();
+
+		GameState newState = new GameState (boardScript.boardSize, 
+					activePlayerIndex, CountPlayers (), actualTurn, boardScript.stones);
+		gameStateHistory.Push (newState);
 	}
 
 	public PlayerController GetActivePlayer()
@@ -84,8 +93,6 @@ public class GameManager : MonoBehaviour {
 
 	public void NextTurn()
 	{
-		//TODO: Verify winning condition.
-
 		activePlayerIndex += 1;
 		activePlayerIndex = activePlayerIndex % player.Length;
 
@@ -116,12 +123,14 @@ public class GameManager : MonoBehaviour {
 		Debug.Log (String.Format ("Player {0} has {1} points in actual state!", activePlayerIndex, 
 			player [activePlayerIndex].GetActualStateCost (true)));
 
+		// Define actual state and insert it on top of the stack.
+
+
 		panelControler.ChangeActivePlayer ("Player " + (activePlayerIndex + 1));
 		panelControler.updateCoins (player [activePlayerIndex].coinCount);
 		FocusCameraOn (player [activePlayerIndex]);
 		ClearTiredCreaturesList ();
 		ClearSelections ();
-
 	}
 
 	public void ClearSelections()
@@ -155,8 +164,6 @@ public class GameManager : MonoBehaviour {
 		{
 			totalCoins += playerInstace.coinCount;
 		}
-
-		//Debug.Log ("Total coins: " + totalCoins);
 
 		return totalCoins;
 	}
@@ -289,6 +296,21 @@ public class GameManager : MonoBehaviour {
 
 		StartCoroutine (FinishGame(winner));
 		return true;
+	}
+
+	private int CountPlayers()
+	{
+		int playerCount = 0;
+
+		for(int i = 0; i<player.Length; i++)
+		{
+			if (playerIsActive[i]) 
+			{
+				playerCount++;
+			}
+		}
+
+		return playerCount;
 	}
 
 	private IEnumerator FinishGame(PlayerController winner)

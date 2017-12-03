@@ -51,6 +51,7 @@ public class BoardManager : MonoBehaviour {
 	public ParticleSystem rockExplorationParticles;
 
 	public List<ListOfInitialTile> intialTilesForPlayer;
+	public List<Coordinate> stones;
 
 	private Transform boardHolder;
 	private GameObject selectedTile;
@@ -201,6 +202,8 @@ public class BoardManager : MonoBehaviour {
 		int maxX;
 		int minZ;
 		int maxZ;
+
+		stones = new List<Coordinate> ();
 		// First quadrant.
 		minX = 1;
 		maxX = ((boardSize + 1) / 2);
@@ -237,6 +240,8 @@ public class BoardManager : MonoBehaviour {
 		int xIndex;
 		int zIndex;
 		GameObject stoneModel;
+		Coordinate stoneCoord;
+
 		for(int i=0, attempt = 0; i<stonesPerQuadrant && attempt < maxResourceGenerationAttempts; attempt++){
 			xIndex = Random.Range (minXIndex, maxXIndex);
 			zIndex = Random.Range (minZIndex, maxZIndex);
@@ -248,6 +253,9 @@ public class BoardManager : MonoBehaviour {
 				stoneModel = resources.stones [Random.Range (0, resources.stones.Length)];
 				tileInstance.InstantiateResource (stoneModel);
 				tileInstance.resourceType = TileController.ResourceType.Stone;
+
+				stoneCoord = new Coordinate (xIndex, zIndex);
+				stones.Add (stoneCoord);
 			}
 		}
 	}
